@@ -1,0 +1,543 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		890C2B592833F7F20074A605 /* CourseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890C2B582833F7F20074A605 /* CourseTests.swift */; };
+		890F66E82832D7AF0098E5B6 /* CoursePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890F66E72832D7AF0098E5B6 /* CoursePageView.swift */; };
+		89779CD02830482C001DF1A4 /* Course+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89779CCF2830482C001DF1A4 /* Course+CoreDataClass.swift */; };
+		89779CD228304836001DF1A4 /* SyllabusItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89779CD128304836001DF1A4 /* SyllabusItem+CoreDataClass.swift */; };
+		89779CD42830483B001DF1A4 /* Term+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89779CD32830483B001DF1A4 /* Term+CoreDataClass.swift */; };
+		89779CE028304E35001DF1A4 /* TermTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89779CDF28304E35001DF1A4 /* TermTests.swift */; };
+		89779CE828317DDD001DF1A4 /* ErrorDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89779CE728317DDD001DF1A4 /* ErrorDefinitions.swift */; };
+		898B16F5273EDE6E005B02A8 /* GradeTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898B16F4273EDE6E005B02A8 /* GradeTrackerApp.swift */; };
+		898B16F7273EDE6E005B02A8 /* TermListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898B16F6273EDE6E005B02A8 /* TermListView.swift */; };
+		898B16F9273EDE71005B02A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 898B16F8273EDE71005B02A8 /* Assets.xcassets */; };
+		898B16FC273EDE71005B02A8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 898B16FB273EDE71005B02A8 /* Preview Assets.xcassets */; };
+		898B16FE273EDE71005B02A8 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898B16FD273EDE71005B02A8 /* Persistence.swift */; };
+		898B1701273EDE71005B02A8 /* GradeTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 898B16FF273EDE71005B02A8 /* GradeTracker.xcdatamodeld */; };
+		898B1709273EDFA7005B02A8 /* CourseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898B1708273EDFA7005B02A8 /* CourseListView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		89779CE228304E35001DF1A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 898B16E9273EDE6E005B02A8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 898B16F0273EDE6E005B02A8;
+			remoteInfo = GradeTracker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		890C2B582833F7F20074A605 /* CourseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseTests.swift; sourceTree = "<group>"; };
+		890F66E72832D7AF0098E5B6 /* CoursePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePageView.swift; sourceTree = "<group>"; };
+		89779CCE28303B1F001DF1A4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		89779CCF2830482C001DF1A4 /* Course+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Course+CoreDataClass.swift"; sourceTree = "<group>"; };
+		89779CD128304836001DF1A4 /* SyllabusItem+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SyllabusItem+CoreDataClass.swift"; sourceTree = "<group>"; };
+		89779CD32830483B001DF1A4 /* Term+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Term+CoreDataClass.swift"; sourceTree = "<group>"; };
+		89779CDD28304E35001DF1A4 /* GradeTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GradeTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		89779CDF28304E35001DF1A4 /* TermTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermTests.swift; sourceTree = "<group>"; };
+		89779CE128304E35001DF1A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89779CE728317DDD001DF1A4 /* ErrorDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDefinitions.swift; sourceTree = "<group>"; };
+		898B16F1273EDE6E005B02A8 /* GradeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		898B16F4273EDE6E005B02A8 /* GradeTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeTrackerApp.swift; sourceTree = "<group>"; };
+		898B16F6273EDE6E005B02A8 /* TermListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermListView.swift; sourceTree = "<group>"; };
+		898B16F8273EDE71005B02A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		898B16FB273EDE71005B02A8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		898B16FD273EDE71005B02A8 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		898B1700273EDE71005B02A8 /* GradeTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GradeTracker.xcdatamodel; sourceTree = "<group>"; };
+		898B1702273EDE71005B02A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		898B1708273EDFA7005B02A8 /* CourseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		89779CDA28304E35001DF1A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		898B16EE273EDE6E005B02A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		89779CCD28300084001DF1A4 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		89779CD628304CC4001DF1A4 /* Unit Tests */ = {
+			isa = PBXGroup;
+			children = (
+				89779CDF28304E35001DF1A4 /* TermTests.swift */,
+				890C2B582833F7F20074A605 /* CourseTests.swift */,
+			);
+			path = "Unit Tests";
+			sourceTree = "<group>";
+		};
+		89779CDE28304E35001DF1A4 /* GradeTrackerTests */ = {
+			isa = PBXGroup;
+			children = (
+				89779CD628304CC4001DF1A4 /* Unit Tests */,
+				89779CE128304E35001DF1A4 /* Info.plist */,
+			);
+			path = GradeTrackerTests;
+			sourceTree = "<group>";
+		};
+		898B16E8273EDE6E005B02A8 = {
+			isa = PBXGroup;
+			children = (
+				898B16F3273EDE6E005B02A8 /* GradeTracker */,
+				89779CDE28304E35001DF1A4 /* GradeTrackerTests */,
+				898B16F2273EDE6E005B02A8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		898B16F2273EDE6E005B02A8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				898B16F1273EDE6E005B02A8 /* GradeTracker.app */,
+				89779CDD28304E35001DF1A4 /* GradeTrackerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		898B16F3273EDE6E005B02A8 /* GradeTracker */ = {
+			isa = PBXGroup;
+			children = (
+				898B16F4273EDE6E005B02A8 /* GradeTrackerApp.swift */,
+				898B176227460946005B02A8 /* View */,
+				898B16F8273EDE71005B02A8 /* Assets.xcassets */,
+				89779CCD28300084001DF1A4 /* View Model */,
+				898B171D2740C2AC005B02A8 /* Model */,
+				898B1702273EDE71005B02A8 /* Info.plist */,
+				898B16FA273EDE71005B02A8 /* Preview Content */,
+				89779CCE28303B1F001DF1A4 /* README.md */,
+			);
+			path = GradeTracker;
+			sourceTree = "<group>";
+		};
+		898B16FA273EDE71005B02A8 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				898B16FB273EDE71005B02A8 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		898B171D2740C2AC005B02A8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				89779CD32830483B001DF1A4 /* Term+CoreDataClass.swift */,
+				89779CCF2830482C001DF1A4 /* Course+CoreDataClass.swift */,
+				89779CD128304836001DF1A4 /* SyllabusItem+CoreDataClass.swift */,
+				898B16FD273EDE71005B02A8 /* Persistence.swift */,
+				898B16FF273EDE71005B02A8 /* GradeTracker.xcdatamodeld */,
+				89779CE728317DDD001DF1A4 /* ErrorDefinitions.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		898B176227460946005B02A8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				898B16F6273EDE6E005B02A8 /* TermListView.swift */,
+				898B1708273EDFA7005B02A8 /* CourseListView.swift */,
+				890F66E72832D7AF0098E5B6 /* CoursePageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		89779CDC28304E35001DF1A4 /* GradeTrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89779CE428304E35001DF1A4 /* Build configuration list for PBXNativeTarget "GradeTrackerTests" */;
+			buildPhases = (
+				89779CD928304E35001DF1A4 /* Sources */,
+				89779CDA28304E35001DF1A4 /* Frameworks */,
+				89779CDB28304E35001DF1A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				89779CE328304E35001DF1A4 /* PBXTargetDependency */,
+			);
+			name = GradeTrackerTests;
+			productName = GradeTrackerTests;
+			productReference = 89779CDD28304E35001DF1A4 /* GradeTrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		898B16F0273EDE6E005B02A8 /* GradeTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 898B1705273EDE71005B02A8 /* Build configuration list for PBXNativeTarget "GradeTracker" */;
+			buildPhases = (
+				898B16ED273EDE6E005B02A8 /* Sources */,
+				898B16EE273EDE6E005B02A8 /* Frameworks */,
+				898B16EF273EDE6E005B02A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GradeTracker;
+			productName = GradeTracker;
+			productReference = 898B16F1273EDE6E005B02A8 /* GradeTracker.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		898B16E9273EDE6E005B02A8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					89779CDC28304E35001DF1A4 = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = 898B16F0273EDE6E005B02A8;
+					};
+					898B16F0273EDE6E005B02A8 = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+				};
+			};
+			buildConfigurationList = 898B16EC273EDE6E005B02A8 /* Build configuration list for PBXProject "GradeTracker" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 898B16E8273EDE6E005B02A8;
+			productRefGroup = 898B16F2273EDE6E005B02A8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				898B16F0273EDE6E005B02A8 /* GradeTracker */,
+				89779CDC28304E35001DF1A4 /* GradeTrackerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		89779CDB28304E35001DF1A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		898B16EF273EDE6E005B02A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				898B16FC273EDE71005B02A8 /* Preview Assets.xcassets in Resources */,
+				898B16F9273EDE71005B02A8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		89779CD928304E35001DF1A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				890C2B592833F7F20074A605 /* CourseTests.swift in Sources */,
+				89779CE028304E35001DF1A4 /* TermTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		898B16ED273EDE6E005B02A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				898B1701273EDE71005B02A8 /* GradeTracker.xcdatamodeld in Sources */,
+				898B16FE273EDE71005B02A8 /* Persistence.swift in Sources */,
+				89779CD02830482C001DF1A4 /* Course+CoreDataClass.swift in Sources */,
+				898B1709273EDFA7005B02A8 /* CourseListView.swift in Sources */,
+				898B16F7273EDE6E005B02A8 /* TermListView.swift in Sources */,
+				898B16F5273EDE6E005B02A8 /* GradeTrackerApp.swift in Sources */,
+				89779CE828317DDD001DF1A4 /* ErrorDefinitions.swift in Sources */,
+				89779CD228304836001DF1A4 /* SyllabusItem+CoreDataClass.swift in Sources */,
+				890F66E82832D7AF0098E5B6 /* CoursePageView.swift in Sources */,
+				89779CD42830483B001DF1A4 /* Term+CoreDataClass.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		89779CE328304E35001DF1A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 898B16F0273EDE6E005B02A8 /* GradeTracker */;
+			targetProxy = 89779CE228304E35001DF1A4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		89779CE528304E35001DF1A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5BG47P75CM;
+				INFOPLIST_FILE = GradeTrackerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = example.GradeTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GradeTracker.app/GradeTracker";
+			};
+			name = Debug;
+		};
+		89779CE628304E35001DF1A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5BG47P75CM;
+				INFOPLIST_FILE = GradeTrackerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = example.GradeTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GradeTracker.app/GradeTracker";
+			};
+			name = Release;
+		};
+		898B1703273EDE71005B02A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		898B1704273EDE71005B02A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		898B1706273EDE71005B02A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"GradeTracker/Preview Content\"";
+				DEVELOPMENT_TEAM = 5BG47P75CM;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = GradeTracker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = example.GradeTracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		898B1707273EDE71005B02A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"GradeTracker/Preview Content\"";
+				DEVELOPMENT_TEAM = 5BG47P75CM;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = GradeTracker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = example.GradeTracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		89779CE428304E35001DF1A4 /* Build configuration list for PBXNativeTarget "GradeTrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89779CE528304E35001DF1A4 /* Debug */,
+				89779CE628304E35001DF1A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		898B16EC273EDE6E005B02A8 /* Build configuration list for PBXProject "GradeTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				898B1703273EDE71005B02A8 /* Debug */,
+				898B1704273EDE71005B02A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		898B1705273EDE71005B02A8 /* Build configuration list for PBXNativeTarget "GradeTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				898B1706273EDE71005B02A8 /* Debug */,
+				898B1707273EDE71005B02A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		898B16FF273EDE71005B02A8 /* GradeTracker.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				898B1700273EDE71005B02A8 /* GradeTracker.xcdatamodel */,
+			);
+			currentVersion = 898B1700273EDE71005B02A8 /* GradeTracker.xcdatamodel */;
+			path = GradeTracker.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 898B16E9273EDE6E005B02A8 /* Project object */;
+}
