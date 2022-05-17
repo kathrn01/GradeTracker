@@ -18,8 +18,8 @@ public class SyllabusItem: NSManagedObject {
         try self.setTitle(title)
         self.course = course
         try self.setWeight(weight)
-        course.pointsRemainingInCourse += self.worthWeight
-        self.setFinalGrade(finalGrade ?? -1)
+        course.totalCoursePoints += self.worthWeight //add weight of new syllabus item to total course points
+        if finalGrade != nil { try setFinalGrade(finalGrade!) }
     }
     
     /* -------------- SETTERS  -------------- */
@@ -34,16 +34,14 @@ public class SyllabusItem: NSManagedObject {
     func setWeight(_ weight: Double) throws {
         if weight >= 0 {
             //if the syllabus item had already been given a final grade, update the course according to the new weight
-            if self.finalGrade > -1 {
-                //update the number of points achieved by the final grade in the course
-                //remove the points from old weight
-                self.course?.pointsAchieved -= (self.finalGrade/100) * worthWeight
-                //add points from new weight
-                self.course?.pointsAchieved += (self.finalGrade/100) * weight
+            if self.finalGrade != nil {
+                //update totalCoursePoints to reflect the new weight
+                course?.totalCoursePoints += (weight - self.worthWeight) //add the difference
                 
-                //update the number of points remaining in the course based on the new weight
-                self.course?.pointsRemainingInCourse += self.worthWeight
-                self.course?.pointsRemainingInCourse -= weight
+                //update the totalPointsAchieved
+                let currentPoints = (self.worthWeight * self.finalGrade) //the number of points by the previous weight
+                let newPoints = (weight * self.finalGrade) //the number of points by the new weight
+                course?.totalPointsAchieved += (newPoints - currentPoints) //add the difference
             }
             self.worthWeight = weight
         }
@@ -51,18 +49,16 @@ public class SyllabusItem: NSManagedObject {
     }
     
     //propagates an error to the calling function if the syllabus item's final grade is attempted to be set as negative
-    func setFinalGrade(_ grade: Double) {
+    func setFinalGrade(_ grade: Double) throws {
         if grade >= 0 {
             //if a final grade had already been added and is now being modified, remove the points previously added
-            if self.finalGrade > -1 { self.course?.pointsAchieved -= (self.finalGrade/100) * worthWeight }
-    
-            //subtract the weight of the item given a final grade from the points remaining in the course IF a final grade has NOT yet been given (don't want to subtract it twice if modifying final grade)
-            if self.finalGrade == -1 { self.course?.pointsRemainingInCourse -= self.worthWeight }
-            
-            //add the number of points achieved by the final grade to the course
-            self.course?.pointsAchieved += (grade/100) * worthWeight
-            
+            if self.finalGrade != nil {
+                //adjust totalPointsAchieved to reflect the new final grade
+                let currentPoints = (self.worthWeight * self.finalGrade)
+                let newPoints = (self.worthWeight * grade)
+                course?.totalPointsAchieved += (newPoints - currentPoints) //add the difference
+            }
             self.finalGrade = grade
-        }
+        } else { throw InvalidPropertySetter.negativeValue }
     }
 }

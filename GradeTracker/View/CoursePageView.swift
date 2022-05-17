@@ -41,9 +41,9 @@ struct CoursePageView: View {
                             .font(.footnote)
                             .foregroundColor(.gray)
                         }
-                        if syllItem.finalGrade == -1 {
-                            if course.pointsRemainingInCourse >= 100 {
-                                Text("Target: %\(String(format: "%.01f", course.targetGrade))")
+                        if syllItem.finalGrade == nil {
+                            if course.targetGrade != nil {
+                                Text("Target: %\(String(format: "%.01f", course.targetGrade!))")
                                     .font(.callout)
                             } else {
                                 Text("Target: Not enough data.")
@@ -65,7 +65,7 @@ struct CoursePageView: View {
             
                 //cannot calculate target grade for syllabus items if the weights of existing syllabus items do not add up to 100 or more
                 if !(course.syllabusItems?.allObjects.isEmpty ?? true) {
-                    if course.pointsRemainingInCourse < 100 {
+                    if course.targetGrade == nil {
                         Text("Not enough data to calculate target grades. The weight of all syllabus items must total %100 or more.")
                             .font(.footnote)
                     }

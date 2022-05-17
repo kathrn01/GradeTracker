@@ -101,6 +101,7 @@
 		898B16E8273EDE6E005B02A8 = {
 			isa = PBXGroup;
 			children = (
+				89779CCE28303B1F001DF1A4 /* README.md */,
 				898B16F3273EDE6E005B02A8 /* GradeTracker */,
 				89779CDE28304E35001DF1A4 /* GradeTrackerTests */,
 				898B16F2273EDE6E005B02A8 /* Products */,
@@ -126,7 +127,6 @@
 				898B171D2740C2AC005B02A8 /* Model */,
 				898B1702273EDE71005B02A8 /* Info.plist */,
 				898B16FA273EDE71005B02A8 /* Preview Content */,
-				89779CCE28303B1F001DF1A4 /* README.md */,
 			);
 			path = GradeTracker;
 			sourceTree = "<group>";

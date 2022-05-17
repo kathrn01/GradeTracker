@@ -5,13 +5,13 @@
         <attribute name="creditHours" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
         <attribute name="goalGrade" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="pointsAchieved" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="pointsRemainingInCourse" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="totalCoursePoints" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="totalPointsAchieved" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="syllabusItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SyllabusItem" inverseName="course" inverseEntity="SyllabusItem"/>
         <relationship name="term" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Term" inverseName="courseList" inverseEntity="Term"/>
     </entity>
     <entity name="SyllabusItem" representedClassName="SyllabusItem" syncable="YES" codeGenerationType="category">
-        <attribute name="finalGrade" optional="YES" attributeType="Double" defaultValueString="-1" usesScalarValueType="YES"/>
+        <attribute name="finalGrade" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="itemTitle" optional="YES" attributeType="String"/>
         <attribute name="worthWeight" optional="YES" attributeType="Double" usesScalarValueType="YES"/>

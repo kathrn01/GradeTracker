@@ -21,11 +21,17 @@ public class Course: NSManagedObject {
     
     /* -------------- COMPUTED VARIABLE(S)  --------------
      the target grade is re-computed whenever any syllabus item in the course's grade or weight is modified */
-    var targetGrade: Double {
-        print("calculating target grade: ")
-        let pointsLeftToAchieveInCourse = self.goalGrade - self.pointsAchieved
-        print("points left to achieve: goal grade:\(self.goalGrade) - points achieved: \(self.pointsAchieved) = \(pointsLeftToAchieveInCourse/self.pointsRemainingInCourse)")
-        return (pointsLeftToAchieveInCourse/self.pointsRemainingInCourse) * 100
+    
+    //this variable returns the difference between the points achieved in the course and the goal grade, to be used in calculating the target grade for incomplete syllabus items
+    private var pointsToAchieve: Double {
+        return goalGrade - totalPointsAchieved
+    }
+    
+    //returns the target grade (as percentage) for incomplete syllabus items in order to achieve the goal grade for the course
+    var targetGrade: Double? {
+        //the target grade will return nil if existing syllabus items do not total  >= 100% worth of final grade (not enough data)
+        if totalCoursePoints >= 100 { return ((pointsToAchieve/totalCoursePoints) * 100) }
+        return nil
     }
     
     /* -------------- SETTERS  -------------- */
@@ -57,13 +63,12 @@ public class Course: NSManagedObject {
     func addSyllabusItem(viewContext: NSManagedObjectContext, title: String, weight: Double, finalGrade: Double?) throws {
         //if no errors, add the new item to the course's syllabus items
         addToSyllabusItems(try SyllabusItem(viewContext: viewContext, title: title, weight: weight, finalGrade: finalGrade, course: self))
-        //when adding a syllabus item 
     }
     
     //remove a syllabus item from the course's syllabus items
     func removeSyllabusItem(_ item: SyllabusItem) {
         do {
-            try item.setWeight(0) //this will adjust the pointsAchieved and pointsRemainingInCourse accordingly
+            try item.setWeight(0) //this will adjust the totalPointsAchieved and totalCoursePoints accordingly
             self.removeFromSyllabusItems(item)
         } catch {
             print("unable to remove syllabus item.")
