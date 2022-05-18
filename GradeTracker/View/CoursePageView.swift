@@ -29,7 +29,7 @@ struct CoursePageView: View {
     
     var body: some View {
         VStack {
-            Text("Goal grade: \(String(format: "%.02f", course.goalGrade))")
+            Text("Goal grade: \(String(format: "%.01f", course.goalGrade))")
             List {
                 ForEach(syllabusItems) { syllItem in
                     VStack(alignment: .leading) {
@@ -37,21 +37,25 @@ struct CoursePageView: View {
                             Text(syllItem.itemTitle ?? "Unnamed Syllabus Item")
                                 .font(.title3)
                             Spacer()
-                            Text("Worth: %\(String(format: "%.01f", syllItem.worthWeight)) of final grade.")
-                            .font(.footnote)
-                            .foregroundColor(.gray)
+                            Text("Worth: \(String(format: "%.01f", syllItem.worth))% of final grade.")
+                            .font(.callout)
+                            .foregroundColor(.blue)
                         }
-                        if syllItem.finalGrade == nil {
+                        .padding(.bottom)
+                        if syllItem.finalGrade == -1 {
                             if course.targetGrade != nil {
-                                Text("Target: %\(String(format: "%.01f", course.targetGrade!))")
+                                Text("Target: \(String(format: "%.01f", course.targetGrade!))%")
                                     .font(.callout)
                             } else {
                                 Text("Target: Not enough data.")
                                     .font(.callout)
                             }
                         } else {
-                            Text("Final grade achieved: %\(String(format: "%.01f", syllItem.finalGrade))")
+                            Text("Grade achieved: \(String(format: "%.01f", syllItem.finalGrade))%")
                                 .font(.callout)
+                            Text("With the mark for this item, you have added \(String(format: "%.01f", syllItem.percentageOfCourseGradeAchieved))% towards your final grade in the course.")
+                                .font(.footnote)
+                                .foregroundColor(.gray)
                         }
                     }
                 }
@@ -66,7 +70,7 @@ struct CoursePageView: View {
                 //cannot calculate target grade for syllabus items if the weights of existing syllabus items do not add up to 100 or more
                 if !(course.syllabusItems?.allObjects.isEmpty ?? true) {
                     if course.targetGrade == nil {
-                        Text("Not enough data to calculate target grades. The weight of all syllabus items must total %100 or more.")
+                        Text("Not enough data to calculate target grades. The weight of all syllabus items must total 100% or more.")
                             .font(.footnote)
                     }
                 }

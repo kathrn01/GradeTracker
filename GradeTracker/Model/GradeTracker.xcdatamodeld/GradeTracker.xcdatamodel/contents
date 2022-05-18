@@ -5,16 +5,14 @@
         <attribute name="creditHours" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
         <attribute name="goalGrade" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="totalCoursePoints" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="totalPointsAchieved" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="syllabusItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SyllabusItem" inverseName="course" inverseEntity="SyllabusItem"/>
         <relationship name="term" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Term" inverseName="courseList" inverseEntity="Term"/>
     </entity>
     <entity name="SyllabusItem" representedClassName="SyllabusItem" syncable="YES" codeGenerationType="category">
-        <attribute name="finalGrade" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="finalGrade" optional="YES" attributeType="Double" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="itemTitle" optional="YES" attributeType="String"/>
-        <attribute name="worthWeight" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="weight" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
         <relationship name="course" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="syllabusItems" inverseEntity="Course"/>
     </entity>
     <entity name="Term" representedClassName="Term" syncable="YES" codeGenerationType="category">
@@ -27,7 +25,7 @@
         <relationship name="courseList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Course" inverseName="term" inverseEntity="Course"/>
     </entity>
     <elements>
-        <element name="Course" positionX="-854.154296875" positionY="-90.2491455078125" width="128" height="149"/>
+        <element name="Course" positionX="-854.154296875" positionY="-90.2491455078125" width="128" height="119"/>
         <element name="SyllabusItem" positionX="-665.99169921875" positionY="80.45318603515625" width="128" height="104"/>
         <element name="Term" positionX="-812.522216796875" positionY="-293.2334747314453" width="128" height="134"/>
     </elements>
