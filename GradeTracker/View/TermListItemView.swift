@@ -9,23 +9,24 @@
 import SwiftUI
 
 struct TermListItemView: View {
+    @Environment(\.editMode) private var editMode //whether user selected 'edit' in HomePageView
     @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
     var term: Term //Term being displayed
-    var editMode: Bool //if the calling view is in edit mode, can delete or edit the term
     
     //when user selects the "info" button on the left side of the term display, this becomes true and allows the edit window to pop up
     @State var showEditTermWindow = false
+    //if user chooses to delete the term in the edit window, a confirmation popup appears
+    @State var showDeleteTermConfirmation = false
     
     //user input for editing the existing term information
-    @State var termTitle: String
+    @State var termTitle: String 
     @State var chosenColour: Color
     
     //used an init here to initialize the term's current marker colour and title
     init(term: Term, editMode: Bool) {
         self.term = term
-        self.editMode = editMode
-        self.termTitle = term.termTitle ?? "New Term Title"
-        self.chosenColour = Color(red: term.markerColor!.red, green: term.markerColor!.green, blue: term.markerColor!.blue)
+        self._termTitle = State(initialValue: term.termTitle ?? "New Term Title")
+        self._chosenColour = State(initialValue: Color(red: term.markerColor!.red, green: term.markerColor!.green, blue: term.markerColor!.blue))
     }
     
     var body: some View {
@@ -36,7 +37,7 @@ struct TermListItemView: View {
                 Text(term.termTitle!)
                     .foregroundColor(.white)
                 Spacer()
-                if editMode { Image(systemName: "info.circle")
+                if editMode?.wrappedValue.isEditing == true { Image(systemName: "info.circle")
                     .font(.title3)
                     .foregroundColor(.blue)
                     .onTapGesture { showEditTermWindow = true }}
@@ -45,9 +46,30 @@ struct TermListItemView: View {
         .sheet(isPresented: $showEditTermWindow, content: {
             NavigationView {
                 List{
-                    TextField("Term Title: ", text: $termTitle)
+                    HStack {
+                        Text("Term Title: ")
+                        TextField(termTitle, text: $termTitle)
+                    }
                     ColorPicker("Change Marker Colour", selection: $chosenColour)
+                    Spacer()
+                    
+                    //DELETE TERM
+                    Button(action: {
+                        //prompt warning + confirmation
+                        showDeleteTermConfirmation = true
+                    }, label: {
+                        Text("Delete Term").foregroundColor(.red)
+                    })
+                    .alert(isPresented: $showDeleteTermConfirmation, content: { //this alert will pop up if the user selects "Delete Term" from the edit window
+                        Alert(title: Text("Delete Term"), message: Text("Are you sure you would like to delete term \(String(describing: term.termTitle)) and all it's data permanently?"), primaryButton: .cancel(Text("Cancel"), action: { resetUserInput() }),
+                              secondaryButton: .destructive(Text("Delete Term"), action: {
+                            resetUserInput()
+                            viewContext.delete(term)
+                            do { try viewContext.save() } catch { print("Couldn't save term deletion in persistent storage.") }
+                        }))
+                    })
                 }
+                .textFieldStyle(RoundedBorderTextFieldStyle())
                 .navigationTitle("Edit Term")
                 .navigationBarItems(leading: Button("Cancel", action: {
                     resetUserInput()
