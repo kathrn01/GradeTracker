@@ -13,7 +13,7 @@ struct GradeTrackerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            TermListView()
+            HomePageView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

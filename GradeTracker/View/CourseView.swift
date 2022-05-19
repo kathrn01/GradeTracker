@@ -1,13 +1,14 @@
 //
-//  CoursePageView.swift
+//  CourseView.swift
 //  GradeTracker
 //
 //  Created by Katharine K
 //
+// This view displays all syllabus items associated with a Course
 
 import SwiftUI
 
-struct CoursePageView: View {
+struct CourseView: View {
     @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
     @ObservedObject var course: Course //this variable is passed from the calling view, and allows this view to display any courses associated with this term
     @FetchRequest var syllabusItems: FetchedResults<SyllabusItem> //this fetch request will allow to display all syllabus items saved to persistent storage (created by the user)

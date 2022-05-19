@@ -1,5 +1,5 @@
 //
-//  CourseListView.swift
+//  TermView.swift
 //  GradeTracker
 //
 //  Created by Katharine K
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct CourseListView: View {
+struct TermView: View {
     @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
     var term: Term //this variable is passed from the calling view, and allows this view to display any courses associated with this term
     @FetchRequest var courses: FetchedResults<Course> //this fetch request will allow to display all courses saved to persistent storage (created by the user)
@@ -36,7 +36,7 @@ struct CourseListView: View {
                 ForEach(courses) { course in
                     //user can select the course to navigate to it's course page which will show syllabus items and target grades
                     NavigationLink(
-                        destination: CoursePageView(course: course),
+                        destination: CourseView(course: course),
                         label: {
                             HStack {
                                 Text(course.courseTitle ?? "Unnamed Course")

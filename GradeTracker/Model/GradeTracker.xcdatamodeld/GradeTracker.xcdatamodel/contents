@@ -8,6 +8,12 @@
         <relationship name="syllabusItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SyllabusItem" inverseName="course" inverseEntity="SyllabusItem"/>
         <relationship name="term" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Term" inverseName="courseList" inverseEntity="Term"/>
     </entity>
+    <entity name="MarkerColour" representedClassName="MarkerColour" syncable="YES" codeGenerationType="class">
+        <attribute name="blue" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="green" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="red" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="term" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Term" inverseName="markerColor" inverseEntity="Term"/>
+    </entity>
     <entity name="SyllabusItem" representedClassName="SyllabusItem" syncable="YES" codeGenerationType="category">
         <attribute name="finalGrade" optional="YES" attributeType="Double" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -23,10 +29,12 @@
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="termTitle" optional="YES" attributeType="String"/>
         <relationship name="courseList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Course" inverseName="term" inverseEntity="Course"/>
+        <relationship name="markerColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MarkerColour" inverseName="term" inverseEntity="MarkerColour"/>
     </entity>
     <elements>
         <element name="Course" positionX="-854.154296875" positionY="-90.2491455078125" width="128" height="119"/>
         <element name="SyllabusItem" positionX="-665.99169921875" positionY="80.45318603515625" width="128" height="104"/>
-        <element name="Term" positionX="-812.522216796875" positionY="-293.2334747314453" width="128" height="134"/>
+        <element name="Term" positionX="-812.522216796875" positionY="-293.2334747314453" width="128" height="149"/>
+        <element name="MarkerColour" positionX="-756" positionY="-135" width="128" height="89"/>
     </elements>
 </model>
