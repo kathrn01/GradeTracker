@@ -14,7 +14,7 @@ struct HomePageView: View {
     @FetchRequest(sortDescriptors: [], animation: .default) //this fetch request will allow to display all terms saved to persistent storage (created by the user)
     private var terms: FetchedResults<Term> //use the 'terms' variable to display and modify the terms
     // ------ end of provided code
-
+    
     //this state variable is changed to true if the user selects "add term"
     @State var displayAddTerm = false
     
@@ -22,7 +22,7 @@ struct HomePageView: View {
     @State var termName = ""
     @State var currGPA = ""
     @State var goalGPA = ""
-    @State var colourSelection: Color = .gray
+    @State var chosenColour = Color(red: 50, green: 50, blue: 50) //default grey
 
     var body: some View {
         NavigationView {
@@ -35,28 +35,23 @@ struct HomePageView: View {
                     ForEach(terms) { term in
                         //click on a term to go to the view for that term and view/add/delete it's courses
                         NavigationLink(destination: TermView(term: term)) {
-                            TermListItemView(term: term)
+                            TermListItemView(term: term, editMode: EditMode.self.transient.isEditing)
                         }
                         .aspectRatio(4/1, contentMode: .fit)
                     }
-                    //delete a term from the list by swiping left
-                    .onDelete(perform: { indexSet in
-                        indexSet.forEach({ viewContext.delete(terms[$0])})
-                        do { try viewContext.save() } catch { print("Could not delete term.") }
-                    })
-                }
+                } //ScrollView
+                
                 //add a term
                 Button(action: {
                         displayAddTerm = true
                 }) {
                         Label("Add Term", systemImage: "plus")
                 }
-            
-            }
+            }//VStack 
             .padding()
             .navigationBarItems(leading: Image(systemName: "info.circle").foregroundColor(.blue))
             .toolbar { EditButton() }
-        }
+        }//NavigationView
         //this sheet will present when the user selects "add term"
         .sheet(isPresented: $displayAddTerm, content: {
             NavigationView {
@@ -70,7 +65,7 @@ struct HomePageView: View {
                             .keyboardType(.decimalPad)
                         TextField("Goal GPA (Optional)", text: $goalGPA)
                             .keyboardType(.decimalPad)
-                        ColorPicker("Choose A Colour", selection: $colourSelection)
+                        ColorPicker("Choose A Colour", selection: $chosenColour)
                     }
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 }.padding()
@@ -80,7 +75,7 @@ struct HomePageView: View {
                     //add the new term with the data given by the user
                     do {
                         let newTerm = try Term(viewContext: viewContext, title: termName, start: nil, end: nil, currGPA: Double(currGPA), goalGPA: Double(goalGPA))
-                        setMarkerColour(selected: colourSelection, term: newTerm)
+                        newTerm.setMarkerColour(viewContext: viewContext, red: Double((chosenColour.cgColor?.components![0])!), green: Double((chosenColour.cgColor?.components![0])!), blue: Double((chosenColour.cgColor?.components![0])!))
                         try viewContext.save()
                     } catch {
                         print("could not add term")
@@ -97,14 +92,6 @@ struct HomePageView: View {
         termName = ""
         goalGPA = ""
         currGPA = ""
-        colourSelection = Color(.gray)
-    }
-    
-    func setMarkerColour(selected: Color, term: Term) {
-        let markerColour = MarkerColour(context: viewContext)
-        markerColour.red = Double((colourSelection.cgColor?.components?[0]) ?? 0)
-        markerColour.green = Double((colourSelection.cgColor?.components?[1]) ?? 0)
-        markerColour.blue = Double((colourSelection.cgColor?.components?[2]) ?? 0)
-        term.markerColor = markerColour
+        chosenColour = Color(red: 50, green: 50, blue: 50) //default grey
     }
 }

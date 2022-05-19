@@ -29,6 +29,14 @@ public class Term: NSManagedObject {
         else if newTitle.trimmingCharacters(in: .whitespaces).isEmpty { throw InvalidPropertySetter.titleWhitespaces }
     }
     
+    func setMarkerColour(viewContext: NSManagedObjectContext, red: Double?, green: Double?, blue: Double?) {
+        let markerColour = MarkerColour(context: viewContext)
+        markerColour.red = red ?? 0
+        markerColour.green = green ?? 0
+        markerColour.blue = blue ?? 0
+        self.markerColor = markerColour
+    }
+    
     /* -------------- NOT YET FUNCTIONAL --------------
      These methods are not yet used in the app, and must be tested and improved in a future iteration where they will be used in app.
      */
