@@ -27,15 +27,12 @@ struct HomePageView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Grade Tracker")
-                    .font(.title)
-                
                 ScrollView {
                     //all terms added by the user will appear as a list under the title
                     ForEach(terms) { term in
                         //click on a term to go to the view for that term and view/add/delete it's courses
                         NavigationLink(destination: TermView(term: term)) {
-                            TermListItemView(term: term, editMode: EditMode.self.transient.isEditing)
+                            TermListItemView(term: term)
                         }
                         .aspectRatio(4/1, contentMode: .fit)
                     }
@@ -45,12 +42,14 @@ struct HomePageView: View {
                 Button(action: {
                         displayAddTerm = true
                 }) {
-                        Label("Add Term", systemImage: "plus")
+                        Label("Add Term", systemImage: "plus.circle")
+                            .foregroundColor(.black)
+                            .font(.headline)
                 }
             }//VStack 
             .padding()
-            .navigationBarItems(leading: Image(systemName: "info.circle").foregroundColor(.blue))
-            .toolbar { EditButton() }
+            .navigationTitle(Text("Terms"))
+            .navigationBarItems(leading: Image(systemName: "settings").foregroundColor(.blue))
         }//NavigationView
         //this sheet will present when the user selects "add term"
         .sheet(isPresented: $displayAddTerm, content: {
