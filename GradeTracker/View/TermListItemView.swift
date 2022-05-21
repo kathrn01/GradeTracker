@@ -9,24 +9,23 @@
 import SwiftUI
 
 struct TermListItemView: View {
-    @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
     @ObservedObject var term: Term //Term being displayed
     
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20.0, style: .circular)
-                .foregroundColor(Color(red: term.markerColor!.red, green: term.markerColor!.green, blue: term.markerColor!.blue))
+                .foregroundColor(Color(red: term.markerColor?.red ?? 0, green: term.markerColor?.green ?? 0, blue: term.markerColor?.blue ?? 0))
             HStack {
-                Text(term.termTitle!)
+                Text(term.termTitle ?? "Unnamed Term")
                     .font(.title)
                 Spacer()
                 // TEMPORARY -- this will eventually be how start and end dates are displayed when the functionality to add them is available. For now, this is placeholder text to help visualize what it will look like.
                 VStack { //start + end date display
-                    Text("Start Date")
+                    Text(term.startDate ?? Date(), formatter: dateFormatStartEnd)
                     Text("-")
-                    Text("End Date")
+                    Text(term.endDate ?? Date(), formatter: dateFormatStartEnd)
                 }
-                .font(.callout)
+                .font(.footnote)
             }.padding()
             .foregroundColor(textColour)
         }
@@ -35,7 +34,17 @@ struct TermListItemView: View {
     //this will set the text colour based on if the marker colour chosen as the background is darker or lighter
     //CITATION: I got the formula for the background colour value here: https://stackoverflow.com/questions/5477702/how-to-see-if-a-rgb-color-is-too-light
     var textColour: Color {
-        let backgroundColourValue = ((term.markerColor!.red * 255 * 299) + (term.markerColor!.green * 255 * 587) + (term.markerColor!.blue * 255 * 114))/1000
+        let bgRed = (term.markerColor?.red ?? 0) * 255
+        let bgGreen = (term.markerColor?.green ?? 0) * 255
+        let bgBlue = (term.markerColor?.blue ?? 0) * 255
+        let backgroundColourValue = ((bgRed * 299) + (bgGreen * 587) + (bgBlue * 114))/1000
         if backgroundColourValue >= 128 { return .black } else { return .white }
+    }
+    
+    //referenced how to format the date from here: https://stackoverflow.com/questions/62814989/swiftui-date-formatting
+    var dateFormatStartEnd: DateFormatter {
+        let format = DateFormatter()
+        format.dateFormat = "dd MMM yyyy"
+        return format
     }
 }

@@ -15,8 +15,8 @@ public class Term: NSManagedObject {
         self.init(context: viewContext)
         self.id = UUID()
         try setTitle(title)
-        if start != nil { try setStartDate(start!) }
-        if end != nil { try setEndDate(end!) }
+        try setStartDate(start!)
+        try setEndDate(end!)
         if currGPA != nil { try setCurrentGPA(currGPA!) }
         if goalGPA != nil { try setGoalGPA (goalGPA!) }
     }
@@ -37,27 +37,21 @@ public class Term: NSManagedObject {
         self.markerColor = markerColour
     }
     
-    /* -------------- NOT YET FUNCTIONAL --------------
-     These methods are not yet used in the app, and must be tested and improved in a future iteration where they will be used in app.
-     */
-    
     func setStartDate(_ start: Date) throws {
-        if endDate != nil {
-            //the start date must be before or on the end date
-            if endDate! <= start { throw InvalidDateRange.endBeforeStart }
-        }
+        //the start date must be before or on the end date
+        if endDate! < start { throw InvalidDateRange.endBeforeStart }
         self.startDate = start
     }
     
     func setEndDate(_ end: Date) throws {
-        if startDate == nil {
-            //if no start date is assigned, assign it to today by default if user attempts to add an end date
-            self.startDate = Date()
-        }
         //the end date must be after or on the start date
-        if startDate! >= end { throw InvalidDateRange.startAfterEnd }
+        if startDate! > end { throw InvalidDateRange.startAfterEnd }
         self.endDate = end
     }
+    
+    /* -------------- NOT YET FUNCTIONAL --------------
+     These methods are not yet used in the app, and must be tested and improved in a future iteration where they will be used in app.
+     */
     
     func setCurrentGPA(_ currGPA: Double) throws {
         if currGPA < 0.0 { throw InvalidPropertySetter.negativeValue }

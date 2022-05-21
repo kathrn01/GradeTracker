@@ -10,11 +10,18 @@
 		890C2B592833F7F20074A605 /* CourseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890C2B582833F7F20074A605 /* CourseTests.swift */; };
 		890C2B5B2835B5EE0074A605 /* TermListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890C2B5A2835B5EE0074A605 /* TermListItemView.swift */; };
 		890F66E82832D7AF0098E5B6 /* CourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890F66E72832D7AF0098E5B6 /* CourseView.swift */; };
+		8929CB7128394C63004F8000 /* AddTermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8929CB7028394C63004F8000 /* AddTermView.swift */; };
+		8929CB73283955D4004F8000 /* EditCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8929CB72283955D4004F8000 /* EditCourseView.swift */; };
+		8929CB7528395807004F8000 /* AddSyllabusItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8929CB7428395807004F8000 /* AddSyllabusItemView.swift */; };
+		8929CB772839687F004F8000 /* SyllabusItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8929CB762839687F004F8000 /* SyllabusItemView.swift */; };
+		8929CB792839697A004F8000 /* EditSyllabusItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8929CB782839697A004F8000 /* EditSyllabusItemView.swift */; };
 		89779CD02830482C001DF1A4 /* Course+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89779CCF2830482C001DF1A4 /* Course+CoreDataClass.swift */; };
 		89779CD228304836001DF1A4 /* SyllabusItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89779CD128304836001DF1A4 /* SyllabusItem+CoreDataClass.swift */; };
 		89779CD42830483B001DF1A4 /* Term+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89779CD32830483B001DF1A4 /* Term+CoreDataClass.swift */; };
 		89779CE028304E35001DF1A4 /* TermTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89779CDF28304E35001DF1A4 /* TermTests.swift */; };
 		89779CE828317DDD001DF1A4 /* ErrorDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89779CE728317DDD001DF1A4 /* ErrorDefinitions.swift */; };
+		897C5FDC283872EA004346BD /* EditTermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897C5FDB283872EA004346BD /* EditTermView.swift */; };
+		897C5FDE283872F9004346BD /* AddCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897C5FDD283872F9004346BD /* AddCourseView.swift */; };
 		898B16F5273EDE6E005B02A8 /* GradeTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898B16F4273EDE6E005B02A8 /* GradeTrackerApp.swift */; };
 		898B16F7273EDE6E005B02A8 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898B16F6273EDE6E005B02A8 /* HomePageView.swift */; };
 		898B16F9273EDE71005B02A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 898B16F8273EDE71005B02A8 /* Assets.xcassets */; };
@@ -38,6 +45,11 @@
 		890C2B582833F7F20074A605 /* CourseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseTests.swift; sourceTree = "<group>"; };
 		890C2B5A2835B5EE0074A605 /* TermListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermListItemView.swift; sourceTree = "<group>"; };
 		890F66E72832D7AF0098E5B6 /* CourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseView.swift; sourceTree = "<group>"; };
+		8929CB7028394C63004F8000 /* AddTermView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTermView.swift; sourceTree = "<group>"; };
+		8929CB72283955D4004F8000 /* EditCourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCourseView.swift; sourceTree = "<group>"; };
+		8929CB7428395807004F8000 /* AddSyllabusItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSyllabusItemView.swift; sourceTree = "<group>"; };
+		8929CB762839687F004F8000 /* SyllabusItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyllabusItemView.swift; sourceTree = "<group>"; };
+		8929CB782839697A004F8000 /* EditSyllabusItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSyllabusItemView.swift; sourceTree = "<group>"; };
 		89779CCE28303B1F001DF1A4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		89779CCF2830482C001DF1A4 /* Course+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Course+CoreDataClass.swift"; sourceTree = "<group>"; };
 		89779CD128304836001DF1A4 /* SyllabusItem+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SyllabusItem+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -46,6 +58,8 @@
 		89779CDF28304E35001DF1A4 /* TermTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermTests.swift; sourceTree = "<group>"; };
 		89779CE128304E35001DF1A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89779CE728317DDD001DF1A4 /* ErrorDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDefinitions.swift; sourceTree = "<group>"; };
+		897C5FDB283872EA004346BD /* EditTermView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTermView.swift; sourceTree = "<group>"; };
+		897C5FDD283872F9004346BD /* AddCourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseView.swift; sourceTree = "<group>"; };
 		898B16F1273EDE6E005B02A8 /* GradeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		898B16F4273EDE6E005B02A8 /* GradeTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeTrackerApp.swift; sourceTree = "<group>"; };
 		898B16F6273EDE6E005B02A8 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
@@ -158,9 +172,16 @@
 			isa = PBXGroup;
 			children = (
 				898B16F6273EDE6E005B02A8 /* HomePageView.swift */,
+				8929CB7028394C63004F8000 /* AddTermView.swift */,
 				890C2B5A2835B5EE0074A605 /* TermListItemView.swift */,
 				898B1708273EDFA7005B02A8 /* TermView.swift */,
+				897C5FDB283872EA004346BD /* EditTermView.swift */,
+				897C5FDD283872F9004346BD /* AddCourseView.swift */,
 				890F66E72832D7AF0098E5B6 /* CourseView.swift */,
+				8929CB72283955D4004F8000 /* EditCourseView.swift */,
+				8929CB7428395807004F8000 /* AddSyllabusItemView.swift */,
+				8929CB762839687F004F8000 /* SyllabusItemView.swift */,
+				8929CB782839697A004F8000 /* EditSyllabusItemView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -274,15 +295,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				898B1701273EDE71005B02A8 /* GradeTracker.xcdatamodeld in Sources */,
+				897C5FDE283872F9004346BD /* AddCourseView.swift in Sources */,
 				898B16FE273EDE71005B02A8 /* Persistence.swift in Sources */,
 				89779CD02830482C001DF1A4 /* Course+CoreDataClass.swift in Sources */,
+				8929CB772839687F004F8000 /* SyllabusItemView.swift in Sources */,
 				898B1709273EDFA7005B02A8 /* TermView.swift in Sources */,
 				898B16F7273EDE6E005B02A8 /* HomePageView.swift in Sources */,
+				8929CB7528395807004F8000 /* AddSyllabusItemView.swift in Sources */,
 				898B16F5273EDE6E005B02A8 /* GradeTrackerApp.swift in Sources */,
+				8929CB73283955D4004F8000 /* EditCourseView.swift in Sources */,
+				897C5FDC283872EA004346BD /* EditTermView.swift in Sources */,
+				8929CB7128394C63004F8000 /* AddTermView.swift in Sources */,
 				89779CE828317DDD001DF1A4 /* ErrorDefinitions.swift in Sources */,
 				89779CD228304836001DF1A4 /* SyllabusItem+CoreDataClass.swift in Sources */,
 				890F66E82832D7AF0098E5B6 /* CourseView.swift in Sources */,
 				890C2B5B2835B5EE0074A605 /* TermListItemView.swift in Sources */,
+				8929CB792839697A004F8000 /* EditSyllabusItemView.swift in Sources */,
 				89779CD42830483B001DF1A4 /* Term+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

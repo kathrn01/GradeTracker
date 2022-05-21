@@ -15,6 +15,7 @@
         <relationship name="term" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Term" inverseName="markerColor" inverseEntity="Term"/>
     </entity>
     <entity name="SyllabusItem" representedClassName="SyllabusItem" syncable="YES" codeGenerationType="category">
+        <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="finalGrade" optional="YES" attributeType="Double" defaultValueString="-1" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="itemTitle" optional="YES" attributeType="String"/>
@@ -33,8 +34,8 @@
     </entity>
     <elements>
         <element name="Course" positionX="-854.154296875" positionY="-90.2491455078125" width="128" height="119"/>
-        <element name="SyllabusItem" positionX="-665.99169921875" positionY="80.45318603515625" width="128" height="104"/>
-        <element name="Term" positionX="-812.522216796875" positionY="-293.2334747314453" width="128" height="149"/>
         <element name="MarkerColour" positionX="-756" positionY="-135" width="128" height="89"/>
+        <element name="SyllabusItem" positionX="-665.99169921875" positionY="80.45318603515625" width="128" height="119"/>
+        <element name="Term" positionX="-812.522216796875" positionY="-293.2334747314453" width="128" height="149"/>
     </elements>
 </model>

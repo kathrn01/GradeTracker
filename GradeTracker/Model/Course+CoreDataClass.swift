@@ -98,9 +98,9 @@ public class Course: NSManagedObject {
     
     /* -------------- ADD & REMOVE SYLLABUS ITEMS  -------------- */
     //add a syllabus item to this course. propagates any errors (from SyllabusItem initializer) to calling code.
-    func addSyllabusItem(viewContext: NSManagedObjectContext, title: String, weight: Double, finalGrade: Double?) throws {
+    func addSyllabusItem(viewContext: NSManagedObjectContext, title: String, weight: Double, finalGrade: Double?, dueDate: Date) throws {
         //if no errors, add the new item to the course's syllabus items
-        addToSyllabusItems(try SyllabusItem(viewContext: viewContext, title: title, weight: weight, finalGrade: finalGrade, course: self))
+        addToSyllabusItems(try SyllabusItem(viewContext: viewContext, title: title, weight: weight, finalGrade: finalGrade, course: self, dueDate: dueDate))
     }
     
     //remove a syllabus item from the course's syllabus items
