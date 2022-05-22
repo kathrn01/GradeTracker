@@ -19,20 +19,8 @@ public class Course: NSManagedObject {
         if goalGrade != nil { try setGoalGrade(goalGrade!) }
     }
     
-    /* -------------- COMPUTED VARIABLE(S)  --------------
-     the target grade is re-computed whenever any syllabus item in the course's grade or weight is modified */
-//    
-//    //totalPointsAchieved is the percentage of the course's final grade that has been achieved (by syllabus items given a final grade)
-//    private var totalPointsAchieved: Double {
-//        var totalPointsAchieved = 0.0
-//        (syllabusItems?.allObjects as? [SyllabusItem] ?? []).forEach({
-//            if $0.finalGrade > -1 { //if the item has a final grade
-//                totalPointsAchieved += $0.percentageOfCourseGradeAchieved
-//            }
-//        })
-//        return totalPointsAchieved
-//    }
-//    
+    /* -------------- COMPUTED VARIABLE(S)  -------------- */
+    
     //totalPointsCompleted is the percentage of the course's syllabus items that have been given a final grade
     //this is different from totalPointsAchieved, as it only takes into account the weight of the syllabus items given a final grade, not their final grade itself.
     var totalPointsCompleted: Double {

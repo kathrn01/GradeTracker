@@ -4,13 +4,13 @@
 //
 //  Created by Katharine K
 //
-// This view shows a list of all courses in a given term, along with their goal grade target
+// This view is effectively the "home page" for a Term. It displays the courses in that term, allows the user to add a new course, or edit the term.
 
 import SwiftUI
 
 struct TermView: View {
     @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
-    var term: Term //this variable is passed from the calling view, and allows this view to display any courses associated with this term
+    var term: Term //this variable is passed from the calling view
     @FetchRequest var courses: FetchedResults<Course> //this fetch request will allow to display all courses saved to persistent storage (created by the user)
     
     //when user selects the edit button in the top right corner, this is changed to true
@@ -40,7 +40,7 @@ struct TermView: View {
                                 HStack {
                                     Text(course.courseTitle ?? "Unnamed Course")
                                     Spacer()
-                                    Text("goal: %\(String(format: "%.01f", course.goalGrade))")
+                                    Text("Goal Grade: %\(String(format: "%.01f", course.goalGrade))")
                                         .foregroundColor(.gray)
                                 }
                         })
@@ -49,7 +49,6 @@ struct TermView: View {
             } //list
             .listStyle(InsetGroupedListStyle())
             //the button to add a new course to the term
-            //add a new course
             Button(action: {
                     displayAddCourse = true
             }) {
@@ -61,7 +60,7 @@ struct TermView: View {
         } //vstack
         .navigationTitle(Text(term.termTitle ?? "Unnamed Term"))
         .navigationBarItems(trailing: Button(action: { showEditTermWindow = true }, label: { Text("Edit Term") }))
-        .sheet(isPresented: $showEditTermWindow, content: {
+        .sheet(isPresented: $showEditTermWindow, content: { //the view that will pop up as a sheet if the user selects "Edit Term"
             NavigationView {
                 EditTermView(term: term, showEditTermWindow: $showEditTermWindow)
                     .environment(\.managedObjectContext, viewContext)

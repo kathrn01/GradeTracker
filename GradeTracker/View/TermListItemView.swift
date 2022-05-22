@@ -13,13 +13,13 @@ struct TermListItemView: View {
     
     var body: some View {
         ZStack {
+            //background rectangle that the term name and start/end dates are displayed on
             RoundedRectangle(cornerRadius: 20.0, style: .circular)
                 .foregroundColor(Color(red: term.markerColor?.red ?? 0, green: term.markerColor?.green ?? 0, blue: term.markerColor?.blue ?? 0))
-            HStack {
+            HStack { //term name and start + end dates
                 Text(term.termTitle ?? "Unnamed Term")
                     .font(.title)
                 Spacer()
-                // TEMPORARY -- this will eventually be how start and end dates are displayed when the functionality to add them is available. For now, this is placeholder text to help visualize what it will look like.
                 VStack { //start + end date display
                     Text(term.startDate ?? Date(), formatter: dateFormatStartEnd)
                     Text("-")

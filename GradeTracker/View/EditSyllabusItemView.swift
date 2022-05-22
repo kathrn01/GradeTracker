@@ -2,15 +2,20 @@
 //  EditSyllabusItemView.swift
 //  GradeTracker
 //
-//  Created by Katharine Kowalchuk on 2022-05-21.
+//  Created by Katharine K
 //
+// This view is displayed when the user taps on SyllabusItemView, which is the display for syllabus items in CourseView.
+// The user can edit attributes for the syllabus item within this view.
 
 import SwiftUI
 
 struct EditSyllabusItemView: View {
     @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
     var syllabusItem: SyllabusItem
+    
+    //determines whether this view is shown -- passed in from calling view as true, when user is done editing, becomes false
     @Binding var displayEditSyllabusItem: Bool
+    
     //if user chooses to delete the item in the edit window, a confirmation popup appears
     @State var showDeleteSIConfirmation = false
     
@@ -20,17 +25,16 @@ struct EditSyllabusItemView: View {
     @State var itemFinalGrade: String
     @State var itemDueDate: Date
     
-    /* I am using a custom initializer here to assign the chosen colour set initially to the term's current chosen marker colour, and the term's title set to it's current title
-     referenced this solution from: https://stackoverflow.com/questions/58783711/swiftui-use-relationship-predicate-with-struct-parameter-in-fetchrequest?noredirect=1&lq=1 */
+    /* I am using a custom initializer here to assign the user inputs to the syllabus item's existing attributes */
     init(syllabusItem: SyllabusItem, displayEditSyllabusItem: Binding<Bool>) {
         self.syllabusItem = syllabusItem
         self._displayEditSyllabusItem = displayEditSyllabusItem
-        self._itemTitle = State(initialValue: syllabusItem.itemTitle ?? "New Item Title")
-        self._itemWeight = State(initialValue: String(syllabusItem.weight))
-        if syllabusItem.finalGrade >= 0 {
-            self._itemFinalGrade = State(initialValue: String(syllabusItem.finalGrade))
-        } else { self._itemFinalGrade = State(initialValue: "")}
-        self._itemDueDate = State(initialValue: syllabusItem.dueDate ?? Date())
+        self._itemTitle = State(initialValue: syllabusItem.itemTitle ?? "New Item Title") //existing title
+        self._itemWeight = State(initialValue: String(syllabusItem.weight)) //existing weight
+        if syllabusItem.finalGrade >= 0 { //if the item already has been assigned a final grade
+            self._itemFinalGrade = State(initialValue: String(syllabusItem.finalGrade)) //existing grade
+        } else { self._itemFinalGrade = State(initialValue: "")} //blank if no existing grade
+        self._itemDueDate = State(initialValue: syllabusItem.dueDate ?? syllabusItem.course!.term!.startDate!) //existing due date or start date of the term
     }
     var body: some View {
         VStack {
@@ -60,7 +64,7 @@ struct EditSyllabusItemView: View {
             }, label: {
                 Text("Delete Item").foregroundColor(.red).bold()
             }).padding()
-            .alert(isPresented: $showDeleteSIConfirmation, content: { //this alert will pop up if the user selects "Delete Term" from the edit window
+            .alert(isPresented: $showDeleteSIConfirmation, content: { //this alert will pop up if the user selects "Delete Syllabus Item" from the edit window
                 Alert(title: Text("Delete Syllabus Item"), message: Text("Are you sure you would like to delete course \(syllabusItem.itemTitle!) and all it's data permanently?"), primaryButton: .cancel(Text("Cancel"), action: { showDeleteSIConfirmation = false }),
                       secondaryButton: .destructive(Text("Delete Item"), action: {
                         displayEditSyllabusItem = false

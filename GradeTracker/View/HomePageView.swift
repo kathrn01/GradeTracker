@@ -4,6 +4,7 @@
 //
 //  Created by Katharine K
 //
+// This is the view the user sees when opening the app
 
 import SwiftUI
 import CoreData

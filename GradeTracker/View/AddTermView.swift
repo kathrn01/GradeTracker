@@ -2,8 +2,9 @@
 //  AddTermView.swift
 //  GradeTracker
 //
-//  Created by Katharine Kowalchuk on 2022-05-21.
+//  Created by Katharine K
 //
+// This view is shown when the user selects "Add Term" on HomePageView
 
 import SwiftUI
 
@@ -20,7 +21,7 @@ struct AddTermView: View {
     var body: some View {
         List {
             Section(header: Text("Term Info")) {
-                //in this section the user can add properties to the new course
+                //in this section the user can add properties to the new term
                 TextField("Term Title", text: $termName)
                 DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
                 DatePicker("End Date", selection: $endDate, in: PartialRangeFrom(startDate), displayedComponents: .date)

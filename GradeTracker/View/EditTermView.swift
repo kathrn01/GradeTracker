@@ -2,15 +2,19 @@
 //  EditTermView.swift
 //  GradeTracker
 //
-//  Created by Katharine Kowalchuk on 2022-05-20.
+//  Created by Katharine K
 //
+// This view will appear if the user wishes to edit the term in TermView.
 
 import SwiftUI
 
 struct EditTermView: View {
     @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
-    var term: Term //this variable is passed from the calling view, and allows this view to display any courses associated with this term
+    var term: Term //this variable is passed from the calling view
+    
+    //determines whether this view is shown -- passed in from calling view as true, when user is done editing, becomes false
     @Binding var showEditTermWindow: Bool
+    
     //if user chooses to delete the term in the edit window, a confirmation popup appears
     @State var showDeleteTermConfirmation = false
     
@@ -20,8 +24,7 @@ struct EditTermView: View {
     @State var endDate: Date
     @State var chosenColour: Color
     
-    /* I am using a custom initializer here to assign the chosen colour set initially to the term's current chosen marker colour, and the term's title set to it's current title
-     referenced this solution from: https://stackoverflow.com/questions/58783711/swiftui-use-relationship-predicate-with-struct-parameter-in-fetchrequest?noredirect=1&lq=1 */
+    /* I am using a custom initializer here to assign user input initially to the term's existing attribute values  */
     init(term: Term, showEditTermWindow: Binding<Bool>) {
         self.term = term
         self._showEditTermWindow = showEditTermWindow
@@ -32,12 +35,13 @@ struct EditTermView: View {
     }
     var body: some View {
         VStack {
-            List{
+            List{ //display edit-able attributes
                 HStack {
                     Text("Term Title: ")
                     TextField(termTitle, text: $termTitle)
                 }
                 DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
+                //user can only pick an end date that begins on or after selected start date
                 DatePicker("End Date", selection: $endDate, in: PartialRangeFrom(startDate), displayedComponents: .date)
                 ColorPicker("Change Marker Colour", selection: $chosenColour)
             }
@@ -63,7 +67,7 @@ struct EditTermView: View {
         .navigationTitle("Edit Term")
         .navigationBarItems(leading: Button("Cancel", action: {
             resetUserInput()
-        }), trailing: Button("Save Changes", action: {
+        }), trailing: Button("Save Changes", action: { //save changes to persistence
             do {
                 try term.setTitle(termTitle)
                 term.startDate = startDate

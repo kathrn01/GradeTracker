@@ -4,7 +4,7 @@
 //
 //  Created by Katharine K
 //
-// This view displays all syllabus items associated with a Course
+// This view is a Course's "Home Page" -- shows all syllabus items, goal grade, allows user to edit course and add syllabus items.
 
 import SwiftUI
 
@@ -29,7 +29,7 @@ struct CourseView: View {
     var body: some View {
         VStack{
             Text("Goal grade: \(String(format: "%.01f", course.goalGrade))")
-            List {
+            List { //display all syllabus items for this course
                 Section(header: Text("Syllabus items in \(course.courseTitle ?? "Unnamed Course")")) {
                     ForEach(syllabusItems) { syllItem in
                         SyllabusItemView(syllItem: syllItem)
@@ -54,15 +54,15 @@ struct CourseView: View {
                         .font(.headline)
             }
             .padding()
+            .sheet(isPresented: $displayAddSyllabusItem, content: { //this sheet will be presented if the user selects "Add Course"
+                NavigationView {
+                    AddSyllabusItemView(displayAddSyllabusItem: $displayAddSyllabusItem, course: course)
+                        .environment(\.managedObjectContext, viewContext)
+                }
+            })
         }
         .navigationBarTitle(Text(course.courseTitle ?? "Unnamed Course"))
         .navigationBarItems(trailing: Button("Edit Course", action: { displayEditCourse = true }))
-        .sheet(isPresented: $displayAddSyllabusItem, content: { //this sheet will be presented if the user selects "Add Course"
-            NavigationView {
-                AddSyllabusItemView(displayAddSyllabusItem: $displayAddSyllabusItem, course: course)
-                    .environment(\.managedObjectContext, viewContext)
-            }
-        })
         .sheet(isPresented: $displayEditCourse, content: { //this sheet will be presented if the user selects "Edit Course" in the top right corner
             NavigationView {
                 EditCourseView(course: course, displayEditCourse: $displayEditCourse)
