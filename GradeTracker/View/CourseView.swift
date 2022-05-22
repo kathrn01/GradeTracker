@@ -54,18 +54,18 @@ struct CourseView: View {
                         .font(.headline)
             }
             .padding()
-            .sheet(isPresented: $displayAddSyllabusItem, content: { //this sheet will be presented if the user selects "Add Course"
-                NavigationView {
-                    AddSyllabusItemView(displayAddSyllabusItem: $displayAddSyllabusItem, course: course)
-                        .environment(\.managedObjectContext, viewContext)
-                }
-            })
         }
         .navigationBarTitle(Text(course.courseTitle ?? "Unnamed Course"))
-        .navigationBarItems(trailing: Button("Edit Course", action: { displayEditCourse = true }))
+        .navigationBarItems(trailing: Button(action: { displayEditCourse = true }, label: { Text("Edit Course") }))
         .sheet(isPresented: $displayEditCourse, content: { //this sheet will be presented if the user selects "Edit Course" in the top right corner
             NavigationView {
                 EditCourseView(course: course, displayEditCourse: $displayEditCourse)
+                    .environment(\.managedObjectContext, viewContext)
+            }
+        })
+        .sheet(isPresented: $displayAddSyllabusItem, content: { //this sheet will be presented if the user selects "Add Course"
+            NavigationView {
+                AddSyllabusItemView(displayAddSyllabusItem: $displayAddSyllabusItem, course: course)
                     .environment(\.managedObjectContext, viewContext)
             }
         })

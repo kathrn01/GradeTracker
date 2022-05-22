@@ -35,7 +35,8 @@ struct TermView: View {
                     ForEach(courses) { course in
                         //user can select the course to navigate to it's course page which will show syllabus items and target grades
                         NavigationLink(
-                            destination: CourseView(course: course).environment(\.managedObjectContext, viewContext),
+                            destination: CourseView(course: course)
+                                .environment(\.managedObjectContext, viewContext),
                             label: {
                                 HStack {
                                     Text(course.courseTitle ?? "Unnamed Course")
@@ -43,7 +44,7 @@ struct TermView: View {
                                     Text("Goal Grade: %\(String(format: "%.01f", course.goalGrade))")
                                         .foregroundColor(.gray)
                                 }
-                        })
+                        }).navigationViewStyle(StackNavigationViewStyle())
                     }
                 } //section
             } //list
