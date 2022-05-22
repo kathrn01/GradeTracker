@@ -13,11 +13,20 @@ class CourseTests: XCTestCase {
     //all objects created in the tests will be destroyed at the end
     let testViewContext = PersistenceController.preview.container.viewContext
     var testCourse = Course()
+    var testTerm = Term()
     
     //SETUP
     override func setUpWithError() throws {
+        //test term for test course to be added to
+        var dateComponent = DateComponents()
+        dateComponent.day = 1
+        
+        testTerm = try Term(viewContext: testViewContext, title: "testTerm", start: Date(), end: Calendar.current.date(byAdding: dateComponent, to: Date()), currGPA: nil, goalGPA: nil)
         //create a course object for test method to use
         testCourse = try Course(viewContext: testViewContext, title: "testCourse", creditHrs: nil, goalGrade: 85.0)
+        
+        //add testCourse to testTerm
+        testTerm.addToCourseList(testCourse)
     }
 
     //TEARDOWN
@@ -39,14 +48,14 @@ class CourseTests: XCTestCase {
     //test target grade when there are not enough syllabus items added (all items together do not make up 100% of final grade)
     func testTargetGrade_InsufficientItems() throws {
         //add a syllabus item worth 10% of the final course grade
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test1", weight: 10.0, finalGrade: nil)
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test1", weight: 10.0, finalGrade: nil, dueDate: Date())
         XCTAssertEqual((testCourse.syllabusItems?.allObjects ?? []).count, 1) //there is one syllabus item in testCourse
         XCTAssertEqual(testCourse.totalCoursePoints, 10.0) //there are 10 points accounted for (10% of total grade)
         XCTAssertEqual(testCourse.goalGrade, 85.0) //goal grade has been set for the course
         XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
         
         //add a syllabus item worth 50% of the final course grade, with a final grade
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 2", weight: 50.0, finalGrade: nil)
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 2", weight: 50.0, finalGrade: nil, dueDate: Date())
         XCTAssertEqual((testCourse.syllabusItems?.allObjects ?? []).count, 2) //there are two syllabus items in testCourse
         XCTAssertEqual(testCourse.totalCoursePoints, 60.0) //there are 60 points accounted for (60% of total grade)
         XCTAssertEqual(testCourse.goalGrade, 85.0) //goal grade has been set for the course
@@ -57,16 +66,16 @@ class CourseTests: XCTestCase {
     //test that the target grade is correctly calculated when 100% of final grade is accounted for by syllabus item weights, when no final grades have yet been given to any item
     func testTargetGrade_SufficientItems_NoFinalGrades() throws {
         //these four syllabus items' weights total 100% of final grade
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 1", weight: 20.0, finalGrade: nil) //worth 20% of final grade
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 1", weight: 20.0, finalGrade: nil, dueDate: Date()) //worth 20% of final grade
         XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
         
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 2", weight: 40.0, finalGrade: nil) //worth 40% of final grade
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 2", weight: 40.0, finalGrade: nil, dueDate: Date()) //worth 40% of final grade
         XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
         
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "quiz 1", weight: 15.0, finalGrade: nil) //worth 15% of final grade
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "quiz 1", weight: 15.0, finalGrade: nil, dueDate: Date()) //worth 15% of final grade
         XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
         
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "quiz 2", weight: 25.0, finalGrade: nil) //worth 25% of final grade
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "quiz 2", weight: 25.0, finalGrade: nil, dueDate: Date()) //worth 25% of final grade
         XCTAssertNotNil(testCourse.targetGrade) //targetGrade is now not nil; sufficient items
         
         XCTAssertEqual((testCourse.syllabusItems?.allObjects ?? []).count, 4) //there are four syllabus items
@@ -82,17 +91,17 @@ class CourseTests: XCTestCase {
     func testTargetGrade_SufficientItems_WithFinalGrades() throws {
         //these four syllabus items' weights total 100% of final grade
         //given 70% final grade
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 1", weight: 20.0, finalGrade: 70.0) //worth 20% of final grade
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 1", weight: 20.0, finalGrade: 70.0, dueDate: Date()) //worth 20% of final grade
         XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
         
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 2", weight: 40.0, finalGrade: nil) //worth 40% of final grade
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 2", weight: 40.0, finalGrade: nil, dueDate: Date()) //worth 40% of final grade
         XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
         
         //given 90% final grade
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "quiz 1", weight: 15.0, finalGrade: 90.0) //worth 15% of final grade
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "quiz 1", weight: 15.0, finalGrade: 90.0, dueDate: Date()) //worth 15% of final grade
         XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
         
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "quiz 2", weight: 25.0, finalGrade: nil) //worth 25% of final grade
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "quiz 2", weight: 25.0, finalGrade: nil, dueDate: Date()) //worth 25% of final grade
         XCTAssertNotNil(testCourse.targetGrade) //targetGrade is now not nil; sufficient items
         
         //preliminary
@@ -118,20 +127,20 @@ class CourseTests: XCTestCase {
         //these five syllabus items' weights total 110% of final grade -- one of the items is a "bonus" marks syllabus item
         //**** when a course has bonus items, original weights given to the main syllabus items shift slightly downwards to compensate
         //given 60% final grade
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 1", weight: 20.0, finalGrade: 60.0)
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 1", weight: 20.0, finalGrade: 60.0, dueDate: Date())
         XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
         
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 2", weight: 40.0, finalGrade: nil)
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 2", weight: 40.0, finalGrade: nil, dueDate: Date())
         XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
         
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "quiz 1", weight: 15.0, finalGrade: nil)
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "quiz 1", weight: 15.0, finalGrade: nil, dueDate: Date())
         XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
         //given 90% final grade
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "quiz 2", weight: 25.0, finalGrade: 90.0)
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "quiz 2", weight: 25.0, finalGrade: 90.0, dueDate: Date())
         XCTAssertNotNil(testCourse.targetGrade) //targetGrade is now not nil; sufficient items
         
         //the bonus 10%
-        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "bonus item", weight: 10.0, finalGrade: nil)
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "bonus item", weight: 10.0, finalGrade: nil, dueDate: Date())
         XCTAssertNotNil(testCourse.targetGrade) //targetGrade is not nil; sufficient items
         
         //preliminary

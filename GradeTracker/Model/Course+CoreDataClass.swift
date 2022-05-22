@@ -21,47 +21,43 @@ public class Course: NSManagedObject {
     
     /* -------------- COMPUTED VARIABLE(S)  --------------
      the target grade is re-computed whenever any syllabus item in the course's grade or weight is modified */
-    
-    //totalPointsAchieved is the percentage of the course's final grade that has been achieved (by syllabus items given a final grade)
-    var totalPointsAchieved: Double {
-        var totalPointsAchieved = 0.0
-        (syllabusItems?.allObjects as? [SyllabusItem] ?? []).forEach({
-            if $0.finalGrade > -1 { //if the item has a final grade
-                totalPointsAchieved += $0.percentageOfCourseGradeAchieved
-            }
-        })
-        return totalPointsAchieved
-    }
-    
+//    
+//    //totalPointsAchieved is the percentage of the course's final grade that has been achieved (by syllabus items given a final grade)
+//    private var totalPointsAchieved: Double {
+//        var totalPointsAchieved = 0.0
+//        (syllabusItems?.allObjects as? [SyllabusItem] ?? []).forEach({
+//            if $0.finalGrade > -1 { //if the item has a final grade
+//                totalPointsAchieved += $0.percentageOfCourseGradeAchieved
+//            }
+//        })
+//        return totalPointsAchieved
+//    }
+//    
     //totalPointsCompleted is the percentage of the course's syllabus items that have been given a final grade
     //this is different from totalPointsAchieved, as it only takes into account the weight of the syllabus items given a final grade, not their final grade itself.
     var totalPointsCompleted: Double {
+        var totalAchieved = 0.0
         var totalPointsCompleted = 0.0
         (syllabusItems?.allObjects as? [SyllabusItem] ?? []).forEach({
-            if $0.finalGrade > -1 { //if the item has a final grade
+            if $0.finalGrade != -1 { //if the item has a final grade
                 totalPointsCompleted += $0.weight
+                totalAchieved += ($0.finalGrade/100) * $0.worth
             }
         })
+        
+        //update total points achieved 
+        self.totalPointsAchieved += (totalAchieved - self.totalPointsAchieved) //add diff
         return totalPointsCompleted
     }
-    
-    //totalCoursePoints is the maximum amount of points or percentage that can be achieved (the sum of all syllabus item weights)
-    var totalCoursePoints: Double {
-        var totalPoints = 0.0
-        (syllabusItems?.allObjects as? [SyllabusItem] ?? []).forEach({
-            totalPoints += $0.weight
-        })
-        return totalPoints
-    }
-    
+   
     //totalPointsToAchieve returns the difference between the points achieved in the course and the goal grade, to be used in calculating the target grade for incomplete syllabus items
-    private var totalPointsToAchieve: Double {
+    var totalPointsToAchieve: Double {
         return goalGrade - totalPointsAchieved
     }
     
     //totalPointsLeftToComplete is the difference between the total course points and the percentage that has been graded
     //in other words, the portion of the course left to complete/be graded
-    private var totalPointsLeftToComplete: Double {
+    var totalPointsLeftToComplete: Double {
         return totalCoursePoints - totalPointsCompleted
     }
     

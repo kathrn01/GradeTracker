@@ -8,8 +8,15 @@
 import SwiftUI
 
 struct SyllabusItemView: View {
-    var syllItem: SyllabusItem
+    @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
+    @ObservedObject var course: Course
+    @ObservedObject var syllItem: SyllabusItem
     @State var displayEditSyllabusItem = false
+    
+    init(syllItem: SyllabusItem) {
+        self.syllItem = syllItem
+        self.course = syllItem.course ?? Course()
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -33,7 +40,7 @@ struct SyllabusItemView: View {
             } else {
                 Text("Grade achieved: \(String(format: "%.01f", syllItem.finalGrade))%")
                     .font(.callout)
-                Text("With the mark for this item, you have added \(String(format: "%.01f", syllItem.percentageOfCourseGradeAchieved))% towards your final grade in the course.")
+                Text("With the grade achieved for this item, you have added \(String(format: "%.01f", syllItem.percentageOfCourseGradeAchieved))% towards your final grade in the course.")
                     .font(.footnote)
                     .foregroundColor(.gray)
             }
@@ -44,6 +51,7 @@ struct SyllabusItemView: View {
         .sheet(isPresented: $displayEditSyllabusItem) {
             NavigationView {
                 EditSyllabusItemView(syllabusItem: syllItem, displayEditSyllabusItem: $displayEditSyllabusItem)
+                    .environment(\.managedObjectContext, viewContext)
             }
         }
     }

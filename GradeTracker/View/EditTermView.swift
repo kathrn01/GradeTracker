@@ -37,8 +37,8 @@ struct EditTermView: View {
                     Text("Term Title: ")
                     TextField(termTitle, text: $termTitle)
                 }
-                DatePicker("Start Date", selection: $startDate)
-                DatePicker("End Date", selection: $endDate, in: PartialRangeFrom(startDate))
+                DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
+                DatePicker("End Date", selection: $endDate, in: PartialRangeFrom(startDate), displayedComponents: .date)
                 ColorPicker("Change Marker Colour", selection: $chosenColour)
             }
             .listStyle(InsetGroupedListStyle())
@@ -66,8 +66,8 @@ struct EditTermView: View {
         }), trailing: Button("Save Changes", action: {
             do {
                 try term.setTitle(termTitle)
-                try term.setStartDate(startDate)
-                try term.setEndDate(endDate)
+                term.startDate = startDate
+                term.endDate = endDate
                 //set the marker colour based on the new RGB components of the new chosen colour
                 term.setMarkerColour(viewContext: viewContext, red: Double((chosenColour.cgColor?.components![0])!), green: Double((chosenColour.cgColor?.components![1])!), blue: Double((chosenColour.cgColor?.components![2])!))
                 try viewContext.save()

@@ -22,8 +22,8 @@ struct AddTermView: View {
             Section(header: Text("Term Info")) {
                 //in this section the user can add properties to the new course
                 TextField("Term Title", text: $termName)
-                DatePicker("Start Date", selection: $startDate)
-                DatePicker("End Date", selection: $endDate, in: PartialRangeFrom(startDate))
+                DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
+                DatePicker("End Date", selection: $endDate, in: PartialRangeFrom(startDate), displayedComponents: .date)
                 ColorPicker("Choose A Colour", selection: $chosenColour)
             }
             .textFieldStyle(RoundedBorderTextFieldStyle())

@@ -35,7 +35,7 @@ struct TermView: View {
                     ForEach(courses) { course in
                         //user can select the course to navigate to it's course page which will show syllabus items and target grades
                         NavigationLink(
-                            destination: CourseView(course: course),
+                            destination: CourseView(course: course).environment(\.managedObjectContext, viewContext),
                             label: {
                                 HStack {
                                     Text(course.courseTitle ?? "Unnamed Course")
@@ -64,11 +64,13 @@ struct TermView: View {
         .sheet(isPresented: $showEditTermWindow, content: {
             NavigationView {
                 EditTermView(term: term, showEditTermWindow: $showEditTermWindow)
+                    .environment(\.managedObjectContext, viewContext)
             }
         })
         .sheet(isPresented: $displayAddCourse, content: { //this sheet will be presented if the user selects "Add Course"
             NavigationView {
                 AddCourseView(displayAddCourse: $displayAddCourse, term: term)
+                    .environment(\.managedObjectContext, viewContext)
             }
         })
     }

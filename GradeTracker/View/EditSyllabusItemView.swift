@@ -27,8 +27,10 @@ struct EditSyllabusItemView: View {
         self._displayEditSyllabusItem = displayEditSyllabusItem
         self._itemTitle = State(initialValue: syllabusItem.itemTitle ?? "New Item Title")
         self._itemWeight = State(initialValue: String(syllabusItem.weight))
-        self._itemFinalGrade = State(initialValue: String(syllabusItem.finalGrade))
-        self._itemDueDate = State(initialValue: syllabusItem.dueDate!)
+        if syllabusItem.finalGrade >= 0 {
+            self._itemFinalGrade = State(initialValue: String(syllabusItem.finalGrade))
+        } else { self._itemFinalGrade = State(initialValue: "")}
+        self._itemDueDate = State(initialValue: syllabusItem.dueDate ?? Date())
     }
     var body: some View {
         VStack {
@@ -76,9 +78,10 @@ struct EditSyllabusItemView: View {
                 try syllabusItem.setTitle(itemTitle)
                 try syllabusItem.setWeight(Double(itemWeight) ?? 0)
                 try syllabusItem.setFinalGrade(Double(itemFinalGrade) ?? 0)
+                try syllabusItem.setDueDate(itemDueDate)
                 try viewContext.save()
             } catch {
-                print("Couldn't change the course's title or goal grade.")
+                print("Couldn't change the syllabus item's attributes.")
             }
             displayEditSyllabusItem = false
         }))
