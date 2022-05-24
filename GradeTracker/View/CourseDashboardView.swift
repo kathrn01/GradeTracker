@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CourseDashboardView: View {
     @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
-    var course: Course //the course whos dashboard to display -- passed in from CourseView
+    @ObservedObject var course: Course //the course whos dashboard to display -- passed in from CourseView
     @State var displayEditWindow = false
     
     var body: some View {
@@ -40,19 +40,20 @@ struct CourseDashboardView: View {
                 //message above progress display
                 if course.totalPointsAchieved < course.goalGrade { //if user has not achieved goal grade
                     Text("You have achieved \(String(format: "%.01f", course.totalPointsAchieved))% towards your goal grade.")
-                        .font(.callout)
+                        .lineLimit(nil)
+                        .font(.footnote)
                 } else if course.totalPointsAchieved == course.goalGrade { //if user has achieved exact goal grade
                     Text("Congratulations, you've achieved your goal grade!")
-                        .font(.callout)
+                        .font(.footnote)
                 } else { //if user has surpassed goal grade
                     Text("Good work! You've surpassed your goal grade.")
-                        .font(.callout)
+                        .font(.footnote)
                 }
                 
                 //view progress bar in same colour as the term marker colour
                 ProgressView(value: totalPointsDisplay, total:  goalToDisplay)
-                    .accentColor(Color(red: course.term?.markerColor?.red ?? 0, green: course.term?.markerColor?.green ?? 0, blue: course.term?.markerColor?.blue ?? 0))
-                    .scaleEffect(x: 1, y: 4, anchor: .center)
+                .accentColor(Color(red: course.term?.markerColor?.red ?? 0, green: course.term?.markerColor?.green ?? 0, blue: course.term?.markerColor?.blue ?? 0))
+                .scaleEffect(x: 1, y: 4, anchor: .center)
             }
         }
         .padding()

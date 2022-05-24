@@ -25,7 +25,7 @@ struct SyllabusItemView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20.0)
-                .foregroundColor(Color(red: 0.83, green: 0.83, blue: 0.83))
+                .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9))
             VStack(alignment: .leading) {
                 HStack { //display syllabus item's title and percentage of final grade it's worth
                     Text(syllItem.itemTitle ?? "Unnamed Syllabus Item")
@@ -34,7 +34,7 @@ struct SyllabusItemView: View {
                     Text("Weight: \(String(format: "%.01f", syllItem.weight))%")
                         .font(.footnote)
                         .foregroundColor(.blue)
-                }.padding(.bottom)
+                }
                 
                 if syllItem.finalGrade == -1 { //if no final grade has yet been added for this item, display a target grade OR display not enough data message
                     if syllItem.course?.targetGrade != nil { //if the target grade is not nil, the user has entered at least 100% worth of the final grade in syllabus items

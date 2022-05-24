@@ -27,13 +27,14 @@ struct CourseView: View {
         VStack{
             //display the course "dashboard" at the top: has stats, progress bar, edit button
             CourseDashboardView(course: course)
-                .aspectRatio(3/1, contentMode: .fit)
+                .aspectRatio(5/1, contentMode: .fit)
             
             //cannot calculate target grade for syllabus items if the weights of existing syllabus items do not add up to 100 or more
             if !(course.syllabusItems?.allObjects.isEmpty ?? true) {
                 if course.targetGrade == nil {
                     Text("Not enough data to calculate target grades. The weight of all syllabus items must total 100% or more.")
                         .font(.footnote)
+                        .padding(.horizontal)
                 }
             }
             
