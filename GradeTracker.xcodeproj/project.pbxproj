@@ -29,6 +29,7 @@
 		898B16FE273EDE71005B02A8 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898B16FD273EDE71005B02A8 /* Persistence.swift */; };
 		898B1701273EDE71005B02A8 /* GradeTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 898B16FF273EDE71005B02A8 /* GradeTracker.xcdatamodeld */; };
 		898B1709273EDFA7005B02A8 /* TermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898B1708273EDFA7005B02A8 /* TermView.swift */; };
+		89FCC6B2283D9A0C001D649C /* CourseDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FCC6B1283D9A0C001D649C /* CourseDashboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		898B1700273EDE71005B02A8 /* GradeTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GradeTracker.xcdatamodel; sourceTree = "<group>"; };
 		898B1702273EDE71005B02A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		898B1708273EDFA7005B02A8 /* TermView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermView.swift; sourceTree = "<group>"; };
+		89FCC6B1283D9A0C001D649C /* CourseDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDashboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				897C5FDB283872EA004346BD /* EditTermView.swift */,
 				897C5FDD283872F9004346BD /* AddCourseView.swift */,
 				890F66E72832D7AF0098E5B6 /* CourseView.swift */,
+				89FCC6B1283D9A0C001D649C /* CourseDashboardView.swift */,
 				8929CB72283955D4004F8000 /* EditCourseView.swift */,
 				8929CB7428395807004F8000 /* AddSyllabusItemView.swift */,
 				8929CB762839687F004F8000 /* SyllabusItemView.swift */,
@@ -296,6 +299,7 @@
 			files = (
 				898B1701273EDE71005B02A8 /* GradeTracker.xcdatamodeld in Sources */,
 				897C5FDE283872F9004346BD /* AddCourseView.swift in Sources */,
+				89FCC6B2283D9A0C001D649C /* CourseDashboardView.swift in Sources */,
 				898B16FE273EDE71005B02A8 /* Persistence.swift in Sources */,
 				89779CD02830482C001DF1A4 /* Course+CoreDataClass.swift in Sources */,
 				8929CB772839687F004F8000 /* SyllabusItemView.swift in Sources */,

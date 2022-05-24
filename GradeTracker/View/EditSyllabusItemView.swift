@@ -47,12 +47,12 @@ struct EditSyllabusItemView: View {
                     Text("Item Weight (Percentage): ")
                     TextField(itemWeight, text: $itemWeight)
                 }
+                //allows user to modify the due date from the current one (if any assigned)
+                DatePicker("Due Date:", selection: $itemDueDate, in: closedRangeDueDate)
                 HStack{ //display current goal grade for user to modify
                     Text("Item Grade (Percentage): ")
                     TextField(itemFinalGrade, text: $itemFinalGrade)
                 }
-                //allows user to modify the due date from the current one (if any assigned)
-                DatePicker("Item Due Date:", selection: $itemDueDate, in: closedRangeDueDate)
             }
             .listStyle(InsetGroupedListStyle())
             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -65,11 +65,10 @@ struct EditSyllabusItemView: View {
                 Text("Delete Item").foregroundColor(.red).bold()
             }).padding()
             .alert(isPresented: $showDeleteSIConfirmation, content: { //this alert will pop up if the user selects "Delete Syllabus Item" from the edit window
-                Alert(title: Text("Delete Syllabus Item"), message: Text("Are you sure you would like to delete course \(syllabusItem.itemTitle!) and all it's data permanently?"), primaryButton: .cancel(Text("Cancel"), action: { showDeleteSIConfirmation = false }),
+                Alert(title: Text("Delete Syllabus Item"), message: Text("Are you sure you would like to delete \(syllabusItem.itemTitle!) and all it's data permanently?"), primaryButton: .cancel(Text("Cancel"), action: { showDeleteSIConfirmation = false }),
                       secondaryButton: .destructive(Text("Delete Item"), action: {
                         displayEditSyllabusItem = false
                         syllabusItem.course?.removeSyllabusItem(syllabusItem)
-                        viewContext.delete(syllabusItem)
                         do { try viewContext.save() } catch { print("Couldn't save item deletion in persistent storage.") }
                 }))
             })
@@ -81,7 +80,7 @@ struct EditSyllabusItemView: View {
             do {
                 try syllabusItem.setTitle(itemTitle)
                 try syllabusItem.setWeight(Double(itemWeight) ?? 0)
-                try syllabusItem.setFinalGrade(Double(itemFinalGrade) ?? 0)
+                try syllabusItem.setFinalGrade(Double(itemFinalGrade) ?? -1)
                 try syllabusItem.setDueDate(itemDueDate)
                 try viewContext.save()
             } catch {

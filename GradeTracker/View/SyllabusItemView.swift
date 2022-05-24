@@ -23,33 +23,39 @@ struct SyllabusItemView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack { //display syllabus item's title and percentage of final grade it's worth
-                Text(syllItem.itemTitle ?? "Unnamed Syllabus Item")
-                    .font(.title3)
-                Spacer()
-                Text("Worth: \(String(format: "%.01f", syllItem.weight))% of final grade.")
-                    .font(.footnote)
-                    .foregroundColor(.blue)
-            }
-            .padding(.bottom)
-            if syllItem.finalGrade == -1 { //if no final grade has yet been added for this item, display a target grade OR display not enough data message
-                if syllItem.course?.targetGrade != nil { //if the target grade is not nil, the user has entered at least 100% worth of the final grade in syllabus items
-                    //display the target grade
-                    Text("Target: \(String(format: "%.01f", syllItem.course?.targetGrade ?? 0.0))%")
+        ZStack {
+            RoundedRectangle(cornerRadius: 20.0)
+                .foregroundColor(Color(red: 0.83, green: 0.83, blue: 0.83))
+            VStack(alignment: .leading) {
+                HStack { //display syllabus item's title and percentage of final grade it's worth
+                    Text(syllItem.itemTitle ?? "Unnamed Syllabus Item")
+                        .font(.title3)
+                    Spacer()
+                    Text("Weight: \(String(format: "%.01f", syllItem.weight))%")
+                        .font(.footnote)
+                        .foregroundColor(.blue)
+                }.padding(.bottom)
+                
+                if syllItem.finalGrade == -1 { //if no final grade has yet been added for this item, display a target grade OR display not enough data message
+                    if syllItem.course?.targetGrade != nil { //if the target grade is not nil, the user has entered at least 100% worth of the final grade in syllabus items
+                        //display the target grade
+                        Text("Target Grade: \(String(format: "%.01f", syllItem.course?.targetGrade ?? 0.0))%")
+                            .font(.callout)
+                    } else { //the sum of weights of the syllabus items added do not make up 100% of the grade. So the target cannot be calculated.
+                        Text("Target Grade: Not enough data.")
+                            .font(.callout)
+                    }
+                } else { //if a final grade HAS been added for this item, display it, as well as the amount towards the final grade in the course that the user has achieved from this item
+                    Text("Grade achieved: \(String(format: "%.01f", syllItem.finalGrade))%")
                         .font(.callout)
-                } else { //the sum of weights of the syllabus items added do not make up 100% of the grade. So the target cannot be calculated.
-                    Text("Target: Not enough data.")
-                        .font(.callout)
+                    Text("Achieved \(String(format: "%.01f", syllItem.percentageOfCourseGradeAchieved))% out of possible \(String(format: "%.01f", syllItem.weight))% for this item.")
+                        .font(.footnote)
+                    ProgressView(value: syllItem.percentageOfCourseGradeAchieved, total: syllItem.weight)
+                        .accentColor(.blue)
                 }
-            } else { //if a final grade HAS been added for this item, display it, as well as the amount towards the final grade in the course that the user has achieved from this item
-                Text("Grade achieved: \(String(format: "%.01f", syllItem.finalGrade))%")
-                    .font(.callout)
-                Text("With the grade achieved for this item, you have added \(String(format: "%.01f", syllItem.percentageOfCourseGradeAchieved))% towards your final grade in the course.")
-                    .font(.footnote)
-                    .foregroundColor(.gray)
-            }
-        }
+            }.padding()
+        }.padding(.horizontal)
+        .lineLimit(3)
         .onTapGesture { //the user only has to tap the syllabus item to edit it
             displayEditSyllabusItem = true
         }

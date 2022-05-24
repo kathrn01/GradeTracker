@@ -26,9 +26,8 @@ struct HomePageView: View {
                     //all terms added by the user will appear as a list under the title
                     ForEach(terms) { term in
                         //click on a term to go to the view for that term and view/add/delete it's courses
-                        NavigationLink(destination: TermView(term: term)) {
+                        NavigationLink(destination: TermView(term: term).environment(\.managedObjectContext, viewContext)){
                             TermListItemView(term: term)
-                                .environment(\.managedObjectContext, viewContext)
                         }
                         .aspectRatio(4/1, contentMode: .fit)
                     }
@@ -47,6 +46,7 @@ struct HomePageView: View {
             .navigationTitle(Text("Terms"))
             .navigationBarItems(leading: Image(systemName: "info.circle").foregroundColor(.blue))
         }//NavigationView
+        .navigationViewStyle(StackNavigationViewStyle())
         //this sheet will present when the user selects "add term"
         .sheet(isPresented: $displayAddTerm, content: {
             NavigationView {
