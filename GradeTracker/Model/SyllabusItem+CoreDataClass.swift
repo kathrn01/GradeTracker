@@ -66,4 +66,9 @@ public class SyllabusItem: NSManagedObject {
             self.finalGrade = grade
         } else { throw InvalidPropertySetter.negativeValue }
     }
+    
+    //removes the final grade if one was previously added
+    func removeFinalGrade() {
+        self.finalGrade = -1 
+    }
 }

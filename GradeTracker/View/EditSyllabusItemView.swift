@@ -51,7 +51,15 @@ struct EditSyllabusItemView: View {
                 DatePicker("Due Date:", selection: $itemDueDate, in: closedRangeDueDate)
                 HStack{ //display current goal grade for user to modify
                     Text("Item Grade (Percentage): ")
-                    TextField(itemFinalGrade, text: $itemFinalGrade)
+                    HStack {
+                        TextField(itemFinalGrade, text: $itemFinalGrade)
+                        Spacer()
+                        Button(action: { itemFinalGrade = "" }, label: {
+                            Text("Remove Grade")
+                                .font(.footnote)
+                                .foregroundColor(.red)
+                        })
+                    }
                 }
             }
             .listStyle(InsetGroupedListStyle())
@@ -80,7 +88,7 @@ struct EditSyllabusItemView: View {
             do {
                 try syllabusItem.setTitle(itemTitle)
                 try syllabusItem.setWeight(Double(itemWeight) ?? 0)
-                try syllabusItem.setFinalGrade(Double(itemFinalGrade) ?? -1)
+                if Double(itemFinalGrade) != nil { try syllabusItem.setFinalGrade(Double(itemFinalGrade)!)} else { syllabusItem.removeFinalGrade() }
                 try syllabusItem.setDueDate(itemDueDate)
                 try viewContext.save()
             } catch {

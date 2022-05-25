@@ -29,7 +29,7 @@ public class Course: NSManagedObject {
         (syllabusItems?.allObjects as? [SyllabusItem] ?? []).forEach({
             if $0.finalGrade != -1 { //if the item has a final grade
                 totalPointsCompleted += $0.weight
-                totalAchieved += ($0.finalGrade/100) * $0.worth
+                totalAchieved += ($0.finalGrade/100) * $0.weight
             }
         })
         
