@@ -25,7 +25,7 @@ struct SyllabusItemView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20.0)
-                .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9))
+                .foregroundColor(Color(red: 0.8, green: 0.8, blue: 0.8))
             VStack(alignment: .leading) {
                 HStack { //display syllabus item's title and percentage of final grade it's worth
                     Text(syllItem.itemTitle ?? "Unnamed Syllabus Item")

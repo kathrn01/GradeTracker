@@ -29,26 +29,33 @@ struct TermView: View {
     var body: some View {
         //list of courses in this term
         VStack {
+            //term title and edit button
+            HStack {
+                Text(term.termTitle ?? "Unnamed Term")
+                    .font(.title)
+                Spacer()
+                Button(action: { showEditTermWindow = true }, label: {
+                    Image(systemName: "info.circle")
+                        .font(.title2)
+                        .foregroundColor(.blue)
+                })
+            }.padding()
+            
+            //display courses in this term
             List {
-                //this list will display all courses that have been added to the term
-                Section(header: Text("Courses in term \(term.termTitle ?? "Unnamed Term")")) {
-                    ForEach(courses) { course in
-                        //user can select the course to navigate to it's course page which will show syllabus items and target grades
-                        NavigationLink(
-                            destination: CourseView(course: course)
-                                .environment(\.managedObjectContext, viewContext),
-                            label: {
-                                HStack {
-                                    Text(course.courseTitle ?? "Unnamed Course")
-                                    Spacer()
-                                    Text("Goal Grade: %\(String(format: "%.01f", course.goalGrade))")
-                                        .foregroundColor(.gray)
-                                }
-                        }).navigationViewStyle(StackNavigationViewStyle())
-                    }
-                } //section
-            } //list
-            .listStyle(InsetGroupedListStyle())
+                ForEach(courses) { course in
+                    //user can select the course to navigate to it's course page which will show syllabus items and target grades
+                    NavigationLink(
+                        destination: CourseView(course: course)
+                            .environment(\.managedObjectContext, viewContext),
+                        label: {
+                            CourseListItemView(course: course, textColour: textColour)
+                        })
+                        .aspectRatio(4/1, contentMode: .fit)
+                        .navigationViewStyle(StackNavigationViewStyle())
+                }
+            }//list
+            .listStyle(DefaultListStyle())
             //the button to add a new course to the term
             Button(action: {
                     displayAddCourse = true
@@ -59,8 +66,8 @@ struct TermView: View {
             }
             .padding()
         } //vstack
-        .navigationTitle(Text(term.termTitle ?? "Unnamed Term"))
-        .navigationBarItems(trailing: Button(action: { showEditTermWindow = true }, label: { Text("Edit Term") }))
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(term.termTitle ?? "Unnamed Term")
         .sheet(isPresented: $showEditTermWindow, content: { //the view that will pop up as a sheet if the user selects "Edit Term"
             NavigationView {
                 EditTermView(term: term, showEditTermWindow: $showEditTermWindow)
