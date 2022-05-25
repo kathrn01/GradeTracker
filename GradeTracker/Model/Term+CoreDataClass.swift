@@ -65,5 +65,5 @@ public class Term: NSManagedObject {
     
     //TODO
     /* -------------- GOAL GPA LOGIC  --------------
-    When the user sets a goal GPA, the goal grade for each course in the term (and it's syllabus items) is adjusted automaticaly*/
+    When the user sets a goal GPA, the goal grade for each course in the term (and it's syllabus items) is adjusted automatically*/
 }
