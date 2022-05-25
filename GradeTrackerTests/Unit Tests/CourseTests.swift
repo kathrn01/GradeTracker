@@ -127,7 +127,39 @@ class CourseTests: XCTestCase {
     
     //test target grade when bonus syllabus items are added to the course (all items together make up OVER 100% of final grade), and NONE of the items have been assigned grades
     func testTargetGrade_BonusItems_NoneGraded() throws {
+        //these five syllabus items' weights total 110% of final grade -- one of the items is a "bonus" marks syllabus item
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 1", weight: 20.0, finalGrade: nil, dueDate: Date())
+        XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
         
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 2", weight: 40.0, finalGrade: nil, dueDate: Date())
+        XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
+        
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "quiz 1", weight: 15.0, finalGrade: nil, dueDate: Date())
+        XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
+
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "quiz 2", weight: 25.0, finalGrade: nil, dueDate: Date())
+        XCTAssertNotNil(testCourse.targetGrade) //targetGrade is now not nil; sufficient items
+        
+        //the bonus 10%
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "bonus item", weight: 10.0, finalGrade: nil, dueDate: Date())
+        XCTAssertNotNil(testCourse.targetGrade) //targetGrade is not nil; sufficient items
+        
+        //preliminary
+        XCTAssertEqual((testCourse.syllabusItems?.allObjects ?? []).count, 5) //there are five syllabus items
+        XCTAssertEqual(testCourse.totalCoursePoints, 110.0) //the syllabus items make up the full final grade PLUS 10 bonus percent
+        XCTAssertEqual(testCourse.totalPointsCompleted, 0) //since none are graded, there have been no points completed
+        XCTAssertEqual(testCourse.totalPointsAchieved, 0)
+        XCTAssertEqual(testCourse.goalGrade, 85.0) //the goal grade is set
+        
+        //the correct target grade should be calculated as the goal grade minus points achieved,  divided by the remaining points in the course to be accounted for (the total percent of syllabus items not yet graded/completed)
+        let pointsToAchieveForGoal =  testCourse.goalGrade - testCourse.totalPointsAchieved //85 - 0 = 85
+        let pointsLeftToComplete = testCourse.totalCoursePoints - testCourse.totalPointsCompleted //110 - 0 = 110
+        let correctTargetGrade = (pointsToAchieveForGoal/pointsLeftToComplete) * 100 //85/110 = 0.773 * 100 = 77.3 %
+        
+        /* notice that the correct target grade here is lower than the goal grade, even though no items have yet been graded ...
+         this is because of the bonus item. With the bonus item, the number of points that need to be achieved to meet the goal grade are spread accross more syllabus items (110% rather than 100%) and so lowers the target grade for each item.
+         This is with the assumption that the student will complete the bonus item. */
+        XCTAssertEqual(testCourse.targetGrade, correctTargetGrade) //computes the correct target grade for remaining syllabus items
     }
     
     //test target grade when bonus syllabus items are added to the course (all items together make up OVER 100% of final grade), and some of the items have been assigned grades
