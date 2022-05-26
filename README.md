@@ -22,21 +22,25 @@ Model contains the logic and Core Data files, while View contains UI files. View
 #### The user may add a term name, start and end dates, and choose a marker colour.
 The terms will display in a list on the main page, with the most recent start date at the top (they are ordered from most to least recent start date).
 The user can edit these attributes in the term's main page, which is accessed by selecting the term from the main page.
+
 https://user-images.githubusercontent.com/84199502/170405263-f2bba701-ca9e-4cad-8ecc-a15996e9fd99.mov
 
 ### Adding A Course To A Term
 #### The user may add a course name and a goal grade.
 These attributes can be edited in the course's main page, which is accessed by selecting the course from the term's page.
+
 https://user-images.githubusercontent.com/84199502/170411504-cd6474ad-6e9c-4af8-a90b-f214fb02ecab.mov
 
 ### Adding A Syllabus Item To A Course
 #### The user may add a syllabus item name, it's weight (percentage of the course it's worth), it's due date and time, and optionally a final grade (this can be added later)
 These attributes can be edited by selecting the syllabus item when it's displayed on the course page.
 #### NOTE: The target grade for syllabus items will not be displayed until the sum of weights total 100% or more. In other words, until all syllabus items are added. See demo video below (adding final grade to syllabus item) to view how the target grade is displayed once all syllabus items are added.
+
 https://user-images.githubusercontent.com/84199502/170411831-bd585d9f-c1cf-42e4-95da-8018e28e6609.mov
 
 ### Adding Final Grade To Syllabus Item
 #### If the Syllabus Item was added without an initial grade, one can be added by selecting the item in the list. Once the final grade is added for that item, it's display will change to show a progress bar and the percentage achieved, and the target grade will adjust accordingly for subsequent un-marked syllabus items. 
+
 https://user-images.githubusercontent.com/84199502/170412142-9f9d0638-2e8f-4c2b-9d75-0796980af9e7.mov
 
 ## Testing
