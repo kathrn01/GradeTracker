@@ -21,6 +21,9 @@ What you need to use the software.
 The terms will display in a list on the main page, with the most recent start date at the top (they are ordered from most to least recent start date).
 The user can edit these attributes in the term's main page, which is accessed by selecting the term from the main page.
 
+https://user-images.githubusercontent.com/84199502/170405263-f2bba701-ca9e-4cad-8ecc-a15996e9fd99.mov
+
+
 ## Features
 
 ## Testing
