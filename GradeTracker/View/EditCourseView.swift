@@ -39,6 +39,7 @@ struct EditCourseView: View {
                 HStack{ //display current goal grade for user to modify
                     Text("Goal Grade (Percentage): ")
                     TextField(goalGrade, text: $goalGrade)
+                        .keyboardType(.decimalPad)
                 }
             }
             .listStyle(InsetGroupedListStyle())
@@ -52,7 +53,7 @@ struct EditCourseView: View {
                 Text("Delete Course").foregroundColor(.red).bold()
             }).padding()
             .alert(isPresented: $showDeleteCourseConfirmation, content: { //this alert will pop up if the user selects "Delete Course" from the edit window
-                Alert(title: Text("Delete Course"), message: Text("Are you sure you would like to delete course \(course.courseTitle!) and all it's data permanently?"), primaryButton: .cancel(Text("Cancel"), action: { showDeleteCourseConfirmation = false }),
+                Alert(title: Text("Delete Course"), message: Text("Are you sure you would like to delete course \(course.courseTitle ?? "Unnamed Course") and all it's data permanently?"), primaryButton: .cancel(Text("Cancel"), action: { showDeleteCourseConfirmation = false }),
                       secondaryButton: .destructive(Text("Delete Course"), action: {
                         displayEditCourse = false
                         viewContext.delete(course)

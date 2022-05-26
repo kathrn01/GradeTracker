@@ -46,6 +46,7 @@ struct EditSyllabusItemView: View {
                 HStack{ //display current goal grade for user to modify
                     Text("Item Weight (Percentage): ")
                     TextField(itemWeight, text: $itemWeight)
+                        .keyboardType(.decimalPad)
                 }
                 //allows user to modify the due date from the current one (if any assigned)
                 DatePicker("Due Date:", selection: $itemDueDate, in: closedRangeDueDate)
@@ -53,6 +54,7 @@ struct EditSyllabusItemView: View {
                     Text("Item Grade (Percentage): ")
                     HStack {
                         TextField(itemFinalGrade, text: $itemFinalGrade)
+                            .keyboardType(.decimalPad)
                         Spacer()
                         Button(action: { itemFinalGrade = "" }, label: {
                             Text("Remove Grade")
