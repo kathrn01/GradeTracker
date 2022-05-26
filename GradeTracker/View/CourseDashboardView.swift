@@ -38,11 +38,11 @@ struct CourseDashboardView: View {
             //can only display progress view if all syllabus items (making up >= 100% of course) have been entered
             if course.targetGrade != nil {
                 //message above progress display
-                if course.totalPointsAchieved < course.goalGrade { //if user has not achieved goal grade
+                if (round(10 * course.totalPointsAchieved)/10) < course.goalGrade { //if user has not achieved goal grade
                     Text("You have achieved \(String(format: "%.01f", course.totalPointsAchieved))% towards your goal grade.")
                         .lineLimit(nil)
                         .font(.footnote)
-                } else if course.totalPointsAchieved == course.goalGrade { //if user has achieved exact goal grade
+                } else if (round(10 * course.totalPointsAchieved)/10) == course.goalGrade { //if user has achieved exact goal grade
                     Text("Congratulations, you've achieved your goal grade!")
                         .font(.footnote)
                 } else { //if user has surpassed goal grade

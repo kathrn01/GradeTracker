@@ -32,7 +32,7 @@ public class SyllabusItem: NSManagedObject {
     //if a final grade has been assigned to this syllabus item,
     //percentageOfCourseGradeAchieved returns the percentage of the final grade in the course achieved by the final grade on this syllabus item based on it's worth
     var percentageOfCourseGradeAchieved: Double {
-        if finalGrade != -1 { return worth * (finalGrade/100) }
+        if finalGrade != -1 { return weight * (finalGrade/100) }
         return 0
     }
     

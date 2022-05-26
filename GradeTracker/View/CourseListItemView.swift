@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct CourseListItemView: View {
+    @ObservedObject var term: Term //passed in so that this view will respond to changes to the term -- ie. markercolour
     var course: Course //passed in from TermView -- the course to be displayed
     var textColour: Color //passed in from TermView -- based on the term's marker colour, which colour the text should be for visibility
     

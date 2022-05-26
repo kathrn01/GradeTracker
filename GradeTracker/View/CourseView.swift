@@ -36,6 +36,8 @@ struct CourseView: View {
                         .font(.footnote)
                         .padding(.horizontal)
                 }
+            } else {
+                Text("No syllabus items added yet.")
             }
             
             //display syllabus items for this course
@@ -56,6 +58,7 @@ struct CourseView: View {
             .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(course.courseTitle ?? "Unnamed Course")
         .sheet(isPresented: $displayAddSyllabusItem, content: { //this sheet will be presented if the user selects "Add Course"
             NavigationView {
                 AddSyllabusItemView(displayAddSyllabusItem: $displayAddSyllabusItem, course: course)

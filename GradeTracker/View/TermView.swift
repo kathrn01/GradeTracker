@@ -42,6 +42,9 @@ struct TermView: View {
             }.padding()
             
             //display courses in this term
+            if(term.courseList?.allObjects as? [Course] ?? []).isEmpty {
+                Text("No courses added yet.")
+            }
             List {
                 ForEach(courses) { course in
                     //user can select the course to navigate to it's course page which will show syllabus items and target grades
@@ -49,7 +52,7 @@ struct TermView: View {
                         destination: CourseView(course: course)
                             .environment(\.managedObjectContext, viewContext),
                         label: {
-                            CourseListItemView(course: course, textColour: textColour)
+                            CourseListItemView(term: term, course: course, textColour: textColour)
                         })
                         .aspectRatio(4/1, contentMode: .fit)
                         .navigationViewStyle(StackNavigationViewStyle())
