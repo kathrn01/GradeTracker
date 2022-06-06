@@ -51,4 +51,8 @@ struct PersistenceController {
             }
         })
     }
+    
+    func saveToPersistence() {
+        do { try container.viewContext.save() } catch { print("Could not save changes permanently.") }
+    }
 }

@@ -17,8 +17,8 @@ public class Term: NSManagedObject {
         try setTitle(title)
         self.startDate = start
         self.endDate = end
-        if currGPA != nil { try setCurrentGPA(currGPA!) }
-        if goalGPA != nil { try setGoalGPA (goalGPA!) }
+        self.currentGPA = currGPA ?? -1
+        self.goalGPA = goalGPA ?? -1
     }
     
     /* -------------- SETTERS  -------------- */
@@ -29,33 +29,17 @@ public class Term: NSManagedObject {
         else if newTitle.trimmingCharacters(in: .whitespaces).isEmpty { throw InvalidPropertySetter.titleWhitespaces }
     }
     
-    func setMarkerColour(viewContext: NSManagedObjectContext, red: Double?, green: Double?, blue: Double?) {
-        let markerColour = MarkerColour(context: viewContext)
+    func setMarkerColour(red: Double?, green: Double?, blue: Double?) {
+        let markerColour = MarkerColour()
         markerColour.red = red ?? 0
         markerColour.green = green ?? 0
         markerColour.blue = blue ?? 0
         self.markerColor = markerColour
     }
-   
-    /* -------------- NOT YET FUNCTIONAL --------------
-     These methods are not yet used in the app, and must be tested and improved in a future iteration where they will be used in app.
-     */
-    
-    func setCurrentGPA(_ currGPA: Double) throws {
-        if currGPA < 0.0 { throw InvalidPropertySetter.negativeValue }
-        self.currentGPA = currGPA
-    }
-    
-    //if a goal GPA is set, the user has chosen automatic course goal setting based on a goal gpa 
-    func setGoalGPA(_ goalGPA: Double) throws {
-        if goalGPA < 0.0 { throw InvalidPropertySetter.negativeValue }
-        self.goalGPA = goalGPA
-    }
-    
-    /* -------------- END OF NOT YET FUNCTIONAL  -------------- */
     
     /* -------------- ADD & REMOVE COURSES -------------- */
     func addCourse(viewContext: NSManagedObjectContext, title: String, creditHrs: Double?, goalGrade: Double?) throws {
+        //create course and add to list
         self.addToCourseList(try Course(viewContext: viewContext, title: title, creditHrs: creditHrs, goalGrade: goalGrade))
     }
     
@@ -63,7 +47,4 @@ public class Term: NSManagedObject {
         self.removeFromCourseList(course)
     }
     
-    //TODO
-    /* -------------- GOAL GPA LOGIC  --------------
-    When the user sets a goal GPA, the goal grade for each course in the term (and it's syllabus items) is adjusted automatically*/
 }

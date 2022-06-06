@@ -37,8 +37,8 @@ struct AddTermView: View {
             //add the new term with the data given by the user
             do {
                 let newTerm = try Term(viewContext: viewContext, title: termName, start: startDate, end: endDate, currGPA: nil, goalGPA: nil)
-                newTerm.setMarkerColour(viewContext: viewContext, red: Double((chosenColour.cgColor?.components![0])!), green: Double((chosenColour.cgColor?.components![1])!), blue: Double((chosenColour.cgColor?.components![2])!))
-                try viewContext.save()
+                //set the marker colour to the colour the user has chosen from the colour picker
+                newTerm.setMarkerColour(red: Double((chosenColour.cgColor?.components![0])!), green: Double((chosenColour.cgColor?.components![1])!), blue: Double((chosenColour.cgColor?.components![2])!))
             } catch {
                 print("could not add term")
             }
