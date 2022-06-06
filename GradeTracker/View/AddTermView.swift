@@ -35,8 +35,9 @@ struct AddTermView: View {
             resetUserInput()
         }), trailing: Button("Add Term", action: {
             //add the new term with the data given by the user
+            let chosenColourComponents = chosenColour.cgColor!.components  //gives rbg of default grey if components nil
             do {
-                _ = try Term(viewContext: viewContext, title: termName, start: startDate, end: endDate, currGPA: nil, goalGPA: nil, markerColour: chosenColour.cgColor?.components as? [Double] ?? [0.7,0.7,0.7]) //gives rbg of default grey if components nil
+                _ = try Term(viewContext: viewContext, title: termName, start: startDate, end: endDate, currGPA: nil, goalGPA: nil, markerColour: [Double(chosenColourComponents![0]), Double(chosenColourComponents![1]), Double(chosenColourComponents![2])])
             } catch {
                 print("could not add term")
             }

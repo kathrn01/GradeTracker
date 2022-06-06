@@ -53,7 +53,6 @@ struct AddSyllabusItemView: View {
             //add the course to the list of courses for the term
             do {
                 try course.addSyllabusItem(viewContext: viewContext, title: itemTitle, weight: Double(itemWeight) ?? 0.0, finalGrade: Double(itemFinalGrade), dueDate: itemDueDate)
-                try viewContext.save()
             } catch {
                 print("Could not add syllabus item to course.")
             }
