@@ -16,7 +16,7 @@ struct AddTermView: View {
     @State var termName = ""
     @State var startDate = Date()
     @State var endDate = Date()
-    @State var chosenColour = Color(red: 50, green: 50, blue: 50) //default grey
+    @State var chosenColour = Color(red: 0.7, green: 0.7, blue: 0.7) //default grey
     
     var body: some View {
         List {
@@ -36,9 +36,7 @@ struct AddTermView: View {
         }), trailing: Button("Add Term", action: {
             //add the new term with the data given by the user
             do {
-                let newTerm = try Term(viewContext: viewContext, title: termName, start: startDate, end: endDate, currGPA: nil, goalGPA: nil)
-                //set the marker colour to the colour the user has chosen from the colour picker
-                newTerm.setMarkerColour(red: Double((chosenColour.cgColor?.components![0])!), green: Double((chosenColour.cgColor?.components![1])!), blue: Double((chosenColour.cgColor?.components![2])!))
+                _ = try Term(viewContext: viewContext, title: termName, start: startDate, end: endDate, currGPA: nil, goalGPA: nil, markerColour: chosenColour.cgColor?.components as? [Double] ?? [0.7,0.7,0.7]) //gives rbg of default grey if components nil
             } catch {
                 print("could not add term")
             }
@@ -50,7 +48,7 @@ struct AddTermView: View {
     func resetUserInput() {
         displayAddTerm = false
         termName = ""
-        chosenColour = Color(red: 50, green: 50, blue: 50) //default grey
+        chosenColour = Color(red: 0.7, green: 0.7, blue: 0.7) //default grey
     }
 
 }

@@ -73,7 +73,7 @@ struct EditTermView: View {
                 term.startDate = startDate
                 term.endDate = endDate
                 //set the marker colour based on the new RGB components of the new chosen colour
-                term.setMarkerColour(viewContext: viewContext, red: Double((chosenColour.cgColor?.components![0])!), green: Double((chosenColour.cgColor?.components![1])!), blue: Double((chosenColour.cgColor?.components![2])!))
+                term.setMarkerColour(red: Double((chosenColour.cgColor?.components![0])!), green: Double((chosenColour.cgColor?.components![1])!), blue: Double((chosenColour.cgColor?.components![2])!))
                 try viewContext.save()
             } catch {
                 print("Couldn't change the term's attributes.")
