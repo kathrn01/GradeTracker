@@ -39,7 +39,6 @@ struct AddCourseView: View {
             //add the course to the list of courses for the term
             do {
                 try term.addCourse(viewContext: viewContext, title: newCourseName, creditHrs: nil, goalGrade: Double(newCourseGoalGrade))
-                try viewContext.save()
             } catch {
                 print("Could not add course to term.")
             }

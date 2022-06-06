@@ -59,22 +59,21 @@ struct EditTermView: View {
                 Alert(title: Text("Delete Term"), message: Text("Are you sure you would like to delete term \(term.termTitle!) and all it's data permanently?"), primaryButton: .cancel(Text("Cancel"), action: { showDeleteTermConfirmation = false }),
                       secondaryButton: .destructive(Text("Delete Term"), action: {
                         showEditTermWindow = false
-                    viewContext.delete(term)
-                    do { try viewContext.save() } catch { print("Couldn't save term deletion in persistent storage.") }
+                        viewContext.delete(term)
+                        do { try viewContext.save() } catch { print("Couldn't save term deletion in persistent storage.") }
                 }))
             })
         }
         .navigationTitle("Edit Term")
         .navigationBarItems(leading: Button("Cancel", action: {
             resetUserInput()
-        }), trailing: Button("Save Changes", action: { //save changes to persistence
+        }), trailing: Button("Save Changes", action: { //set attributes to new user input
             do {
                 try term.setTitle(termTitle)
                 term.startDate = startDate
                 term.endDate = endDate
                 //set the marker colour based on the new RGB components of the new chosen colour
                 term.setMarkerColour(red: Double((chosenColour.cgColor?.components![0])!), green: Double((chosenColour.cgColor?.components![1])!), blue: Double((chosenColour.cgColor?.components![2])!))
-                try viewContext.save()
             } catch {
                 print("Couldn't change the term's attributes.")
             }

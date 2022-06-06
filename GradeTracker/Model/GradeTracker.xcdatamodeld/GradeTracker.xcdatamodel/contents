@@ -7,6 +7,7 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="totalCoursePoints" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="totalPointsAchieved" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="totalPointsCompleted" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="syllabusItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SyllabusItem" inverseName="course" inverseEntity="SyllabusItem"/>
         <relationship name="term" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Term" inverseName="courseList" inverseEntity="Term"/>
     </entity>
@@ -35,7 +36,7 @@
         <relationship name="markerColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MarkerColour" inverseName="term" inverseEntity="MarkerColour"/>
     </entity>
     <elements>
-        <element name="Course" positionX="-854.154296875" positionY="-90.2491455078125" width="128" height="149"/>
+        <element name="Course" positionX="-854.154296875" positionY="-90.2491455078125" width="128" height="164"/>
         <element name="MarkerColour" positionX="-756" positionY="-135" width="128" height="89"/>
         <element name="SyllabusItem" positionX="-665.99169921875" positionY="80.45318603515625" width="128" height="119"/>
         <element name="Term" positionX="-812.522216796875" positionY="-293.2334747314453" width="128" height="149"/>

@@ -91,7 +91,7 @@ struct EditSyllabusItemView: View {
                 try syllabusItem.setTitle(itemTitle)
                 try syllabusItem.setWeight(Double(itemWeight) ?? 0)
                 if Double(itemFinalGrade) != nil { try syllabusItem.setFinalGrade(Double(itemFinalGrade)!)} else { syllabusItem.removeFinalGrade() }
-                try syllabusItem.setDueDate(itemDueDate)
+                syllabusItem.setDueDate(itemDueDate)
                 try viewContext.save()
             } catch {
                 print("Couldn't change the syllabus item's attributes.")

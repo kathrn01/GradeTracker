@@ -22,7 +22,7 @@ class CourseTests: XCTestCase {
         var dateComponent = DateComponents()
         dateComponent.day = 1
         
-        testTerm = try Term(viewContext: testViewContext, title: "testTerm", start: Date(), end: Calendar.current.date(byAdding: dateComponent, to: Date()), currGPA: nil, goalGPA: nil)
+        testTerm = try Term(viewContext: testViewContext, title: "testTerm", start: Date(), end: Calendar.current.date(byAdding: dateComponent, to: Date()), currGPA: nil, goalGPA: nil, markerColour: [0,0,0])
         //create a course object for test method to use
         testCourse = try Course(viewContext: testViewContext, title: "testCourse", creditHrs: nil, goalGrade: 85.0)
         
@@ -311,7 +311,8 @@ class CourseTests: XCTestCase {
     func testTargetGrade_RemoveItems() throws {
         /* ------------- from 110% to 100% -- target grade will adjust ------------- */
         //given 60% final grade
-        let test1 = try SyllabusItem(viewContext: testViewContext, title: "test 1", weight: 20.0, finalGrade: 60.0, course: testCourse, dueDate: Date())
+        let test1 = try SyllabusItem(viewContext: testViewContext, course: testCourse, title: "test 1", weight: 20.0, finalGrade: 60.0, dueDate: Date())
+        testCourse.addToSyllabusItems(test1)
         XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
         
         try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 2", weight: 40.0, finalGrade: nil, dueDate: Date())
@@ -324,7 +325,8 @@ class CourseTests: XCTestCase {
         XCTAssertNotNil(testCourse.targetGrade) //targetGrade is now not nil; sufficient items
         
         //the bonus 10%
-        let bonusItem = try SyllabusItem(viewContext: testViewContext, title: "bonus item", weight: 10.0, finalGrade: nil, course: testCourse, dueDate: Date())
+        let bonusItem = try SyllabusItem(viewContext: testViewContext, course: testCourse, title: "bonus item", weight: 10.0, finalGrade: nil, dueDate: Date())
+        testCourse.addToSyllabusItems(bonusItem)
         XCTAssertNotNil(testCourse.targetGrade) //targetGrade is not nil; sufficient items
         
         //preliminary
@@ -365,10 +367,11 @@ class CourseTests: XCTestCase {
     
     //test target grade when the weight of syllabus items are modified from original
     func testTargetGrade_ItemWeightChange() throws {
-        let syllItem1 = try SyllabusItem(viewContext: testViewContext, title: "s1", weight: 50.0, finalGrade: 75.0, course: testCourse, dueDate: Date())
-        _ = try SyllabusItem(viewContext: testViewContext, title: "s2", weight: 20, finalGrade: 90, course: testCourse, dueDate: Date())
-        _ = try SyllabusItem(viewContext: testViewContext, title: "s3", weight: 30, finalGrade: 78, course: testCourse, dueDate: Date())
-        _ = try SyllabusItem(viewContext: testViewContext, title: "bonus", weight: 10, finalGrade: nil, course: testCourse, dueDate: Date())
+        let syllItem1 = try SyllabusItem(viewContext: testViewContext, course: testCourse, title: "s1", weight: 50.0, finalGrade: 75.0, dueDate: Date())
+        testCourse.addToSyllabusItems(syllItem1)
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "s2", weight: 20, finalGrade: 90, dueDate: Date())
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "s3", weight: 30, finalGrade: 78, dueDate: Date())
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "bonus", weight: 10, finalGrade: nil, dueDate: Date())
         
         //preliminary
         XCTAssertEqual((testCourse.syllabusItems?.allObjects ?? []).count, 4) //there are four syllabus items
@@ -407,9 +410,10 @@ class CourseTests: XCTestCase {
     //test target grade when the final grade of syllabus items is changed from original
     //found formula for rounding to correct decimal place here : https://stackoverflow.com/questions/25513357/rounding-in-swift-with-round
     func testTargetGrade_ItemFinalGradeChange() throws {
-        let syllItem1 = try SyllabusItem(viewContext: testViewContext, title: "s1", weight: 50.0, finalGrade: 75.0, course: testCourse, dueDate: Date())
-        _ = try SyllabusItem(viewContext: testViewContext, title: "s2", weight: 20, finalGrade: 90, course: testCourse, dueDate: Date())
-        _ = try SyllabusItem(viewContext: testViewContext, title: "s3", weight: 30, finalGrade: nil, course: testCourse, dueDate: Date())
+        let syllItem1 = try SyllabusItem(viewContext: testViewContext, course: testCourse, title: "s1", weight: 50.0, finalGrade: 75.0, dueDate: Date())
+        testCourse.addToSyllabusItems(syllItem1)
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "s2", weight: 20, finalGrade: 90, dueDate: Date())
+        try testCourse.addSyllabusItem(viewContext: testViewContext, title: "s3", weight: 30, finalGrade: nil, dueDate: Date())
         
         //preliminary
         XCTAssertEqual((testCourse.syllabusItems?.allObjects ?? []).count, 3) //there are 3 syllabus items

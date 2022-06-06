@@ -68,7 +68,6 @@ struct EditCourseView: View {
             do {
                 try course.setTitle(courseTitle)
                 try course.setGoalGrade(Double(goalGrade) ?? 0)
-                try viewContext.save()
             } catch {
                 print("Couldn't change the course's title or goal grade.")
             }
