@@ -4,19 +4,18 @@
 //
 //  Created by Katharine K
 //
+// This class is created automatically by XCode when Core Data is included in the project. I have modified this file for this app's purposes.
 
 import CoreData
 
 struct PersistenceController {
-    static let shared = PersistenceController()
+    static let shared = PersistenceController() //the main persistence controller instance used for application
 
-    static var preview: PersistenceController = {
+    static var preview: PersistenceController = { //persistence controller instance used for testing
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext //the managed object context
-//        for _ in 0..<10 {
-//            let newItem = Term(context: viewContext)
-//            newItem.termTitle = "newTerm"
-//        }
+
+        //save changes to persistence
         do {
             try viewContext.save()
         } catch {
@@ -30,15 +29,10 @@ struct PersistenceController {
 
     let container: NSPersistentContainer
 
-    init(inMemory: Bool = false) {
+    init(inMemory: Bool = false) { //if no persistent store exists, create
         container = NSPersistentContainer(name: "GradeTracker")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
-//            do {
-//                try container.persistentStoreCoordinator.destroyPersistentStore(at: container.persistentStoreDescriptions.first!.url!, ofType: "sqlite", options: nil)
-//            } catch {
-//                print("couldn't delete persistent store")
-//            }
         }
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
