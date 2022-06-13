@@ -22,7 +22,8 @@ Model contains the logic and Core Data files, while View contains UI files. View
 #### The user may add a term name, start and end dates, and choose a marker colour.
 The terms will display in a list on the main page, with the most recent start date at the top (they are ordered from most to least recent start date).
 The user can edit these attributes in the term's main page, which is accessed by selecting the term from the main page.
-https://user-images.githubusercontent.com/84199502/170405263-f2bba701-ca9e-4cad-8ecc-a15996e9fd99.mov
+
+https://user-images.githubusercontent.com/84199502/173445037-b3912566-4b73-4064-a985-209dcce22790.mov
 
 ### Adding A Course To A Term
 #### The user may add a course name and a goal grade.
