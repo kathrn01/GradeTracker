@@ -29,23 +29,12 @@ struct TermView: View {
     var body: some View {
         //list of courses in this term
         VStack {
-            //term title and edit button
-            HStack {
-                Text(term.termTitle ?? "Unnamed Term")
-                    .font(.title)
-                Spacer()
-                Button(action: { showEditTermWindow = true }, label: {
-                    Image(systemName: "info.circle")
-                        .font(.title2)
-                        .foregroundColor(.blue)
-                })
-            }.padding()
-            
-            //display courses in this term
-            if(term.courseList?.allObjects as? [Course] ?? []).isEmpty {
-                Text("No courses added yet.")
-            }
-            List {
+            ScrollView {
+                //display courses in this term
+                if(term.courseList?.allObjects as? [Course] ?? []).isEmpty {
+                    Text("No courses added yet.")
+                }
+                
                 ForEach(courses) { course in
                     //user can select the course to navigate to it's course page which will show syllabus items and target grades
                     NavigationLink(
@@ -57,20 +46,23 @@ struct TermView: View {
                         .aspectRatio(4/1, contentMode: .fit)
                         .navigationViewStyle(StackNavigationViewStyle())
                 }
-            }//list
-            .listStyle(DefaultListStyle())
+            } //scrollview
+            
             //the button to add a new course to the term
-            Button(action: {
-                    displayAddCourse = true
-            }) {
-                    Label("Add Course", systemImage: "plus.circle")
-                        .foregroundColor(.black)
-                        .font(.headline)
+            Button(action: { displayAddCourse = true }) {
+                    Label("New Course", systemImage: "plus.circle")
+                        .foregroundColor(.blue)
+                        .font(.title2)
             }
-            .padding()
         } //vstack
-        .navigationBarTitleDisplayMode(.inline)
+        .padding()
+        .navigationBarTitleDisplayMode(.automatic)
         .navigationTitle(term.termTitle ?? "Unnamed Term")
+        .navigationBarItems(trailing: Button(action: { showEditTermWindow = true }, label: {
+            Image(systemName: "info.circle")
+                .font(.title2)
+                .foregroundColor(.blue)
+        }))
         .sheet(isPresented: $showEditTermWindow, content: { //the view that will pop up as a sheet if the user selects "Edit Term"
             NavigationView {
                 EditTermView(term: term, showEditTermWindow: $showEditTermWindow)

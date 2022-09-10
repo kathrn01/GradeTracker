@@ -26,16 +26,17 @@ struct AddCourseView: View {
             Section(header: Text("Course Info")) {
                 //in this section the user can add properties to the new course
                 TextField("Course Title", text: $newCourseName)
-                TextField("Goal Grade (Percentage)", text: $newCourseGoalGrade)
+                TextField("Goal Grade", text: $newCourseGoalGrade)
                     .keyboardType(.decimalPad)
             }
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-        }.padding()
+            .textFieldStyle(PlainTextFieldStyle())
+        }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(Text("Add A Course"))
+        .navigationTitle(Text("New Course"))
+        .navigationBarTitleDisplayMode(.automatic)
         .navigationBarItems(leading: Button("Cancel", action: {
             resetUserInput()
-        }), trailing: Button("Add Course", action: { //save info and add course to term
+        }), trailing: Button("Add", action: { //save info and add course to term
             //add the course to the list of courses for the term
             do {
                 try term.addCourse(viewContext: viewContext, title: newCourseName, creditHrs: nil, goalGrade: Double(newCourseGoalGrade))

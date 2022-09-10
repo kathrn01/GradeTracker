@@ -27,13 +27,12 @@ struct AddTermView: View {
                 DatePicker("End Date", selection: $endDate, in: PartialRangeFrom(startDate), displayedComponents: .date)
                 ColorPicker("Choose A Colour", selection: $chosenColour)
             }
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-        }.padding()
+            .textFieldStyle(PlainTextFieldStyle())
+        }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(Text("Add A Term"))
-        .navigationBarItems(leading: Button("Cancel", action: {
-            resetUserInput()
-        }), trailing: Button("Add Term", action: {
+        .navigationBarTitle(Text("New Term"))
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarItems(leading: Button("Cancel", action: { resetUserInput() }), trailing: Button("Add", action: {
             //add the new term with the data given by the user
             let chosenColourComponents = chosenColour.cgColor!.components  //gives rbg of default grey if components nil
             do {
