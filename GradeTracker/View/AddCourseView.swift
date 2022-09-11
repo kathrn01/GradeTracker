@@ -20,6 +20,7 @@ struct AddCourseView: View {
     //these state varables record user input for properties when creating a new course
     @State var newCourseName = ""
     @State var newCourseGoalGrade = ""
+    @State var location = ""
     
     var body: some View {
         List { //fill in attributes
@@ -28,6 +29,10 @@ struct AddCourseView: View {
                 TextField("Course Title", text: $newCourseName)
                 TextField("Goal Grade", text: $newCourseGoalGrade)
                     .keyboardType(.decimalPad)
+            }
+            Section(header: Text("Optional Info")) {
+                //Course Location, etc
+                TextField("Location", text: $location)
             }
             .textFieldStyle(PlainTextFieldStyle())
         }
@@ -52,5 +57,6 @@ struct AddCourseView: View {
         displayAddCourse = false
         newCourseName = ""
         newCourseGoalGrade = ""
+        location = ""
     }
 }

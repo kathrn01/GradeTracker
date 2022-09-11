@@ -69,7 +69,7 @@ struct SyllabusItemView: View {
                         .accentColor(.blue)
                 }
             }.padding()
-        }.padding(.horizontal)
+        }
         .lineLimit(3)
         .onTapGesture { //the user only has to tap the syllabus item to edit it
             displayEditSyllabusItem = true

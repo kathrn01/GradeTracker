@@ -39,33 +39,36 @@ struct EditSyllabusItemView: View {
     var body: some View {
         VStack {
             List{
-                HStack { //display current title for user to modify
-                    Text("Item Title: ")
-                    TextField(itemTitle, text: $itemTitle)
+                Section(header: Text("Item Info:")) {
+                    HStack { //display current title for user to modify
+                        Text("Title: ")
+                        TextField(itemTitle, text: $itemTitle)
+                    }
+                    HStack{ //display current goal grade for user to modify
+                        Text("Weight: ")
+                        TextField(itemWeight, text: $itemWeight)
+                            .keyboardType(.decimalPad)
+                    }
+                    //allows user to modify the due date from the current one (if any assigned)
+                    DatePicker("Due Date:", selection: $itemDueDate, in: closedRangeDueDate)
                 }
-                HStack{ //display current goal grade for user to modify
-                    Text("Item Weight (Percentage): ")
-                    TextField(itemWeight, text: $itemWeight)
-                        .keyboardType(.decimalPad)
-                }
-                //allows user to modify the due date from the current one (if any assigned)
-                DatePicker("Due Date:", selection: $itemDueDate, in: closedRangeDueDate)
-                HStack{ //display current goal grade for user to modify
-                    Text("Item Grade (Percentage): ")
-                    HStack {
+                
+                Section(header: Text("Final Grade")) {
+                    HStack{ //display current goal grade for user to modify
+                        Text("Grade: ")
                         TextField(itemFinalGrade, text: $itemFinalGrade)
                             .keyboardType(.decimalPad)
-                        Spacer()
+                    }
+                    if syllabusItem.finalGrade > 0 {
                         Button(action: { itemFinalGrade = "" }, label: {
                             Text("Remove Grade")
-                                .font(.footnote)
                                 .foregroundColor(.red)
                         })
                     }
                 }
             }
             .listStyle(InsetGroupedListStyle())
-            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .textFieldStyle(PlainTextFieldStyle())
         
             //DELETE TERM
             Button(action: {

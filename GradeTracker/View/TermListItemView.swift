@@ -20,6 +20,7 @@ struct TermListItemView: View {
                 Text(term.termTitle ?? "Unnamed Term")
                     .font(.title)
                     .minimumScaleFactor(0.5)
+                    .lineLimit(1)
                 Spacer()
                 VStack { //start + end date display
                     Text(term.startDate ?? Date(), formatter: dateFormatStartEnd)

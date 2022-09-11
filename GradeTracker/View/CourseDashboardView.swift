@@ -17,14 +17,6 @@ struct CourseDashboardView: View {
         VStack(alignment: .leading) {
             let goalToDisplay = (course.goalGrade <= 0) ? 1 : course.goalGrade //incase there are no totalCourse points, make denominator 1
             let totalPointsDisplay = (course.totalPointsAchieved > goalToDisplay) ? goalToDisplay : course.totalPointsAchieved //if the points achieved > the goal
-
-            //display course title and edit button
-            HStack {
-                Text(course.courseTitle ?? "Unnamed Course")
-                    .font(.title)
-                Spacer()
-                Button(action: { displayEditWindow = true }, label: { Image(systemName: "info.circle").font(.title2) })
-            }
             
             //display goal grade if not all syllabus items have been graded, or if they have, display the final grade achieved in the course
             if course.targetGrade != nil && (course.totalPointsCompleted == course.totalCoursePoints) {
@@ -56,12 +48,5 @@ struct CourseDashboardView: View {
                 .scaleEffect(x: 1, y: 4, anchor: .center)
             }
         }
-        .padding()
-        .sheet(isPresented: $displayEditWindow, content: { //this sheet will be presented if the user selects "Edit Course" in the top right corner
-            NavigationView {
-                EditCourseView(course: course, displayEditCourse: $displayEditWindow)
-                    .environment(\.managedObjectContext, viewContext)
-            }
-        })
     }
 }

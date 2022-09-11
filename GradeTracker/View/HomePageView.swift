@@ -33,7 +33,7 @@ struct HomePageView: View {
                         NavigationLink(destination: TermView(term: term).environment(\.managedObjectContext, viewContext)){
                             TermListItemView(term: term)
                         }
-                        .aspectRatio(4/1, contentMode: .fit)
+                        .frame(width: nil, height: nil)
                     }
                 } //ScrollView
                 
@@ -47,7 +47,6 @@ struct HomePageView: View {
             .padding()
             .navigationTitle(Text("Terms"))
             .navigationBarTitleDisplayMode(.automatic)
-            .navigationBarItems(trailing: Image(systemName: "info.circle").foregroundColor(.blue).font(.title3))
         }//NavigationView
         .navigationViewStyle(StackNavigationViewStyle())
         //this sheet will present when the user selects "add term"

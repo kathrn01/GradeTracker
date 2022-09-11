@@ -37,13 +37,13 @@ struct EditCourseView: View {
                     TextField(courseTitle, text: $courseTitle)
                 }
                 HStack{ //display current goal grade for user to modify
-                    Text("Goal Grade (Percentage): ")
+                    Text("Goal Grade: ")
                     TextField(goalGrade, text: $goalGrade)
                         .keyboardType(.decimalPad)
                 }
             }
             .listStyle(InsetGroupedListStyle())
-            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .textFieldStyle(PlainTextFieldStyle())
         
             //DELETE Course
             Button(action: {

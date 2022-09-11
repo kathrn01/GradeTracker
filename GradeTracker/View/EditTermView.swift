@@ -46,7 +46,7 @@ struct EditTermView: View {
                 ColorPicker("Change Marker Colour", selection: $chosenColour)
             }
             .listStyle(InsetGroupedListStyle())
-            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .textFieldStyle(PlainTextFieldStyle())
         
             //DELETE TERM
             Button(action: {

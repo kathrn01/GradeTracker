@@ -15,6 +15,8 @@ struct CourseView: View {
     
     //this state variable will become true user selects "Add Syllabus Item"
     @State var displayAddSyllabusItem = false
+    //will be true if user selects edit button; will show edit window
+    @State var showEditCourseWindow = false
     
     /* I am using a custom initializer here to have the fetched results 'syllabusItems' reflect only the syllabus items with the associated course provided (instead of all SyllabusItem objects in persistent storage)
      referenced this solution from: https://stackoverflow.com/questions/58783711/swiftui-use-relationship-predicate-with-struct-parameter-in-fetchrequest?noredirect=1&lq=1 */
@@ -27,41 +29,57 @@ struct CourseView: View {
         VStack{
             //display the course "dashboard" at the top: has stats, progress bar, edit button
             CourseDashboardView(course: course)
-                .aspectRatio(5/1, contentMode: .fit)
-            
-            //cannot calculate target grade for syllabus items if the weights of existing syllabus items do not add up to 100 or more
-            if !(course.syllabusItems?.allObjects.isEmpty ?? true) {
-                if course.targetGrade == nil {
-                    Text("Not enough data to calculate target grades. The weight of all syllabus items must total 100% or more.")
-                        .font(.footnote)
-                        .padding(.horizontal)
-                }
-            } else {
-                Text("No syllabus items added yet.")
-            }
+                .frame(width: nil, height: nil)
+                .padding(.bottom)
             
             //display syllabus items for this course
             ScrollView {
+                //cannot calculate target grade for syllabus items if the weights of existing syllabus items do not add up to 100 or more
+                if !syllabusItems.isEmpty {
+                    if course.targetGrade == nil {
+                        Text("Not enough data to calculate target grades. The weight of all syllabus items must total 100% or more.")
+                            .font(.footnote)
+                            .padding(.horizontal)
+                    }
+                } else {
+                    Text("No syllabus items added yet.")
+                }
+                
                 ForEach(syllabusItems) { syllItem in
                     SyllabusItemView(syllItem: syllItem)
+                        .frame(width: nil, height: nil)
+
                 }
-                .aspectRatio(4/1, contentMode: .fit)
             }
+            
             //add a new syllabus item to the course
-            Button(action: {
-                    displayAddSyllabusItem = true
-            }) {
-                    Label("Add Syllabus Item", systemImage: "plus.circle")
-                        .foregroundColor(.black)
-                        .font(.headline)
+            Button(action: { displayAddSyllabusItem = true }) {
+                    Label("New Syllabus Item", systemImage: "plus.circle")
+                        .foregroundColor(.blue)
+                        .font(.title2)
             }
-            .padding()
-        }
-        .navigationBarTitleDisplayMode(.inline)
+        }//vstack
+        .padding()
+        .navigationBarTitleDisplayMode(.automatic)
         .navigationTitle(course.courseTitle ?? "Unnamed Course")
+        .navigationBarItems(trailing: Button(action: { showEditCourseWindow = true }){ //edit button in navigation bar
+            Image(systemName: "info.circle")
+                .font(.title2)
+                .foregroundColor(.blue)
+        })
+        
+        //add syllabus item popup
         .sheet(isPresented: $displayAddSyllabusItem, content: { //this sheet will be presented if the user selects "Add Course"
             NavigationView {
                 AddSyllabusItemView(displayAddSyllabusItem: $displayAddSyllabusItem, course: course)
+                    .environment(\.managedObjectContext, viewContext)
+            }
+        })
+        
+        //edit course popup
+        .sheet(isPresented: $showEditCourseWindow, content: { //this sheet will be presented if the user selects "Edit Course" in the top right corner
+            NavigationView {
+                EditCourseView(course: course, displayEditCourse: $showEditCourseWindow)
                     .environment(\.managedObjectContext, viewContext)
             }
         })

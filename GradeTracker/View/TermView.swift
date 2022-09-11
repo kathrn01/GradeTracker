@@ -31,20 +31,17 @@ struct TermView: View {
         VStack {
             ScrollView {
                 //display courses in this term
-                if(term.courseList?.allObjects as? [Course] ?? []).isEmpty {
+                if courses.isEmpty {
                     Text("No courses added yet.")
                 }
                 
                 ForEach(courses) { course in
                     //user can select the course to navigate to it's course page which will show syllabus items and target grades
-                    NavigationLink(
-                        destination: CourseView(course: course)
-                            .environment(\.managedObjectContext, viewContext),
-                        label: {
+                    NavigationLink(destination: CourseView(course: course).environment(\.managedObjectContext, viewContext)){
                             CourseListItemView(term: term, course: course, textColour: textColour)
-                        })
-                        .aspectRatio(4/1, contentMode: .fit)
-                        .navigationViewStyle(StackNavigationViewStyle())
+                    }
+                    .frame(width: nil, height: nil)
+                    //.navigationViewStyle(StackNavigationViewStyle())
                 }
             } //scrollview
             

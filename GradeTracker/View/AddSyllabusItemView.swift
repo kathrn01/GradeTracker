@@ -34,22 +34,25 @@ struct AddSyllabusItemView: View {
             Section(header: Text("Syllabus Item Info")) {
                 //in this section the user can add properties to the new course
                 TextField("Syllabus Item Title", text: $itemTitle)
-                TextField("Syllabus Item Weight (Percentage)", text: $itemWeight)
+                TextField("Syllabus Item Weight (ex: 25)", text: $itemWeight)
                     .keyboardType(.decimalPad)
                 //allows user to modify the due date from the current one (if any assigned)
-                DatePicker("Item Due Date:", selection: $itemDueDate, in: closedRangeDueDate)
-                TextField("Final Grade (Optional)", text: $itemFinalGrade)
+                DatePicker("Due Date:", selection: $itemDueDate, in: closedRangeDueDate)
+            }
+            .textFieldStyle(PlainTextFieldStyle())
+            
+            Section(header: Text("Final Grade")) {
+                TextField("Final Grade (ex: 75.5)", text: $itemFinalGrade)
                     .keyboardType(.decimalPad)
                 Text("The final grade assigned to this syllabus item can be added later.")
                     .font(.footnote)
             }
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-        }.padding()
+        }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(Text("Add Syllabus Item"))
+        .navigationTitle(Text("New Syllabus Item"))
         .navigationBarItems(leading: Button("Cancel", action: {
             resetUserInput()
-        }), trailing: Button("Add Item", action: { //save to persistence
+        }), trailing: Button("Add", action: { //save to persistence
             //add the course to the list of courses for the term
             do {
                 try course.addSyllabusItem(viewContext: viewContext, title: itemTitle, weight: Double(itemWeight) ?? 0.0, finalGrade: Double(itemFinalGrade), dueDate: itemDueDate)

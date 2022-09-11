@@ -20,6 +20,8 @@ struct CourseListItemView: View {
             HStack {
                 Text(course.courseTitle ?? "Unnamed Course")
                     .font(.title)
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
                 Spacer()
                 VStack {
                     Text("Goal Grade: ")
@@ -28,7 +30,7 @@ struct CourseListItemView: View {
                 }
             }
             .foregroundColor(textColour)
-            .padding(.horizontal)
+            .padding()
         }
     }
 }
