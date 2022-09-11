@@ -10,7 +10,7 @@ The visual component of progress towards a goal grade as well as exact figures i
 
 ## Packages and Major Source Code Organization 
 ### The code is organized at present into "Model" and "View" and will soon have "ViewModel" introduced. 
-Model contains the logic and Core Data files, while View contains UI files. ViewModel will contain files/code that behave as intermediaries, to ensure that the Model and the View code can more safely interact -- ie. will contain business logic.
+Model contains the logic and Core Data files, while View contains UI files. ViewModel will contain files/code that behave as intermediaries, to ensure that the Model and the View code can more safely interact.
 
 ### Built With
 #### Development Environment: XCode
