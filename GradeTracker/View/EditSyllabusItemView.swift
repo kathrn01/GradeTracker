@@ -89,7 +89,7 @@ struct EditSyllabusItemView: View {
         .navigationTitle("Edit \(syllabusItem.itemTitle ?? "Syllabus Item")")
         .navigationBarItems(leading: Button("Cancel", action: {
             displayEditSyllabusItem = false
-        }), trailing: Button("Save Changes", action: {
+        }), trailing: Button("Save", action: {
             do {
                 try syllabusItem.setTitle(itemTitle)
                 try syllabusItem.setWeight(Double(itemWeight) ?? 0)

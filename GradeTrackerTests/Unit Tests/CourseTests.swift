@@ -37,13 +37,26 @@ class CourseTests: XCTestCase {
         try testViewContext.save()
     }
 
-    /* -------------- TARGET GRADE TESTS  -------------- */
+    /* -------------- TARGET GRADE TESTS  --------------
+     Mostly testing how attributes totalCoursePoints, totalPointsAchieved, and totalPointsCompleted, and computed variable targetGrade respond to changes in syllabus items
+     totalCoursePoints is the weights of all syllabus items added up (must be >= 100 to calculate target grades)
+     totalPointsAchieved is the points from all final grades given to syllabus items in the course
+     totalPointsCompleted is all the weights from completed (given final grade) syllabus items in the course
+     
+     these attributes are used to calculate the target grade.
+     */
+    
+    
+    
     //test how the target grade is computed when there are no syllabus items added to the course
     func testTargetGrade_NoSyllabusItems() throws {
         //when there are no syllabus items, the target grade should return nil (not enough data)
         XCTAssertTrue((testCourse.syllabusItems?.allObjects ?? []).isEmpty) //the course has no syllabus items
         XCTAssertEqual(testCourse.goalGrade, 85.0) //the goal grade is set
         XCTAssertNil(testCourse.targetGrade) //target grade returns nil
+        XCTAssertEqual(testCourse.totalCoursePoints, 0) //no course points
+        XCTAssertEqual(testCourse.totalPointsCompleted, 0) //no points completed
+        XCTAssertEqual(testCourse.totalPointsAchieved, 0) //no points achieved
     }
     
     //test target grade when there are not enough syllabus items added (all items together do not make up 100% of final grade)
@@ -52,16 +65,18 @@ class CourseTests: XCTestCase {
         try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test1", weight: 10.0, finalGrade: nil, dueDate: Date())
         XCTAssertEqual((testCourse.syllabusItems?.allObjects ?? []).count, 1) //there is one syllabus item in testCourse
         XCTAssertEqual(testCourse.totalCoursePoints, 10.0) //there are 10 points accounted for (10% of total grade)
-        XCTAssertEqual(testCourse.goalGrade, 85.0) //goal grade has been set for the course
         XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
         
         //add a syllabus item worth 50% of the final course grade, with a final grade
         try testCourse.addSyllabusItem(viewContext: testViewContext, title: "test 2", weight: 50.0, finalGrade: nil, dueDate: Date())
         XCTAssertEqual((testCourse.syllabusItems?.allObjects ?? []).count, 2) //there are two syllabus items in testCourse
-        XCTAssertEqual(testCourse.totalCoursePoints, 60.0) //there are 60 points accounted for (60% of total grade)
+        
+        
         XCTAssertEqual(testCourse.goalGrade, 85.0) //goal grade has been set for the course
+        XCTAssertEqual(testCourse.totalCoursePoints, 60.0) //there are 60 points accounted for (60% of total grade)
         XCTAssertEqual(testCourse.totalPointsCompleted, 0) //no items, so can't have any completed
-        XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
+        XCTAssertEqual(testCourse.totalPointsAchieved, 0) //no points achieved as no final grades were given to items
+        XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil, weights of syllabus items < 100
     }
     
     //test that the target grade is correctly calculated when 100% of final grade is accounted for by syllabus item weights, when no final grades have yet been given to any item
@@ -80,8 +95,8 @@ class CourseTests: XCTestCase {
         XCTAssertNotNil(testCourse.targetGrade) //targetGrade is now not nil; sufficient items
         
         XCTAssertEqual((testCourse.syllabusItems?.allObjects ?? []).count, 4) //there are four syllabus items
-        XCTAssertEqual(testCourse.totalCoursePoints, 100.0) //the syllabus items make up the full final grade
         XCTAssertEqual(testCourse.goalGrade, 85.0) //the goal grade is set
+        XCTAssertEqual(testCourse.totalCoursePoints, 100.0) //the syllabus items make up the full final grade
         XCTAssertEqual(testCourse.totalPointsAchieved, 0) //no final grades given, thus no points achieved
         XCTAssertEqual(testCourse.totalPointsCompleted, 0) //no final grades given, thus no items completed
         XCTAssertEqual(testCourse.targetGrade, 85.0) //since no final grades given, the target grade is the same as the goal grade
@@ -116,10 +131,11 @@ class CourseTests: XCTestCase {
         let pointsFromQuiz1 = 15 * 0.9 //quiz 1 is worth 15% of final grade, multiplied by the final grade of 90% on the quiz
         
         XCTAssertEqual(testCourse.totalPointsAchieved, pointsFromTest1 + pointsFromQuiz1) //achieved percentage should reflect points from syllabus items given a final grade
+        
         //the correct target grade should be calculated as the goal grade minus points achieved,  divided by the remaining points in the course to be accounted for (the total percent of syllabus items not yet graded/completed)
-        let pointsToAchieveForGoal =  testCourse.goalGrade - testCourse.totalPointsAchieved
-        let pointsLeftToComplete = testCourse.totalCoursePoints - testCourse.totalPointsCompleted
-        let correctTargetGrade = (pointsToAchieveForGoal/pointsLeftToComplete) * 100
+        let totalLeftToAchieve =  testCourse.goalGrade - testCourse.totalPointsAchieved //goal grade - points achieved
+        let totalLeftToComplete = testCourse.totalCoursePoints - testCourse.totalPointsCompleted //total possible points in course - points completed (sum of weights of items given final grade)
+        let correctTargetGrade = (totalLeftToAchieve/totalLeftToComplete) * 100
         XCTAssertEqual(testCourse.targetGrade, correctTargetGrade) //computes the correct target grade for remaining syllabus items
     }
     
@@ -249,7 +265,7 @@ class CourseTests: XCTestCase {
         //now if the goal is changed, the target grade should reflect that
         try testCourse.setGoalGrade(75)
         XCTAssertEqual(testCourse.goalGrade, 75) //goal grade is now 75%
-        XCTAssertEqual(testCourse.targetGrade, 75) //target grade is adjusted to 75%
+        XCTAssertEqual(testCourse.targetGrade, 75) //target grade is adjusted to 75% for all syllabus items
     }
     
     //test target grade when goal grade is changed from original, with some of the syllabus items having been graded
@@ -301,17 +317,17 @@ class CourseTests: XCTestCase {
         XCTAssertEqual(testCourse.goalGrade, 75) //goal grade is now 75%
         
         //target grade with new goal of 75%
-        let pointsToAchieveForNewGoal =  testCourse.goalGrade - testCourse.totalPointsAchieved //85 - 28.5 = 46.5
-        let pointsLeftToCompleteNew = testCourse.totalCoursePoints - testCourse.totalPointsCompleted // 100 - 35 = 65
+        let pointsToAchieveForNewGoal =  testCourse.goalGrade - testCourse.totalPointsAchieved //75 - 28.5 = 46.5
+        let pointsLeftToCompleteNew = testCourse.totalCoursePoints - testCourse.totalPointsCompleted // 100 - 35 = 65 (unchanged)
         let correctTargetGradeNew = (pointsToAchieveForNewGoal/pointsLeftToCompleteNew) * 100 // 46.5/65 * 100 = 71.5%
         XCTAssertEqual(testCourse.targetGrade, correctTargetGradeNew) //the correct target grade for goal of 75% should be 71.5% as calculated above
     }
     
     //test the target grade when syllabus items are removed from the course
-    func testTargetGrade_RemoveItems() throws {
+    func testTargetGrade_RemoveItems_AddRedoItem() throws {
         /* ------------- from 110% to 100% -- target grade will adjust ------------- */
         //given 60% final grade
-        let test1 = try SyllabusItem(viewContext: testViewContext, course: testCourse, title: "test 1", weight: 20.0, finalGrade: 60.0, dueDate: Date())
+        let test1 = try SyllabusItem(viewContext: testViewContext, course: testCourse, title: "test 1", weight: 20.0, grade: 60.0, dueDate: Date())
         testCourse.addToSyllabusItems(test1)
         XCTAssertNil(testCourse.targetGrade) //targetGrade returns nil
         
@@ -325,7 +341,7 @@ class CourseTests: XCTestCase {
         XCTAssertNotNil(testCourse.targetGrade) //targetGrade is now not nil; sufficient items
         
         //the bonus 10%
-        let bonusItem = try SyllabusItem(viewContext: testViewContext, course: testCourse, title: "bonus item", weight: 10.0, finalGrade: nil, dueDate: Date())
+        let bonusItem = try SyllabusItem(viewContext: testViewContext, course: testCourse, title: "bonus item", weight: 10.0, grade: nil, dueDate: Date())
         testCourse.addToSyllabusItems(bonusItem)
         XCTAssertNotNil(testCourse.targetGrade) //targetGrade is not nil; sufficient items
         
@@ -336,14 +352,15 @@ class CourseTests: XCTestCase {
         XCTAssertEqual(testCourse.goalGrade, 85.0) //the goal grade is set
         
         //the number of points achieved (percentage of final grade achieved) by the two syllabus items assigned a final grade
-        let pointsFromTest1 = 20 * 0.6
-        let pointsFromQuiz1 = 25 * 0.9
-        XCTAssertEqual(testCourse.totalPointsAchieved, pointsFromTest1 + pointsFromQuiz1) //achieved percentage should reflect points from syllabus items given a final grade
+        let pointsFromTest1 = 20 * 0.6 //12
+        let pointsFromQuiz2 = 25 * 0.9 //22.5
+        XCTAssertEqual(testCourse.totalPointsAchieved, pointsFromTest1 + pointsFromQuiz2) //achieved percentage should reflect points from syllabus items given a final grade
         
         //the correct target grade should be calculated as the goal grade minus points achieved,  divided by the remaining points in the course to be accounted for (the total percent of syllabus items not yet graded/completed)
-        var pointsToAchieveForGoal =  testCourse.goalGrade - testCourse.totalPointsAchieved
-        var pointsLeftToComplete = testCourse.totalCoursePoints - testCourse.totalPointsCompleted
+        var pointsToAchieveForGoal =  testCourse.goalGrade - testCourse.totalPointsAchieved //85 - 34.5 = 50.5
+        var pointsLeftToComplete = testCourse.totalCoursePoints - testCourse.totalPointsCompleted //110 - 45 = 65
         let correctTargetGrade = (pointsToAchieveForGoal/pointsLeftToComplete) * 100
+        XCTAssertEqual(correctTargetGrade, (50.5/65) * 100)
         XCTAssertEqual(testCourse.targetGrade, correctTargetGrade) //computes the correct target grade for remaining syllabus items
         
         /* Now remove the bonus item -- making the totalCoursePoints 100 instead of 110 */
@@ -351,23 +368,45 @@ class CourseTests: XCTestCase {
         XCTAssertEqual((testCourse.syllabusItems?.allObjects ?? []).count, 4) //there are now four syllabus items
         XCTAssertEqual(testCourse.totalCoursePoints, 100.0) //the syllabus items make up the full final grade, no more
         XCTAssertEqual(testCourse.totalPointsCompleted, 45.0) //a syllabus item worth 20%, and one worth 45%, were given final grades, 45% of the course has been "completed"
+        XCTAssertEqual(testCourse.totalPointsAchieved, pointsFromTest1 + pointsFromQuiz2) //remains same, as the bonus item removed wasn't given a final grade/no points achieved
         
         //the new target grade is not equal to the old target grade, since the extra 10% achievable has been removed
-        pointsToAchieveForGoal =  testCourse.goalGrade - testCourse.totalPointsAchieved
-        pointsLeftToComplete = testCourse.totalCoursePoints - testCourse.totalPointsCompleted
+        pointsToAchieveForGoal =  testCourse.goalGrade - testCourse.totalPointsAchieved //unchanged
+        pointsLeftToComplete = testCourse.totalCoursePoints - testCourse.totalPointsCompleted // 100 - 45 = 55
         let correctTargetGradeNew = (pointsToAchieveForGoal/pointsLeftToComplete) * 100
+        XCTAssertEqual(correctTargetGradeNew, (50.5/55) * 100)
         XCTAssertEqual(testCourse.targetGrade, correctTargetGradeNew) //computes the correct new target grade for remaining syllabus items
         XCTAssertNotEqual(correctTargetGrade, correctTargetGradeNew) //not equal to the old one
         
         /* ------------- from 100% to insufficient items -- target grade will return nil ------------- */
+        XCTAssertEqual(testCourse.totalCoursePoints, 100)
         testCourse.removeSyllabusItem(test1) //remove test 1 from the course
         //this removes 20 points from totalCoursePoints, which will make it a total of 80 -- targetGrade should now return nil
         XCTAssertNil(testCourse.targetGrade)
+        XCTAssertEqual(testCourse.totalCoursePoints, 80)
+        XCTAssertEqual(testCourse.totalPointsCompleted, 25.0) //only quiz 2 is completed now
+        XCTAssertEqual(testCourse.totalPointsAchieved, pointsFromQuiz2)
+        
+        //Now if item added to bring total course points back to 100
+        let redoTest1 = try SyllabusItem(viewContext: testViewContext, course: testCourse, title: "redoTest1", weight: 20.0, grade: 80.0, dueDate: Date())
+        testCourse.addToSyllabusItems(redoTest1)
+        
+        XCTAssertEqual(testCourse.totalCoursePoints, 100) //back at 100
+        XCTAssertEqual(testCourse.totalPointsCompleted, 45)
+        let pointsAchievedRedo = 0.8 * 20 // 16
+        XCTAssertEqual(testCourse.totalPointsAchieved, pointsFromQuiz2 + pointsAchievedRedo) // 22.5 + 16 = 38.5
+        
+        //new target grade
+        let totalLeftToComplete = testCourse.totalCoursePoints - testCourse.totalPointsCompleted // 100 - 45 = 55
+        let totalLeftToAchieve = testCourse.goalGrade - testCourse.totalPointsAchieved //85 - 38.5 = 46.5
+        let newTarg = (totalLeftToAchieve/totalLeftToComplete) * 100 //84.5
+        XCTAssertEqual(testCourse.targetGrade, newTarg)
+        
     }
     
     //test target grade when the weight of syllabus items are modified from original
     func testTargetGrade_ItemWeightChange() throws {
-        let syllItem1 = try SyllabusItem(viewContext: testViewContext, course: testCourse, title: "s1", weight: 50.0, finalGrade: 75.0, dueDate: Date())
+        let syllItem1 = try SyllabusItem(viewContext: testViewContext, course: testCourse, title: "s1", weight: 50.0, grade: 75.0, dueDate: Date())
         testCourse.addToSyllabusItems(syllItem1)
         try testCourse.addSyllabusItem(viewContext: testViewContext, title: "s2", weight: 20, finalGrade: 90, dueDate: Date())
         try testCourse.addSyllabusItem(viewContext: testViewContext, title: "s3", weight: 30, finalGrade: 78, dueDate: Date())
@@ -410,7 +449,7 @@ class CourseTests: XCTestCase {
     //test target grade when the final grade of syllabus items is changed from original
     //found formula for rounding to correct decimal place here : https://stackoverflow.com/questions/25513357/rounding-in-swift-with-round
     func testTargetGrade_ItemFinalGradeChange() throws {
-        let syllItem1 = try SyllabusItem(viewContext: testViewContext, course: testCourse, title: "s1", weight: 50.0, finalGrade: 75.0, dueDate: Date())
+        let syllItem1 = try SyllabusItem(viewContext: testViewContext, course: testCourse, title: "s1", weight: 50.0, grade: 75.0, dueDate: Date())
         testCourse.addToSyllabusItems(syllItem1)
         try testCourse.addSyllabusItem(viewContext: testViewContext, title: "s2", weight: 20, finalGrade: 90, dueDate: Date())
         try testCourse.addSyllabusItem(viewContext: testViewContext, title: "s3", weight: 30, finalGrade: nil, dueDate: Date())

@@ -32,7 +32,7 @@ struct SyllabusItemView: View {
     
     var body: some View {
         //if a syllabus item has been given a grade, it's colour is the term's marker colour, but if it has yet to be graded, it's grey
-        let bgColour = (syllItem.finalGrade != -1) ? Color(red: bgRed, green: bgGreen, blue: bgBlue) : Color(red: 0.75, green: 0.75, blue: 0.75)
+        let bgColour = (syllItem.finalGrade != -1) ? Color(red: bgRed, green: bgGreen, blue: bgBlue) : Color(red: 0.65, green: 0.65, blue: 0.65)
         ZStack {
             RoundedRectangle(cornerRadius: 20.0)
                 .foregroundColor(bgColour)
@@ -41,23 +41,33 @@ struct SyllabusItemView: View {
                     Text(syllItem.itemTitle ?? "Unnamed Syllabus Item")
                         .font(.title3)
                         .foregroundColor(textColour)
+                    
+                    
                     Spacer()
-                    Text("Weight: \(String(format: "%.01f", syllItem.weight))%")
+        
+                    Text("Worth: \(String(format: "%.01f", syllItem.weight))%")
                         .font(.footnote)
                         .foregroundColor(textColour)
                 }
                 
                 if syllItem.finalGrade == -1 { //if no final grade has yet been added for this item, display a target grade OR display not enough data message
-                    if syllItem.course?.targetGrade != nil { //if the target grade is not nil, the user has entered at least 100% worth of the final grade in syllabus items
-                        //display the target grade
-                        Text("Target Grade: \(String(format: "%.01f", syllItem.course?.targetGrade ?? 0.0))%")
-                            .font(.callout)
+                    HStack {
+                        if syllItem.course?.targetGrade != nil { //if the target grade is not nil, the user has entered at least 100% worth of the final grade in syllabus items
+                            //display the target grade
+                            Text("Target Grade: \(String(format: "%.01f", syllItem.course?.targetGrade ?? 0.0))%")
+                                .font(.callout)
+                                .foregroundColor(textColour)
+                        } else { //the sum of weights of the syllabus items added do not make up 100% of the grade. So the target cannot be calculated.
+                            Text("Target Grade: Not enough data.")
+                                .font(.footnote)
+                                .foregroundColor(textColour)
+                            
+                        }
+                        Spacer()
+                        Text(syllItem.dueDate!, formatter: dueDateFormat)
+                            .font(.footnote)
                             .foregroundColor(textColour)
-                    } else { //the sum of weights of the syllabus items added do not make up 100% of the grade. So the target cannot be calculated.
-                        Text("Target Grade: Not enough data.")
-                            .font(.callout)
-                            .foregroundColor(textColour)
-                    }
+                    }//hstack
                 } else { //if a final grade HAS been added for this item, display it, as well as the amount towards the final grade in the course that the user has achieved from this item
                     Text("Grade achieved: \(String(format: "%.01f", syllItem.finalGrade))%")
                         .font(.callout)
@@ -80,6 +90,13 @@ struct SyllabusItemView: View {
                     .environment(\.managedObjectContext, viewContext)
             }
         }
+    }
+    
+    //referenced how to format the date from here: https://stackoverflow.com/questions/62814989/swiftui-date-formatting
+    var dueDateFormat: DateFormatter {
+        let format = DateFormatter()
+        format.dateFormat = "dd MMM, h:mm a"
+        return format
     }
     
     //this will set the text colour based on if the marker colour chosen as the background is darker or lighter

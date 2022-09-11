@@ -36,9 +36,9 @@ public class Term: NSManagedObject {
     
     //sets marker colour based on rgb values of selected or default colour
     func setMarkerColour(red: Double, green: Double, blue: Double) {
-        self.markerColor?.red = red
-        self.markerColor?.green = green
-        self.markerColor?.blue = blue
+        self.markerColor!.red = red
+        self.markerColor!.green = green
+        self.markerColor!.blue = blue
     }
     
     /* -------------- ADD & REMOVE COURSES -------------- */

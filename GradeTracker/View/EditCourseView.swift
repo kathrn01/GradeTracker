@@ -64,13 +64,14 @@ struct EditCourseView: View {
         .navigationTitle("Edit Course")
         .navigationBarItems(leading: Button("Cancel", action: {
             displayEditCourse = false
-        }), trailing: Button("Save Changes", action: { //save changes to persistence
+        }), trailing: Button("Save", action: { //save changes to persistence
             do {
                 try course.setTitle(courseTitle)
                 try course.setGoalGrade(Double(goalGrade) ?? 0)
             } catch {
                 print("Couldn't change the course's title or goal grade.")
             }
+            do { try viewContext.save() } catch { print("couldn't save changes.")} 
             displayEditCourse = false
         }))
     }

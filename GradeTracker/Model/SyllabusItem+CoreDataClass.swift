@@ -12,14 +12,14 @@ import CoreData
 @objc(SyllabusItem)
 public class SyllabusItem: NSManagedObject {
     //initialize with data -- propagate error to the calling code to handle
-    convenience init(viewContext: NSManagedObjectContext, course: Course, title: String, weight: Double, finalGrade: Double?, dueDate: Date) throws {
+    convenience init(viewContext: NSManagedObjectContext, course: Course, title: String, weight: Double, grade: Double?, dueDate: Date) throws {
         self.init(context: viewContext)
         self.id = UUID()
         self.course = course
         try self.setTitle(title)
         try self.setWeight(weight)
         self.dueDate = dueDate 
-        if finalGrade != nil { try setFinalGrade(finalGrade!) }
+        if grade != nil { try setFinalGrade(grade!) }
         try viewContext.save()
     }
     

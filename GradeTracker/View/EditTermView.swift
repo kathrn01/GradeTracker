@@ -67,16 +67,14 @@ struct EditTermView: View {
         .navigationTitle("Edit Term")
         .navigationBarItems(leading: Button("Cancel", action: {
             resetUserInput()
-        }), trailing: Button("Save Changes", action: { //set attributes to new user input
-            do {
-                try term.setTitle(termTitle)
+        }), trailing: Button("Save", action: { //set attributes to new user input
+                do { try term.setTitle(termTitle) } catch { print("Could not change title.")}
                 term.startDate = startDate
                 term.endDate = endDate
                 //set the marker colour based on the new RGB components of the new chosen colour
                 term.setMarkerColour(red: Double((chosenColour.cgColor?.components![0])!), green: Double((chosenColour.cgColor?.components![1])!), blue: Double((chosenColour.cgColor?.components![2])!))
-            } catch {
-                print("Couldn't change the term's attributes.")
-            }
+
+            do { try viewContext.save() } catch { print("Couldn't save term changes in persistent storage.") }
             resetUserInput()
         }))
     }

@@ -26,6 +26,7 @@ public class Course: NSManagedObject {
         if totalCoursePoints >= 100 {
             let totalPointsLeftToComplete = totalCoursePoints - totalPointsCompleted
             let totalPointsLeftToAchieve = goalGrade - totalPointsAchieved
+            print("left to complete: \(totalPointsLeftToComplete), left to achieve: \(totalPointsLeftToAchieve)")
             return ((totalPointsLeftToAchieve/totalPointsLeftToComplete) * 100)
         }
         return nil
@@ -51,7 +52,7 @@ public class Course: NSManagedObject {
     //add a syllabus item to this course. propagates any errors (from SyllabusItem initializer) to calling code.
     func addSyllabusItem(viewContext: NSManagedObjectContext, title: String, weight: Double, finalGrade: Double?, dueDate: Date) throws {
         //if no errors, add the new item to the course's syllabus items
-        self.addToSyllabusItems(try SyllabusItem(viewContext: viewContext, course: self, title: title, weight: weight, finalGrade: finalGrade, dueDate: dueDate))
+        self.addToSyllabusItems(try SyllabusItem(viewContext: viewContext, course: self, title: title, weight: weight, grade: finalGrade, dueDate: dueDate))
     }
     
     //remove a syllabus item from the course's syllabus items
@@ -59,7 +60,9 @@ public class Course: NSManagedObject {
         self.removeFromSyllabusItems(item)
         self.totalCoursePoints -= item.weight
         self.totalPointsAchieved -= item.percentageOfCourseGradeAchieved
-        if item.finalGrade > -1 { self.totalPointsCompleted -= item.weight }
+        if item.finalGrade >= 0 {
+            self.totalPointsCompleted -= item.weight
+        }
     }
     
 }
