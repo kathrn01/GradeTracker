@@ -4,7 +4,9 @@
 GradeTracker is a program that aims to simplify the student experience by allowing a user to manage courses and syllabus items by entering a "goal" grade for a course, and the program can then calculate and display a target grade which the student will need to achieve on syllabus items to meet that goal grade in the course. The target grade adjusts as necessary when final grades are assigned to syllabus items, or if the weight or final grade is adjusted for any syllabus item.
 The visual component of progress towards a goal grade as well as exact figures in terms of criteria necessary to achieve the goal can hopefully empower and motivate students.
 
-![Screen Shot 2022-09-11 at 12 49 54 PM](https://user-images.githubusercontent.com/84199502/189553635-0d4d2a0e-5203-4faf-a5cf-5f52f1dac5de.png)|![Screen Shot 2022-09-11 at 12 52 48 PM](https://user-images.githubusercontent.com/84199502/189553649-43ca072a-eb96-4865-87db-117a2fc445ca.png)|![Screen Shot 2022-09-11 at 6 30 55 PM](https://user-images.githubusercontent.com/84199502/189553651-72327bea-ccfc-42d6-bd32-a8d396ad2f15.png)
+| Terms | Courses | Syllabus Items |
+| ---- | ---- | ---- |
+| ![Screen Shot 2022-09-11 at 12 49 54 PM](https://user-images.githubusercontent.com/84199502/189553635-0d4d2a0e-5203-4faf-a5cf-5f52f1dac5de.png) | ![Screen Shot 2022-09-11 at 12 52 48 PM](https://user-images.githubusercontent.com/84199502/189553649-43ca072a-eb96-4865-87db-117a2fc445ca.png) | Image Coming Soon |
 
 ## Packages and Major Source Code Organization 
 ### The code is organized at present into "Model" and "View" and will soon have "ViewModel" introduced. 
