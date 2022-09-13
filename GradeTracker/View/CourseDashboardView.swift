@@ -23,8 +23,14 @@ struct CourseDashboardView: View {
                 Text("Final Grade: \(String(format: "%.01f", (course.totalPointsAchieved)))%")
                     .font(.headline)
             } else {
-                Text("Goal Grade: \(String(format: "%.01f", course.goalGrade))%")
-                    .font(.headline)
+                HStack {
+                    Text("Goal Grade: \(String(format: "%.01f", course.goalGrade))%")
+                        .font(.headline)
+                    Spacer()
+                    let avg = (course.totalPointsAchieved/course.totalPointsCompleted) * 100
+                    Text("Current Average: \(String(format: "%.01f", avg))%")
+                        .font(.headline)
+                }
             }
 
             //can only display progress view if all syllabus items (making up >= 100% of course) have been entered

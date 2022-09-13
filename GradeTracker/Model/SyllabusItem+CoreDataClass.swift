@@ -65,6 +65,7 @@ public class SyllabusItem: NSManagedObject {
             }
         }
         else { throw InvalidPropertySetter.negativeValue }
+        print("New item. Total Course Points: \(course?.totalCoursePoints), totalCompleted: \(course?.totalPointsCompleted), totalAchieved: \(course?.totalPointsAchieved)")
     }
     
     func setDueDate(_ date: Date) {
