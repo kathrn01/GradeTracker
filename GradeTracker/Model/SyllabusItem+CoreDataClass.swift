@@ -23,8 +23,19 @@ public class SyllabusItem: NSManagedObject {
         try viewContext.save()
     }
     
+    /* -------------- FETCH  -------------- */
+    //use to access stored syllabus items
+    //got idea to keep fetch request in Model to minimize use in View from this repository:
+    //https://github.com/gahntpo/Slipbox/blob/main/Shared/model/Folder%2Bhelper.swift
+    static func fetchCourses(_ predicate: NSPredicate) -> NSFetchRequest<SyllabusItem> {
+        let request = NSFetchRequest<SyllabusItem>(entityName: "SyllabusItem") //all terms that exist
+        request.sortDescriptors = [NSSortDescriptor(key: "dueDate", ascending: true)] //displayed by earliest due date
+        request.predicate = predicate //assign the given predicate
+        return request
+    }
+    
     /* -------------- COMPUTED VARIABLE(S)  -------------- */
-    //if a final grade has been assigned to this syllabus item, percentageOfCourseGradeAchieved returns the percentage of the final grade in the course achieved by the final grade on this syllabus item based on it's worth
+    //if item is graded, how many points towards final grade are achieved
     var percentageOfCourseGradeAchieved: Double {
         if finalGrade != -1 { return weight * (finalGrade/100) }
         return 0
