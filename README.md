@@ -33,7 +33,7 @@ These attributes can be edited by selecting the syllabus item when it's displaye
 #### NOTE: The target grade for syllabus items will not be displayed until the sum of weights total 100% or more. In other words, until all syllabus items are added. See demo video below (adding final grade to syllabus item) to view how the target grade is displayed once all syllabus items are added.
 
 ### Adding Final Grade To Syllabus Item
-#### If the Syllabus Item was added without an initial grade, one can be added by selecting the item in the list. Once the final grade is added for that item, it's display will change to show a progress bar and the percentage achieved, and the target grade will adjust accordingly for subsequent un-marked syllabus items. 
+If the Syllabus Item was added without an initial grade, one can be added by selecting the item in the list. Once the final grade is added for that item, it's display will change to show a progress bar and the percentage achieved, and the target grade will adjust accordingly for subsequent un-marked syllabus items. 
 
 ## Testing
 Tests have been written for the Course class so far, and more tests will be added (UI tests). The main functionality of correctly calculating the target grade for syllabus items in a course has been tested in the CourseTests class.
