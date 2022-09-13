@@ -50,7 +50,7 @@ struct AddCourseView: View {
             }
             resetUserInput()
         })
-        .disabled(newCourseName.isEmpty)) //cannot add a new course without a name
+        .disabled(newCourseName.isEmpty || newCourseGoalGrade.isEmpty)) //cannot add a new course without a name or goal grade
     }
     
     private func resetUserInput() {
