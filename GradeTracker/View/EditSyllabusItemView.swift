@@ -98,6 +98,7 @@ struct EditSyllabusItemView: View {
             } catch {
                 print("Couldn't change the syllabus item's attributes.")
             }
+            do { try viewContext.save() } catch { print("Could not save changes.")}
             displayEditSyllabusItem = false
         }))
     }

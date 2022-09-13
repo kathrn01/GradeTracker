@@ -26,6 +26,17 @@ public class Term: NSManagedObject {
         try viewContext.save()
     }
     
+    /* -------------- FETCH  -------------- */
+    //use to access stored terms
+    //got idea to keep fetch request in Model to minimize use in View from this repository:
+    //https://github.com/gahntpo/Slipbox/blob/main/Shared/model/Folder%2Bhelper.swift
+    static func fetchTerms(_ predicate: NSPredicate) -> NSFetchRequest<Term> {
+        let request = NSFetchRequest<Term>(entityName: "Term") //all terms that exist
+        request.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)] //terms will always be displayed by start date priority
+        request.predicate = predicate //assign the given predicate
+        return request
+    }
+    
     /* -------------- SETTERS  -------------- */
     //propagates an error to the calling function if the title is empty or contains only whitespace characters
     func setTitle(_ newTitle: String) throws {
