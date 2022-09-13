@@ -28,10 +28,10 @@ public class Course: NSManagedObject {
     //use to access stored courses
     //got idea to keep fetch request in Model to minimize use in View from this repository:
     //https://github.com/gahntpo/Slipbox/blob/main/Shared/model/Folder%2Bhelper.swift
-    static func fetchCourses(_ predicate: NSPredicate) -> NSFetchRequest<Course> {
+    static func fetchCourses(forTerm: Term) -> NSFetchRequest<Course> {
         let request = NSFetchRequest<Course>(entityName: "Course") //all terms that exist
         request.sortDescriptors = [NSSortDescriptor(key: "courseTitle", ascending: true)] //courses displayed in alphabetic order
-        request.predicate = predicate //assign the given predicate
+        request.predicate = NSPredicate(format: "term == %@", forTerm)
         return request
     }
     

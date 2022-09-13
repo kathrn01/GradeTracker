@@ -11,19 +11,19 @@ import SwiftUI
 struct TermView: View {
     @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
     var term: Term //this variable is passed from the calling view
-    @FetchRequest var courses: FetchedResults<Course> //this fetch request will allow to display all courses saved to persistent storage (created by the user)
+    @FetchRequest var courses: FetchedResults<Course> //fetch all courses that belong to the term
     
     //when user selects the edit button in the top right corner, this is changed to true
     @State var showEditTermWindow = false
     
     //this state variable is changed to true if the user selects "add course"
     @State var displayAddCourse = false 
-    
-    /* I am using a custom initializer here to assign courses as the list of courses associated with this term 
+
+    /* I am using a custom initializer here to assign courses as the list of courses associated with this term
      referenced this solution from: https://stackoverflow.com/questions/58783711/swiftui-use-relationship-predicate-with-struct-parameter-in-fetchrequest?noredirect=1&lq=1 */
     init(term: Term) {
         self.term = term
-        self._courses = FetchRequest(entity: Course.entity(), sortDescriptors: [], predicate: NSPredicate(format: "term == %@", term))
+        self._courses = FetchRequest(fetchRequest: Course.fetchCourses(forTerm: term))
     }
     
     var body: some View {

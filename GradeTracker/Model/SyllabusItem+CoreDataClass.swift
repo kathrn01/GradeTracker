@@ -27,10 +27,10 @@ public class SyllabusItem: NSManagedObject {
     //use to access stored syllabus items
     //got idea to keep fetch request in Model to minimize use in View from this repository:
     //https://github.com/gahntpo/Slipbox/blob/main/Shared/model/Folder%2Bhelper.swift
-    static func fetchCourses(_ predicate: NSPredicate) -> NSFetchRequest<SyllabusItem> {
+    static func fetchSyllItems(forCourse: Course) -> NSFetchRequest<SyllabusItem> {
         let request = NSFetchRequest<SyllabusItem>(entityName: "SyllabusItem") //all terms that exist
         request.sortDescriptors = [NSSortDescriptor(key: "dueDate", ascending: true)] //displayed by earliest due date
-        request.predicate = predicate //assign the given predicate
+        request.predicate = NSPredicate(format: "course == %@", forCourse)
         return request
     }
     

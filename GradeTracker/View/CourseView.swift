@@ -22,7 +22,7 @@ struct CourseView: View {
      referenced this solution from: https://stackoverflow.com/questions/58783711/swiftui-use-relationship-predicate-with-struct-parameter-in-fetchrequest?noredirect=1&lq=1 */
     init(course: Course) {
         self.course = course
-        self._syllabusItems = FetchRequest(entity: SyllabusItem.entity(), sortDescriptors: [NSSortDescriptor(key: "dueDate", ascending: true)], predicate: NSPredicate(format: "course == %@", course) ,animation: .default)
+        self._syllabusItems = FetchRequest(fetchRequest: SyllabusItem.fetchSyllItems(forCourse: course))
     }
     
     var body: some View {
