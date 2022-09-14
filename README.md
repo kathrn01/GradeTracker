@@ -6,7 +6,7 @@ The visual component of progress towards a goal grade as well as exact figures i
 
 | Terms | Courses | Syllabus Items |
 | ---- | ---- | ---- |
-| ![Screen Shot 2022-09-11 at 12 49 54 PM](https://user-images.githubusercontent.com/84199502/189553635-0d4d2a0e-5203-4faf-a5cf-5f52f1dac5de.png) | ![Screen Shot 2022-09-11 at 12 52 48 PM](https://user-images.githubusercontent.com/84199502/189553649-43ca072a-eb96-4865-87db-117a2fc445ca.png) | ![Screen Shot 2022-09-11 at 6 47 34 PM](https://user-images.githubusercontent.com/84199502/189554100-dc13cf84-1fe6-4860-92c0-d2c4d85ad73a.png) |
+| ![Screen Shot 2022-09-11 at 12 49 54 PM](https://user-images.githubusercontent.com/84199502/189553635-0d4d2a0e-5203-4faf-a5cf-5f52f1dac5de.png) | ![Screen Shot 2022-09-11 at 12 52 48 PM](https://user-images.githubusercontent.com/84199502/189553649-43ca072a-eb96-4865-87db-117a2fc445ca.png) | ![Screen Shot 2022-09-13 at 7 10 50 PM](https://user-images.githubusercontent.com/84199502/190030986-f3522c6f-8af1-4518-8a7d-9bb236d02887.png) |
 
 ## Packages and Major Source Code Organization 
 ### The code is organized at present into "Model" and "View" and will soon have "ViewModel" introduced. 
@@ -33,7 +33,7 @@ These attributes can be edited by selecting the syllabus item when it's displaye
 #### NOTE: The target grade for syllabus items will not be displayed until the sum of weights total 100% or more. In other words, until all syllabus items are added. See demo video below (adding final grade to syllabus item) to view how the target grade is displayed once all syllabus items are added.
 
 ### Adding Final Grade To Syllabus Item
-#### If the Syllabus Item was added without an initial grade, one can be added by selecting the item in the list. Once the final grade is added for that item, it's display will change to show a progress bar and the percentage achieved, and the target grade will adjust accordingly for subsequent un-marked syllabus items. 
+If the Syllabus Item was added without an initial grade, one can be added by selecting the item in the list. Once the final grade is added for that item, it's display will change to show a progress bar and the percentage achieved, and the target grade will adjust accordingly for subsequent un-marked syllabus items. 
 
 ## Testing
 Tests have been written for the Course class so far, and more tests will be added (UI tests). The main functionality of correctly calculating the target grade for syllabus items in a course has been tested in the CourseTests class.
