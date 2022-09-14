@@ -6,7 +6,7 @@ The visual component of progress towards a goal grade as well as exact figures i
 
 | Terms | Courses | Syllabus Items |
 | ---- | ---- | ---- |
-| ![Screen Shot 2022-09-11 at 12 49 54 PM](https://user-images.githubusercontent.com/84199502/189553635-0d4d2a0e-5203-4faf-a5cf-5f52f1dac5de.png) | ![Screen Shot 2022-09-11 at 12 52 48 PM](https://user-images.githubusercontent.com/84199502/189553649-43ca072a-eb96-4865-87db-117a2fc445ca.png) | ![Screen Shot 2022-09-13 at 7 05 09 PM](https://user-images.githubusercontent.com/84199502/190030434-013cae7c-052b-48ca-8e71-ad268fd61cb1.png) |
+| ![Screen Shot 2022-09-11 at 12 49 54 PM](https://user-images.githubusercontent.com/84199502/189553635-0d4d2a0e-5203-4faf-a5cf-5f52f1dac5de.png) | ![Screen Shot 2022-09-11 at 12 52 48 PM](https://user-images.githubusercontent.com/84199502/189553649-43ca072a-eb96-4865-87db-117a2fc445ca.png) | ![Screen Shot 2022-09-13 at 7 10 50 PM](https://user-images.githubusercontent.com/84199502/190030986-f3522c6f-8af1-4518-8a7d-9bb236d02887.png) |
 
 ## Packages and Major Source Code Organization 
 ### The code is organized at present into "Model" and "View" and will soon have "ViewModel" introduced. 
