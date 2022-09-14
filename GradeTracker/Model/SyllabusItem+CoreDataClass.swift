@@ -51,7 +51,7 @@ public class SyllabusItem: NSManagedObject {
 
     //propagates an error to the calling function if the syllabus item's weight is attempted to be set as negative
     func setWeight(_ newWeight: Double) throws {
-        if newWeight >= 0 {
+        if newWeight >= 0 && newWeight != self.weight {
             let prevAchieved = percentageOfCourseGradeAchieved
             let weightDiff = newWeight - self.weight
             
@@ -65,7 +65,7 @@ public class SyllabusItem: NSManagedObject {
             }
         }
         else { throw InvalidPropertySetter.negativeValue }
-        print("New item. Total Course Points: \(course?.totalCoursePoints), totalCompleted: \(course?.totalPointsCompleted), totalAchieved: \(course?.totalPointsAchieved)")
+//        print("New item. Total Course Points: \(course?.totalCoursePoints), totalCompleted: \(course?.totalPointsCompleted), totalAchieved: \(course?.totalPointsAchieved)")
     }
     
     func setDueDate(_ date: Date) {
@@ -74,7 +74,7 @@ public class SyllabusItem: NSManagedObject {
     
     //propagates an error to the calling function if the syllabus item's final grade is attempted to be set as negative
     func setFinalGrade(_ grade: Double) throws {
-        if grade >= 0 {
+        if grade >= 0 && grade != self.finalGrade { //setting a different grade
             let prevGrade = self.finalGrade //the current grade
             let prevAchieved = percentageOfCourseGradeAchieved //percentage achieved in course with current grade
             if prevGrade == -1 { course?.totalPointsCompleted += weight } //if a grade is being assigned for the first time, add it's weight to the points completed in the course
