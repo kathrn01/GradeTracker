@@ -51,21 +51,25 @@ public class SyllabusItem: NSManagedObject {
 
     //propagates an error to the calling function if the syllabus item's weight is attempted to be set as negative
     func setWeight(_ newWeight: Double) throws {
-        if newWeight >= 0 && newWeight != self.weight {
-            let prevAchieved = percentageOfCourseGradeAchieved
-            let weightDiff = newWeight - self.weight
-            
-            self.weight = newWeight //set weight to new weight
-            
-            course?.totalCoursePoints += weightDiff //add difference
-            //if there is a grade assigned, update the percentage of the course completed and percentage achieved
-            if finalGrade > -1 {
-                course?.totalPointsAchieved += (percentageOfCourseGradeAchieved - prevAchieved)
-                course?.totalPointsCompleted += weightDiff //add the difference
+        if newWeight != self.weight { //weight was updated
+            if newWeight >= 0 { //valid
+                let prevAchieved = percentageOfCourseGradeAchieved
+                let weightDiff = newWeight - self.weight
+                
+                self.weight = newWeight //set weight to new weight
+                
+                course?.addTotalPoints(weightDiff) //add difference
+                
+                //if there is a grade assigned, update the percentage of the course completed and percentage achieved
+                if finalGrade > -1 {
+                    let gradeDiff = percentageOfCourseGradeAchieved - prevAchieved
+                    course?.addAchievedPoints(gradeDiff)
+                    course?.addCompletedPoints(weightDiff)
+                }
             }
-        }
-        else { throw InvalidPropertySetter.negativeValue }
+            else { throw InvalidPropertySetter.negativeValue }
 //        print("New item. Total Course Points: \(course?.totalCoursePoints), totalCompleted: \(course?.totalPointsCompleted), totalAchieved: \(course?.totalPointsAchieved)")
+        }
     }
     
     func setDueDate(_ date: Date) {
@@ -74,20 +78,24 @@ public class SyllabusItem: NSManagedObject {
     
     //propagates an error to the calling function if the syllabus item's final grade is attempted to be set as negative
     func setFinalGrade(_ grade: Double) throws {
-        if grade >= 0 && grade != self.finalGrade { //setting a different grade
-            let prevGrade = self.finalGrade //the current grade
-            let prevAchieved = percentageOfCourseGradeAchieved //percentage achieved in course with current grade
-            if prevGrade == -1 { course?.totalPointsCompleted += weight } //if a grade is being assigned for the first time, add it's weight to the points completed in the course
-            self.finalGrade = grade //set the new final grade
-            let addToAchieved = (finalGrade > -1) ? (percentageOfCourseGradeAchieved - prevAchieved) : percentageOfCourseGradeAchieved //add the difference if a grade was already assigned
-            course?.totalPointsAchieved += addToAchieved //add the percentage of the course achieved (or the difference from previous grade) to the course
-        } else { throw InvalidPropertySetter.negativeValue }
+        if grade != self.finalGrade { //the grade was updated
+            if grade >= 0 { //valid
+                let prevGrade = self.finalGrade //the current grade
+                let prevAchieved = percentageOfCourseGradeAchieved //percentage achieved in course with current grade
+                if prevGrade == -1 { course?.addTotalPoints(self.weight) } //if a grade is being assigned for the first time, add it's weight to the points completed in the course
+                self.finalGrade = grade //set the new final grade
+                
+                let gradeDiff = percentageOfCourseGradeAchieved - prevAchieved
+                let addToAchieved = (finalGrade > -1) ? (gradeDiff) : percentageOfCourseGradeAchieved //add the difference if a grade was already assigned
+                course?.addAchievedPoints(addToAchieved) //add the percentage of the course achieved (or the difference from previous grade) to the course
+            } else { throw InvalidPropertySetter.negativeValue }
+        }
     }
     
     //removes the final grade if one was previously added
     func removeFinalGrade() {
-        course?.totalPointsAchieved -= percentageOfCourseGradeAchieved
-        course?.totalPointsCompleted -= weight
+        course?.removeCompletedPoints(self.weight)
+        course?.removeAchievedPoints(percentageOfCourseGradeAchieved)
         self.finalGrade = -1
     }
 }

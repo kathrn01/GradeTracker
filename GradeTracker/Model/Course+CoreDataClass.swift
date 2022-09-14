@@ -66,6 +66,34 @@ public class Course: NSManagedObject {
         else { throw InvalidPropertySetter.negativeValue }
     }
     
+    
+    /* -------------- MODIFY  -------------- */
+    //used by syllabusItem class when items belonging to a course are modified; update properties in course
+    
+    func addTotalPoints(_ toAdd: Double) {
+        totalCoursePoints += toAdd
+    }
+    
+    func removeTotalPoints(_ toRemove: Double) {
+        totalCoursePoints -= toRemove
+    }
+    
+    func addCompletedPoints(_ toAdd: Double) {
+        totalPointsCompleted += toAdd
+    }
+    
+    func removeCompletedPoints(_ toRemove: Double) {
+        totalPointsCompleted -= toRemove
+    }
+    
+    func addAchievedPoints(_ toAdd: Double) {
+        totalPointsAchieved += toAdd
+    }
+    
+    func removeAchievedPoints(_ toRemove: Double) {
+        totalPointsAchieved -= toRemove
+    }
+    
     /* -------------- ADD & REMOVE SYLLABUS ITEMS  -------------- */
     //add a syllabus item to this course. propagates any errors (from SyllabusItem initializer) to calling code.
     func addSyllabusItem(viewContext: NSManagedObjectContext, title: String, weight: Double, finalGrade: Double?, dueDate: Date) throws {
