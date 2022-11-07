@@ -37,7 +37,7 @@ public class SyllabusItem: NSManagedObject {
     /* -------------- COMPUTED VARIABLE(S)  -------------- */
     //if item is graded, how many points towards final grade are achieved
     var percentageOfCourseGradeAchieved: Double {
-        if finalGrade != -1 { return weight * (finalGrade/100) }
+        if finalGrade > -1 { return weight * (finalGrade/100) }
         return 0
     }
     
@@ -53,22 +53,20 @@ public class SyllabusItem: NSManagedObject {
     func setWeight(_ newWeight: Double) throws {
         if newWeight != self.weight { //weight was updated
             if newWeight >= 0 { //valid
-                let prevAchieved = percentageOfCourseGradeAchieved
+                let currAchieved = percentageOfCourseGradeAchieved //percentage of course grade achieved with current item weight
                 let weightDiff = newWeight - self.weight
-                
                 self.weight = newWeight //set weight to new weight
                 
                 course?.addTotalPoints(weightDiff) //add difference
                 
                 //if there is a grade assigned, update the percentage of the course completed and percentage achieved
                 if finalGrade > -1 {
-                    let gradeDiff = percentageOfCourseGradeAchieved - prevAchieved
+                    let gradeDiff = percentageOfCourseGradeAchieved - currAchieved
                     course?.addAchievedPoints(gradeDiff)
                     course?.addCompletedPoints(weightDiff)
                 }
             }
             else { throw InvalidPropertySetter.negativeValue }
-//        print("New item. Total Course Points: \(course?.totalCoursePoints), totalCompleted: \(course?.totalPointsCompleted), totalAchieved: \(course?.totalPointsAchieved)")
         }
     }
     
@@ -80,14 +78,16 @@ public class SyllabusItem: NSManagedObject {
     func setFinalGrade(_ grade: Double) throws {
         if grade != self.finalGrade { //the grade was updated
             if grade >= 0 { //valid
-                let prevGrade = self.finalGrade //the current grade
-                let prevAchieved = percentageOfCourseGradeAchieved //percentage achieved in course with current grade
-                if prevGrade == -1 { course?.addTotalPoints(self.weight) } //if a grade is being assigned for the first time, add it's weight to the points completed in the course
+                let currGrade = self.finalGrade //current grade before update
+                let currAchieved = percentageOfCourseGradeAchieved //percentage achieved in course with current grade
                 self.finalGrade = grade //set the new final grade
                 
-                let gradeDiff = percentageOfCourseGradeAchieved - prevAchieved
-                let addToAchieved = (finalGrade > -1) ? (gradeDiff) : percentageOfCourseGradeAchieved //add the difference if a grade was already assigned
-                course?.addAchievedPoints(addToAchieved) //add the percentage of the course achieved (or the difference from previous grade) to the course
+                course?.addAchievedPoints(percentageOfCourseGradeAchieved - currAchieved) //add difference in achieved points from previous grade
+            
+                if currGrade < 0 { //if a grade is being assigned for the first time, add it's weight to the points completed in the course
+                    course?.addCompletedPoints(self.weight)
+                }
+                
             } else { throw InvalidPropertySetter.negativeValue }
         }
     }

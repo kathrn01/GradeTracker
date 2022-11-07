@@ -27,7 +27,7 @@ struct CourseDashboardView: View {
                     Text("Goal Grade: \(String(format: "%.01f", course.goalGrade))%")
                         .font(.headline)
                     Spacer()
-                    let avg = (course.totalPointsAchieved/course.totalPointsCompleted) * 100
+                    let avg = course.totalPointsCompleted == 0 ? 0 : (course.totalPointsAchieved/course.totalPointsCompleted) * 100
                     Text("Current Average: \(String(format: "%.01f", avg))%")
                         .font(.headline)
                 }
