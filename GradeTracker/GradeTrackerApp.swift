@@ -20,7 +20,7 @@ struct GradeTrackerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            AllTermsView()
+            HomePageView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
         .onChange(of: scenePhase) { _ in //this idea was referenced in the link in above comments
