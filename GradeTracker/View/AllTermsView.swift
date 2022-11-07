@@ -9,7 +9,7 @@
 import SwiftUI
 import CoreData
 
-struct HomePageView: View {
+struct AllTermsView: View {
     // ----- this code provided automatically by xcode (modified for purposes of this app)
     @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
 //    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "startDate", ascending: true)], animation: .default) //this fetch request will allow to display all terms saved to persistent storage (created by the user)
