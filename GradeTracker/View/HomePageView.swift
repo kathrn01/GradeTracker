@@ -11,7 +11,11 @@ struct HomePageView: View {
     @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
     var body: some View {
         NavigationView {
-            NavigationLink("My Terms", destination: AllTermsView().environment(\.managedObjectContext, viewContext))
+            VStack {
+                Image("G")
+                NavigationLink("My Terms", destination: AllTermsView().environment(\.managedObjectContext, viewContext))
+            }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }

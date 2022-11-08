@@ -1,5 +1,5 @@
 //
-//  HomePageView.swift
+//  AllTermsView.swift
 //  GradeTracker
 //
 //  Created by Katharine K
