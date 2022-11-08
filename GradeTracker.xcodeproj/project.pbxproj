@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		890338FD29182C390047F6B0 /* ModifySIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890338FC29182C390047F6B0 /* ModifySIDelegate.swift */; };
+		890338FF291831840047F6B0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 890338FE291831840047F6B0 /* Launch Screen.storyboard */; };
+		890339012918624B0047F6B0 /* AllTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890339002918624B0047F6B0 /* AllTermsView.swift */; };
+		8903390529195D0D0047F6B0 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8903390429195D0D0047F6B0 /* HomePageView.swift */; };
 		890C2B592833F7F20074A605 /* CourseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890C2B582833F7F20074A605 /* CourseTests.swift */; };
 		890C2B5B2835B5EE0074A605 /* TermListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890C2B5A2835B5EE0074A605 /* TermListItemView.swift */; };
 		890F66E82832D7AF0098E5B6 /* CourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890F66E72832D7AF0098E5B6 /* CourseView.swift */; };
@@ -23,7 +27,6 @@
 		897C5FDC283872EA004346BD /* EditTermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897C5FDB283872EA004346BD /* EditTermView.swift */; };
 		897C5FDE283872F9004346BD /* AddCourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897C5FDD283872F9004346BD /* AddCourseView.swift */; };
 		898B16F5273EDE6E005B02A8 /* GradeTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898B16F4273EDE6E005B02A8 /* GradeTrackerApp.swift */; };
-		898B16F7273EDE6E005B02A8 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898B16F6273EDE6E005B02A8 /* HomePageView.swift */; };
 		898B16F9273EDE71005B02A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 898B16F8273EDE71005B02A8 /* Assets.xcassets */; };
 		898B16FC273EDE71005B02A8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 898B16FB273EDE71005B02A8 /* Preview Assets.xcassets */; };
 		898B16FE273EDE71005B02A8 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898B16FD273EDE71005B02A8 /* Persistence.swift */; };
@@ -44,6 +47,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		890338FC29182C390047F6B0 /* ModifySIDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifySIDelegate.swift; sourceTree = "<group>"; };
+		890338FE291831840047F6B0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "GradeTracker/View/Launch Screen.storyboard"; sourceTree = SOURCE_ROOT; };
+		890339002918624B0047F6B0 /* AllTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTermsView.swift; sourceTree = "<group>"; };
+		8903390429195D0D0047F6B0 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
 		890C2B582833F7F20074A605 /* CourseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseTests.swift; sourceTree = "<group>"; };
 		890C2B5A2835B5EE0074A605 /* TermListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermListItemView.swift; sourceTree = "<group>"; };
 		890F66E72832D7AF0098E5B6 /* CourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseView.swift; sourceTree = "<group>"; };
@@ -64,7 +71,6 @@
 		897C5FDD283872F9004346BD /* AddCourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseView.swift; sourceTree = "<group>"; };
 		898B16F1273EDE6E005B02A8 /* GradeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GradeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		898B16F4273EDE6E005B02A8 /* GradeTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeTrackerApp.swift; sourceTree = "<group>"; };
-		898B16F6273EDE6E005B02A8 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
 		898B16F8273EDE71005B02A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		898B16FB273EDE71005B02A8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		898B16FD273EDE71005B02A8 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -96,6 +102,7 @@
 		89779CCD28300084001DF1A4 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				890338FC29182C390047F6B0 /* ModifySIDelegate.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -165,6 +172,7 @@
 				89779CD32830483B001DF1A4 /* Term+CoreDataClass.swift */,
 				89779CCF2830482C001DF1A4 /* Course+CoreDataClass.swift */,
 				89779CD128304836001DF1A4 /* SyllabusItem+CoreDataClass.swift */,
+				890338FE291831840047F6B0 /* Launch Screen.storyboard */,
 				898B16FD273EDE71005B02A8 /* Persistence.swift */,
 				898B16FF273EDE71005B02A8 /* GradeTracker.xcdatamodeld */,
 				89779CE728317DDD001DF1A4 /* ErrorDefinitions.swift */,
@@ -175,7 +183,8 @@
 		898B176227460946005B02A8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				898B16F6273EDE6E005B02A8 /* HomePageView.swift */,
+				8903390429195D0D0047F6B0 /* HomePageView.swift */,
+				890339002918624B0047F6B0 /* AllTermsView.swift */,
 				8929CB7028394C63004F8000 /* AddTermView.swift */,
 				890C2B5A2835B5EE0074A605 /* TermListItemView.swift */,
 				898B1708273EDFA7005B02A8 /* TermView.swift */,
@@ -279,6 +288,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				890338FF291831840047F6B0 /* Launch Screen.storyboard in Resources */,
 				898B16FC273EDE71005B02A8 /* Preview Assets.xcassets in Resources */,
 				898B16F9273EDE71005B02A8 /* Assets.xcassets in Resources */,
 			);
@@ -307,7 +317,6 @@
 				89779CD02830482C001DF1A4 /* Course+CoreDataClass.swift in Sources */,
 				8929CB772839687F004F8000 /* SyllabusItemView.swift in Sources */,
 				898B1709273EDFA7005B02A8 /* TermView.swift in Sources */,
-				898B16F7273EDE6E005B02A8 /* HomePageView.swift in Sources */,
 				8929CB7528395807004F8000 /* AddSyllabusItemView.swift in Sources */,
 				898B16F5273EDE6E005B02A8 /* GradeTrackerApp.swift in Sources */,
 				89FCC6B4283ED3DE001D649C /* CourseListItemView.swift in Sources */,
@@ -319,6 +328,9 @@
 				890F66E82832D7AF0098E5B6 /* CourseView.swift in Sources */,
 				890C2B5B2835B5EE0074A605 /* TermListItemView.swift in Sources */,
 				8929CB792839697A004F8000 /* EditSyllabusItemView.swift in Sources */,
+				890338FD29182C390047F6B0 /* ModifySIDelegate.swift in Sources */,
+				890339012918624B0047F6B0 /* AllTermsView.swift in Sources */,
+				8903390529195D0D0047F6B0 /* HomePageView.swift in Sources */,
 				89779CD42830483B001DF1A4 /* Term+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
