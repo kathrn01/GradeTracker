@@ -57,6 +57,7 @@ struct EditCourseView: View {
                       secondaryButton: .destructive(Text("Delete Course"), action: {
                         displayEditCourse = false
                         viewContext.delete(course)
+                        
                         do { try viewContext.save() } catch { print("Couldn't save course deletion in persistent storage.") }
                 }))
             })

@@ -26,6 +26,29 @@ public class Term: NSManagedObject {
         try viewContext.save()
     }
     
+    //allow view to modify this and then save it to Term instance
+    struct TermData {
+        var title: String = ""
+        var startDate: Date = Date()
+        var endDate: Date = Date()
+        var currentGPA: Double? = nil
+        var goalGPA: Double? = nil
+    }
+    
+    //computer property that returns a TermData instance with Term values
+    var termData: TermData {
+        TermData(title: termTitle ?? "Untitled", startDate: startDate ?? Date(), endDate: endDate ?? Date(), currentGPA: currentGPA, goalGPA: goalGPA)
+    }
+    
+    //updates term with data from view
+    func update(from: TermData) throws {
+        try setTitle(from.title)
+        startDate = from.startDate
+        endDate = from.endDate
+        
+        //TODO: ADD GPA MODIFICATIONS 
+    }
+    
     /* -------------- FETCH  -------------- */
     //use to access stored terms
     //got idea to keep fetch request in Model to minimize use in View from this repository:
