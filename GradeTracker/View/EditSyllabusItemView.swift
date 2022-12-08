@@ -11,6 +11,7 @@ import SwiftUI
 
 struct EditSyllabusItemView: View {
     @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
+    //passed in from SyllabusItemView: this is the syllabus item we're editing
     var syllabusItem: SyllabusItem
     
     //determines whether this view is shown -- passed in from calling view as true, when user is done editing, becomes false
@@ -20,21 +21,13 @@ struct EditSyllabusItemView: View {
     @State var showDeleteSIConfirmation = false
     
     //user input for editing the existing course information
-    @State var itemTitle: String
-    @State var itemWeight: String
-    @State var itemFinalGrade: String
-    @State var itemDueDate: Date
+    @State private var fields: SyllabusItem.SIData
     
     /* I am using a custom initializer here to assign the user inputs to the syllabus item's existing attributes */
     init(syllabusItem: SyllabusItem, displayEditSyllabusItem: Binding<Bool>) {
         self.syllabusItem = syllabusItem
         self._displayEditSyllabusItem = displayEditSyllabusItem
-        self._itemTitle = State(initialValue: syllabusItem.itemTitle ?? "New Item Title") //existing title
-        self._itemWeight = State(initialValue: String(syllabusItem.weight)) //existing weight
-        if syllabusItem.finalGrade >= 0 { //if the item already has been assigned a final grade
-            self._itemFinalGrade = State(initialValue: String(syllabusItem.finalGrade)) //existing grade
-        } else { self._itemFinalGrade = State(initialValue: "")} //blank if no existing grade
-        self._itemDueDate = State(initialValue: syllabusItem.dueDate ?? syllabusItem.course!.term!.startDate!) //existing due date or start date of the term
+        self._fields = State(initialValue: syllabusItem.syllabusItemData)
     }
     var body: some View {
         VStack {
@@ -42,25 +35,25 @@ struct EditSyllabusItemView: View {
                 Section(header: Text("Item Info:")) {
                     HStack { //display current title for user to modify
                         Text("Title: ")
-                        TextField(itemTitle, text: $itemTitle)
+                        TextField(fields.title, text: $fields.title)
                     }
                     HStack{ //display current goal grade for user to modify
                         Text("Weight: ")
-                        TextField(itemWeight, text: $itemWeight)
+                        TextField(fields.weight, text: $fields.weight)
                             .keyboardType(.decimalPad)
                     }
                     //allows user to modify the due date from the current one (if any assigned)
-                    DatePicker("Due Date:", selection: $itemDueDate, in: closedRangeDueDate)
+                    DatePicker("Due Date:", selection: $fields.dueDate, in: closedRangeDueDate)
                 }
                 
                 Section(header: Text("Final Grade")) {
                     HStack{ //display current goal grade for user to modify
                         Text("Grade: ")
-                        TextField(itemFinalGrade, text: $itemFinalGrade)
+                        TextField(fields.grade, text: $fields.grade)
                             .keyboardType(.decimalPad)
                     }
                     if syllabusItem.finalGrade > 0 {
-                        Button(action: { itemFinalGrade = "" }, label: {
+                        Button(action: { fields.grade = "None Assigned" }, label: {
                             Text("Remove Grade")
                                 .foregroundColor(.red)
                         })
@@ -91,10 +84,7 @@ struct EditSyllabusItemView: View {
             displayEditSyllabusItem = false
         }), trailing: Button("Save", action: {
             do {
-                try syllabusItem.setTitle(itemTitle)
-                try syllabusItem.setWeight(Double(itemWeight) ?? 0)
-                if Double(itemFinalGrade) != nil { try syllabusItem.setFinalGrade(Double(itemFinalGrade)!)} else { syllabusItem.removeFinalGrade() }
-                syllabusItem.setDueDate(itemDueDate)
+                try syllabusItem.update(from: fields)
             } catch {
                 print("Couldn't change the syllabus item's attributes.")
             }

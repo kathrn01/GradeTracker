@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		890338FD29182C390047F6B0 /* ModifySIDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890338FC29182C390047F6B0 /* ModifySIDelegate.swift */; };
 		890338FF291831840047F6B0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 890338FE291831840047F6B0 /* Launch Screen.storyboard */; };
 		890339012918624B0047F6B0 /* AllTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890339002918624B0047F6B0 /* AllTermsView.swift */; };
 		8903390529195D0D0047F6B0 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8903390429195D0D0047F6B0 /* HomePageView.swift */; };
@@ -47,7 +46,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		890338FC29182C390047F6B0 /* ModifySIDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifySIDelegate.swift; sourceTree = "<group>"; };
 		890338FE291831840047F6B0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "GradeTracker/View/Launch Screen.storyboard"; sourceTree = SOURCE_ROOT; };
 		890339002918624B0047F6B0 /* AllTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTermsView.swift; sourceTree = "<group>"; };
 		8903390429195D0D0047F6B0 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 		89779CCD28300084001DF1A4 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
-				890338FC29182C390047F6B0 /* ModifySIDelegate.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -328,7 +325,6 @@
 				890F66E82832D7AF0098E5B6 /* CourseView.swift in Sources */,
 				890C2B5B2835B5EE0074A605 /* TermListItemView.swift in Sources */,
 				8929CB792839697A004F8000 /* EditSyllabusItemView.swift in Sources */,
-				890338FD29182C390047F6B0 /* ModifySIDelegate.swift in Sources */,
 				890339012918624B0047F6B0 /* AllTermsView.swift in Sources */,
 				8903390529195D0D0047F6B0 /* HomePageView.swift in Sources */,
 				89779CD42830483B001DF1A4 /* Term+CoreDataClass.swift in Sources */,

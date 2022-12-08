@@ -43,7 +43,6 @@ public class Course: NSManagedObject {
         if totalCoursePoints >= 100 {
             let totalPointsLeftToComplete = totalCoursePoints - totalPointsCompleted
             let totalPointsLeftToAchieve = goalGrade - totalPointsAchieved
-            print("Achieved: \(totalPointsAchieved), completed: \(totalPointsCompleted)")
             return ((totalPointsLeftToAchieve/totalPointsLeftToComplete) * 100)
         }
         return nil

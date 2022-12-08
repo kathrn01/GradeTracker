@@ -23,6 +23,25 @@ public class SyllabusItem: NSManagedObject {
         try viewContext.save()
     }
     
+    
+    struct SIData {
+        var title: String = ""
+        var weight: String = "0.0"
+        var grade: String = "None"
+        var dueDate: Date = Date()
+    }
+    
+    var syllabusItemData: SIData {
+        SIData(title: itemTitle ?? "Untitled", weight: String(weight), grade:  self.finalGrade > -1 ? String(self.finalGrade) : "None Assigned", dueDate: dueDate ?? Date())
+    }
+    
+    func update(from: SIData) throws {
+        try setTitle(from.title)
+        try setWeight(Double(from.weight) ?? self.weight)
+        try setFinalGrade(Double(from.grade) ?? self.finalGrade) 
+        self.dueDate = from.dueDate
+    }
+    
     /* -------------- FETCH  -------------- */
     //use to access stored syllabus items
     //got idea to keep fetch request in Model to minimize use in View from this repository:
@@ -43,7 +62,7 @@ public class SyllabusItem: NSManagedObject {
     
     /* -------------- SETTERS  -------------- */
     //propagates an error to the calling function if the title is empty or contains only whitespace characters
-    func setTitle(_ newTitle: String) throws {
+    private func setTitle(_ newTitle: String) throws {
         if !newTitle.isEmpty && !newTitle.trimmingCharacters(in: .whitespaces).isEmpty { self.itemTitle = newTitle}
         else if newTitle.isEmpty { throw InvalidPropertySetter.titleEmpty }
         else if newTitle.trimmingCharacters(in: .whitespaces).isEmpty { throw InvalidPropertySetter.titleWhitespaces }
@@ -54,41 +73,39 @@ public class SyllabusItem: NSManagedObject {
         if newWeight != self.weight { //weight was updated
             if newWeight >= 0 { //valid
                 let currAchieved = percentageOfCourseGradeAchieved //percentage of course grade achieved with current item weight
-                let weightDiff = newWeight - self.weight
+                let weightDiff = newWeight - self.weight //difference between new item weight and current item weight
+                
                 self.weight = newWeight //set weight to new weight
                 
-                course?.addTotalPoints(weightDiff) //add difference
+                course?.addTotalPoints(weightDiff) //add difference to the course's total points
                 
                 //if there is a grade assigned, update the percentage of the course completed and percentage achieved
                 if finalGrade > -1 {
-                    let gradeDiff = percentageOfCourseGradeAchieved - currAchieved
-                    course?.addAchievedPoints(gradeDiff)
-                    course?.addCompletedPoints(weightDiff)
+                    let gradeDiff = percentageOfCourseGradeAchieved - currAchieved //% of course achieved w/ NEW weight minus % achieved w/ PREV weight
+                    course?.addAchievedPoints(gradeDiff) //add grade percentage difference to course's achieved points
+                    course?.addCompletedPoints(weightDiff) //add weight difference to course's completed points
                 }
             }
             else { throw InvalidPropertySetter.negativeValue }
         }
     }
     
-    func setDueDate(_ date: Date) {
-            self.dueDate = date
-    }
-    
     //propagates an error to the calling function if the syllabus item's final grade is attempted to be set as negative
     func setFinalGrade(_ grade: Double) throws {
         if grade != self.finalGrade { //the grade was updated
             if grade >= 0 { //valid
-                let currGrade = self.finalGrade //current grade before update
-                let currAchieved = percentageOfCourseGradeAchieved //percentage achieved in course with current grade
-                self.finalGrade = grade //set the new final grade
+                let currAchieved = percentageOfCourseGradeAchieved //percentage achieved in course with CURRENT grade
                 
-                course?.addAchievedPoints(percentageOfCourseGradeAchieved - currAchieved) //add difference in achieved points from previous grade
-            
-                if currGrade < 0 { //if a grade is being assigned for the first time, add it's weight to the points completed in the course
+                if self.finalGrade < 0 { //if the final grade is being added for the first time, update course's completed points with item weight
                     course?.addCompletedPoints(self.weight)
                 }
                 
-            } else { throw InvalidPropertySetter.negativeValue }
+                self.finalGrade = grade //set the new final grade
+                let gradeDiff = percentageOfCourseGradeAchieved - currAchieved //difference between points achieved w/ NEW grade and points achieved w/ PREV grade
+                course?.addAchievedPoints(gradeDiff) //add the difference to the course's achieved points
+            
+                
+            } else { throw InvalidPropertySetter.negativeValue } //throw exception if user tries to set negative grade value
         }
     }
     

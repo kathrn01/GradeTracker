@@ -26,7 +26,7 @@ public class Term: NSManagedObject {
         try viewContext.save()
     }
     
-    //allow view to modify this and then save it to Term instance
+    //allow view to modify this and then save it to existing Term instance -- used in EditTermView
     struct TermData {
         var title: String = ""
         var startDate: Date = Date()
@@ -35,7 +35,7 @@ public class Term: NSManagedObject {
         var goalGPA: Double? = nil
     }
     
-    //computer property that returns a TermData instance with Term values
+    //computer property that returns a TermData instance with Term values -- used in EditTermView
     var termData: TermData {
         TermData(title: termTitle ?? "Untitled", startDate: startDate ?? Date(), endDate: endDate ?? Date(), currentGPA: currentGPA, goalGPA: goalGPA)
     }
