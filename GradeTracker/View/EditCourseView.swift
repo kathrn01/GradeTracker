@@ -12,33 +12,31 @@ struct EditCourseView: View {
     @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
     var course: Course //passed from calling view
     
+    //for user input to modify existing course info
+    @State private var fields: Course.CourseData
+    
     //determines whether this view is shown -- passed in from calling view as true, when user is done editing, becomes false
     @Binding var displayEditCourse: Bool
     
     //if user chooses to delete the course in the edit window, a confirmation popup appears
     @State var showDeleteCourseConfirmation = false
     
-    //user input for editing the existing course information
-    @State var courseTitle: String
-    @State var goalGrade: String
-    
     /* I am using a custom initializer here to assign the user inputs to the course's existing attributes */
     init(course: Course, displayEditCourse: Binding<Bool>) {
         self.course = course
         self._displayEditCourse = displayEditCourse
-        self._courseTitle = State(initialValue: course.courseTitle ?? "New Course Title")
-        self._goalGrade = State(initialValue: String(course.goalGrade))
+        self._fields = State(initialValue: course.courseData)
     }
     var body: some View {
         VStack {
             List{ //display edit-able attributes
                 HStack { //display current title for user to modify
                     Text("Course Title: ")
-                    TextField(courseTitle, text: $courseTitle)
+                    TextField(fields.title, text: $fields.title)
                 }
                 HStack{ //display current goal grade for user to modify
                     Text("Goal Grade: ")
-                    TextField(goalGrade, text: $goalGrade)
+                    TextField(fields.goalGrade, text: $fields.goalGrade)
                         .keyboardType(.decimalPad)
                 }
             }
@@ -66,10 +64,7 @@ struct EditCourseView: View {
         .navigationBarItems(leading: Button("Cancel", action: {
             displayEditCourse = false
         }), trailing: Button("Save", action: { //save changes to persistence
-            do {
-                try course.setTitle(courseTitle)
-                try course.setGoalGrade(Double(goalGrade) ?? 0)
-            } catch {
+            do { try course.update(from: fields) } catch {
                 print("Couldn't change the course's title or goal grade.")
             }
             do { try viewContext.save() } catch { print("couldn't save changes.")} 

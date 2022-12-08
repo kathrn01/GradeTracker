@@ -11,7 +11,7 @@ import SwiftUI
 struct EditTermView: View {
     @Environment(\.managedObjectContext) private var viewContext //the view will update if the viewContext makes changes
     //passed in from TermView: this is the term we are editing
-    var term: Term
+    @State var term: Term
     //data for fields that will update Term info
     @State private var fields: Term.TermData
     //passed as true from calling view: determines if this edit window is shown
@@ -21,7 +21,7 @@ struct EditTermView: View {
     
     /* I am using a custom initializer here to assign user input initially to the term's existing attribute values  */
     init(term: Term, showEditTermWindow: Binding<Bool>) {
-        self.term = term
+        self._term = State(initialValue: term)
         self._fields = State(initialValue: term.termData)
         self._showWindow = showEditTermWindow
     }

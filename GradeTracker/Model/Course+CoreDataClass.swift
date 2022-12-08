@@ -24,6 +24,26 @@ public class Course: NSManagedObject {
         try viewContext.save()
     }
     
+    //allow view to modify this and then save it to existing Course instance -- used in EditCourseView
+    //instructions from: https://developer.apple.com/tutorials/app-dev-training/creating-the-edit-view
+    struct CourseData {
+        var title: String = ""
+        var creditHrs: String = ""
+        var goalGrade: String = ""
+    }
+    
+    //computer property that returns a CourseData instance with this course's values -- used in EditCourseView
+    var courseData: CourseData {
+        CourseData(title: self.courseTitle ?? "Untitled", creditHrs: String(self.creditHours), goalGrade: String(self.goalGrade))
+    }
+    
+    //updates course with data from view
+    func update(from: CourseData) throws {
+        try setTitle(from.title)
+        self.creditHours = Double(from.creditHrs) ?? self.creditHours
+        try setGoalGrade(Double(from.goalGrade) ?? self.goalGrade)
+    }
+    
     /* -------------- FETCH  -------------- */
     //use to access stored courses
     //got idea to keep fetch request in Model to minimize use in View from this repository:

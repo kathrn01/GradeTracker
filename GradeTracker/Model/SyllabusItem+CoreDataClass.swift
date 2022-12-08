@@ -23,7 +23,8 @@ public class SyllabusItem: NSManagedObject {
         try viewContext.save()
     }
     
-    
+    //allow view to modify this and then save it to existing SyllabusItem instance -- used in EditSyllabusItemView
+    //instructions from: https://developer.apple.com/tutorials/app-dev-training/creating-the-edit-view
     struct SIData {
         var title: String = ""
         var weight: String = "0.0"
@@ -31,10 +32,12 @@ public class SyllabusItem: NSManagedObject {
         var dueDate: Date = Date()
     }
     
+    //computer property that returns a SyllabusItemData instance with this syllabus item's values -- used in EditSyllabusItemView
     var syllabusItemData: SIData {
         SIData(title: itemTitle ?? "Untitled", weight: String(weight), grade:  self.finalGrade > -1 ? String(self.finalGrade) : "None Assigned", dueDate: dueDate ?? Date())
     }
     
+    //updates this instance with modified data
     func update(from: SIData) throws {
         try setTitle(from.title)
         try setWeight(Double(from.weight) ?? self.weight)

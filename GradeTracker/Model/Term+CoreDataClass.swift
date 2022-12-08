@@ -27,6 +27,7 @@ public class Term: NSManagedObject {
     }
     
     //allow view to modify this and then save it to existing Term instance -- used in EditTermView
+    //instructions from: https://developer.apple.com/tutorials/app-dev-training/creating-the-edit-view
     struct TermData {
         var title: String = ""
         var startDate: Date = Date()

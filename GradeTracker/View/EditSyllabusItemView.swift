@@ -20,7 +20,7 @@ struct EditSyllabusItemView: View {
     //if user chooses to delete the item in the edit window, a confirmation popup appears
     @State var showDeleteSIConfirmation = false
     
-    //user input for editing the existing course information
+    //user input for editing the existing syllabus item information
     @State private var fields: SyllabusItem.SIData
     
     /* I am using a custom initializer here to assign the user inputs to the syllabus item's existing attributes */
